@@ -20,9 +20,9 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 | `docente-invitado/` | AD · Docente invitado, Dr. Azhir Sandoval · 5 pts | Pendiente |
 | `guia-1/` | AP · Convenio de Viena sobre Relaciones Diplomáticas · 10 pts | Pendiente |
 | `guia-2/` | AP · Audio sobre los sujetos del DIPr · 10 pts | Pendiente |
-| `arbol-b1/` | AA · Árbol Ontológico «La Bóveda del Tratado» · 15 pts | Pendiente |
+| `autocontrol-b1/` | AA · Autocontrol del Bloque 1 · 15 pts · atado al contenido científico del B1 | Pendiente (falta el contenido) |
 | `investigacion-formativa/` | AA · Ensayo, parte 2: cierre · 10 pts | Pendiente |
-| `linea-tiempo/` | AA · Línea de tiempo y video-defensa · 15 pts | Pendiente |
+| `autocontrol-b2/` | AA · Autocontrol del Bloque 2 · 15 pts · atado al contenido científico del B2 | Pendiente (falta el contenido) |
 | `caso-harvard/` | Práctica sin nota previa al EF: **mapa de decisiones 3D** del caso Harvard EE. UU.–Camboya (globo Three.js r128 con 5 ciudades, rutas, HUD, 8 insignias, 4 finales; 5 nodos 1998-2004; sin WebGL funciona en 2D). Se regenera con `_fuentes/caso-harvard/armar.py` (plantilla3d.html + nodos de version2d.html). El EF (8 + 12) sigue en Moodle | Publicado |
 
 Las tarjetas en «En preparación» se activan cuando su carpeta existe: se cambia
