@@ -28,6 +28,16 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 Las tarjetas en «En preparación» se activan cuando su carpeta existe: se cambia
 `pieza pendiente` por `pieza tarea` y el `span.btn.muerto` por un enlace.
 
+## Protección común
+
+`recursos/proteccion.js` se incluye al final de cada actividad:
+- bloquea copiar, cortar, seleccionar fuera de los campos, el clic derecho y los atajos Ctrl+P, Ctrl+S, Ctrl+U, Ctrl+C y Ctrl+X;
+- si se imprime desde el menú, la hoja sale en blanco;
+- difumina la página cuando la ventana pierde el foco, por ejemplo al abrir Recortes;
+- firma la pantalla con el nombre y la cédula en cuanto el estudiante se identifica.
+
+No puede impedir una foto con el celular ni la tecla Impr Pant del sistema; por eso firma la pantalla. Toda actividad nueva debe incluirla.
+
 ## Cómo se publica
 
 Repositorio **público** `aula-internacional` → **Settings** → **Pages** → Source:
