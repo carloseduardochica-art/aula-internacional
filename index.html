@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aula · Derecho Internacional Público y Privado · UCACUE</title>
+<style>
+:root{
+  --papel:#f6f6f4;
+  --papel-alt:#ececea;
+  --blanco:#ffffff;
+  --tinta:#17181a;
+  --tinta-suave:#33353a;
+  --acento:#0b3a66;
+  --acento-claro:#1a5a94;
+  --acento-tenue:#e3ecf5;
+  --contra:#8a2b2b;
+  --contra-tenue:#f4e7e7;
+  --linea:#d0d0cd;
+  --nota:#474745;
+  --serif:Charter,"Georgia","Segoe UI",system-ui,sans-serif;
+  --titulo:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;padding:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--serif);font-size:18px;line-height:1.7;
+}
+h1,h2,h3,h4{font-family:var(--titulo);font-weight:600;line-height:1.2;margin:0}
+
+/* -------- cabecera -------- */
+.banda{background:var(--acento);color:#fff;padding:2rem 0 1.8rem}
+.banda-int{max-width:1080px;margin:0 auto;padding:0 1.1rem}
+.emisor{font-family:var(--titulo);font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:#cfe0f0;margin:0 0 .5rem}
+.rotulo{font-size:clamp(1.5rem,4.5vw,2.4rem);color:#fff;margin:0 0 .8rem}
+.datos{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;font-family:var(--titulo);
+  font-size:.84rem;color:#cfe0f0}
+.datos b{color:#fff;font-weight:600}
+
+.hoja{max-width:1080px;margin:0 auto;padding:0 1.1rem 5rem}
+
+/* -------- aviso de qué es esto -------- */
+.intro{background:var(--blanco);border:1px solid var(--linea);
+  border-left:4px solid var(--acento);border-radius:3px;
+  padding:1.3rem 1.5rem;margin:2rem 0}
+.intro p{margin:0 0 .7rem}
+.intro p:last-child{margin:0}
+
+/* -------- bloques -------- */
+.bloque{margin:3rem 0 0}
+.bloque-cab{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;
+  border-bottom:2px solid var(--acento);padding-bottom:.6rem;margin-bottom:.4rem}
+.bloque-cab h2{font-size:1.45rem}
+.bloque-cab .rango{font-family:var(--titulo);font-size:.85rem;color:var(--nota)}
+.bloque-sub{color:var(--nota);font-size:.98rem;margin:.5rem 0 1.4rem}
+
+/* -------- tarjetas -------- */
+.rejilla{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.pieza{background:var(--blanco);border:1px solid var(--linea);border-radius:3px;
+  padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.6rem}
+.pieza.tarea{border-top:3px solid var(--acento)}
+.pieza.lectura{border-top:3px solid var(--nota)}
+.pieza.pendiente{background:var(--papel-alt);border-style:dashed}
+
+.etq{font-family:var(--titulo);font-size:.66rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--nota);display:flex;gap:.5rem;
+  flex-wrap:wrap;align-items:center}
+.etq .pts{background:var(--acento);color:#fff;border-radius:2px;
+  padding:.05rem .4rem;font-weight:700;letter-spacing:.06em}
+.pieza h3{font-size:1.08rem}
+.pieza p{margin:0;font-size:.94rem;color:var(--tinta-suave)}
+
+.fechas{font-family:var(--titulo);font-size:.8rem;color:var(--nota);
+  border-top:1px solid var(--linea);padding-top:.6rem;margin-top:auto}
+.fechas b{color:var(--tinta)}
+.estado{display:inline-block;font-family:var(--titulo);font-size:.7rem;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  border-radius:2px;padding:.1rem .45rem;margin-top:.35rem}
+.estado.abierta{background:var(--acento-tenue);color:var(--acento);border:1px solid var(--acento-claro)}
+.estado.proxima{background:#fdf6e3;color:#6b4a00;border:1px solid #e0cd93}
+.estado.urgente{background:var(--contra-tenue);color:var(--contra);border:1px solid var(--contra)}
+.estado.cerrada{background:var(--papel-alt);color:var(--nota);border:1px solid var(--linea)}
+
+.btn{display:inline-block;font-family:var(--titulo);font-size:.9rem;font-weight:600;
+  background:var(--acento);color:#fff;border:1px solid var(--acento);
+  border-radius:3px;padding:.6rem 1.1rem;text-decoration:none;text-align:center}
+.btn:hover{background:var(--acento-claro)}
+.btn:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
+.btn.sec{background:transparent;color:var(--acento)}
+.btn.sec:hover{background:var(--acento-tenue)}
+.btn.muerto{background:var(--papel-alt);color:var(--nota);border-color:var(--linea);
+  cursor:not-allowed;pointer-events:none}
+
+/* -------- pie -------- */
+.pie{margin-top:3.5rem;border-top:1px solid var(--linea);padding-top:1.4rem;
+  font-size:.9rem;color:var(--nota)}
+.pie h4{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--acento);margin:0 0 .6rem}
+.pie p{margin:0 0 .7rem}
+
+@media (max-width:620px){
+  body{font-size:17px}
+  .rejilla{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="banda">
+  <div class="banda-int">
+    <p class="emisor">Universidad Católica de Cuenca · Facultad de Ciencias Sociales · Carrera de Derecho</p>
+    <h1 class="rotulo">Derecho Internacional Público y Privado</h1>
+    <div class="datos">
+      <span><b>Docente:</b> Ab. Carlos Eduardo Chica-Villacís, Mgtr.</span>
+      <span><b>Ciclo:</b> Tercero</span>
+      <span><b>Paralelo:</b> 3A</span>
+      <span><b>Modalidad:</b> En línea</span>
+      <span><b>Periodo:</b> Septiembre 2026 – Febrero 2027</span>
+    </div>
+  </div>
+</header>
+
+<div class="hoja">
+
+  <div class="intro">
+    <p><b>Esta es la segunda aula.</b> Aquí vive el material de lectura y las
+    actividades que corren fuera de Moodle. Todo lo que abra desde aquí se lee y
+    se trabaja en su navegador.</p>
+    <p><b>Las entregas siguen siendo en el aula virtual.</b> Esta página no
+    recibe nada: cuando termine una actividad, descargue el archivo que le
+    entregue y súbalo a la tarea correspondiente en Moodle. Lo que decide la
+    nota es lo que llegue allí.</p>
+    <p>Las fechas que ve en cada tarjeta son las del sílabo firmado. Si alguna
+    cambia, manda la del aula virtual.</p>
+  </div>
+
+  <!-- ============================ BLOQUE 1 ============================ -->
+  <section class="bloque">
+    <div class="bloque-cab">
+      <h2>Bloque 1 · Derecho Internacional Público</h2>
+      <span class="rango">2 – 22 de noviembre de 2026</span>
+    </div>
+    <p class="bloque-sub">Origen, objeto y sujetos del Derecho Internacional
+    Público; naturaleza y fuentes de sus normas; los tratados internacionales y
+    la responsabilidad del Estado.</p>
+
+    <div class="rejilla">
+
+      <article class="pieza pendiente" data-cierre="2026-11-09">
+        <div class="etq"><span>AD · Contacto docente</span><span class="pts">8 pts</span></div>
+        <h3>Foro de Fricción Epistémica</h3>
+        <p>«La ficción de la norma internacional»: ¿obliga de verdad un derecho
+        que no tiene policía ni juez obligatorio por encima de los Estados?</p>
+        <div class="fechas">
+          <b>Asignada:</b> 02-11-2026 · <b>Entrega:</b> 09-11-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+      <article class="pieza pendiente" data-cierre="2026-11-15">
+        <div class="etq"><span>AP · Práctico-experimental</span><span class="pts">10 pts</span></div>
+        <h3>Guía práctica 1 · Convenio de Viena</h3>
+        <p>Fundamentación teórica del Convenio de Viena sobre Relaciones
+        Diplomáticas.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 02-11-2026 · <b>Entrega:</b> 15-11-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+      <article class="pieza pendiente" data-cierre="2026-11-21">
+        <div class="etq"><span>AA · Aprendizaje autónomo</span><span class="pts">15 pts</span></div>
+        <h3>Árbol Ontológico · «La Bóveda del Tratado»</h3>
+        <p>Desglose visual de la anatomía de un tratado internacional y de su
+        control de constitucionalidad en la Comunidad Andina.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 02-11-2026 · <b>Entrega:</b> 21-11-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================ BLOQUE 2 ============================ -->
+  <section class="bloque">
+    <div class="bloque-cab">
+      <h2>Bloque 2 · Derecho Internacional Privado</h2>
+      <span class="rango">23 de noviembre – 13 de diciembre de 2026</span>
+    </div>
+    <p class="bloque-sub">Origen, objeto y sujetos del Derecho Internacional
+    Privado; sus organismos; la negociación, ratificación y registro de los
+    tratados; extraterritorialidad y aplicación del derecho extranjero.</p>
+
+    <div class="rejilla">
+
+      <article class="pieza pendiente" data-cierre="2026-12-01">
+        <div class="etq"><span>AD · Contacto docente</span><span class="pts">7 pts</span></div>
+        <h3>Foro Adversarial</h3>
+        <p>«La trampa del orden público»: cuándo un juez puede negarse a aplicar
+        la ley extranjera que, en principio, le tocaba aplicar.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 23-11-2026 · <b>Entrega:</b> 01-12-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+      <article class="pieza pendiente" data-cierre="2026-12-03">
+        <div class="etq"><span>AD · Contacto docente</span><span class="pts">5 pts</span></div>
+        <h3>Docente invitado</h3>
+        <p>Conferencia del Dr. Azhir Sandoval sobre Derecho Internacional Público
+        y Privado.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 26-11-2026 · <b>Entrega:</b> 03-12-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+      <article class="pieza pendiente">
+        <div class="etq"><span>AP · Práctico-experimental</span><span class="pts">10 pts</span></div>
+        <h3>Guía práctica 2 · Audio</h3>
+        <p>Un audio sobre los sujetos del Derecho Internacional Privado.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 23-11-2026 · <b>Entrega:</b> por confirmar
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+      <article class="pieza pendiente" data-cierre="2026-12-09">
+        <div class="etq"><span>AA · Investigación formativa</span><span class="pts">10 pts</span></div>
+        <h3>Ensayo, parte 2: cierre</h3>
+        <p>Cierre del ensayo de investigación formativa.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 02-11-2026 · <b>Entrega:</b> 09-12-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+      <article class="pieza pendiente" data-cierre="2026-12-11">
+        <div class="etq"><span>AA · Aprendizaje autónomo</span><span class="pts">15 pts</span></div>
+        <h3>Línea de tiempo y video-defensa</h3>
+        <p>Línea de tiempo y video-defensa de orquestación.</p>
+        <div class="fechas">
+          <b>Asignada:</b> 23-11-2026 · <b>Entrega:</b> 11-12-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================ EVALUACIÓN FINAL ============================ -->
+  <section class="bloque">
+    <div class="bloque-cab">
+      <h2>Evaluación final · Caso Harvard</h2>
+      <span class="rango">13 – 15 de diciembre de 2026</span>
+    </div>
+    <p class="bloque-sub">Derechos de los trabajadores y comercio global: el
+    acuerdo bilateral de comercio textil entre Estados Unidos y Camboya. Resolución
+    escrita (8 pts) y exposición oral (12 pts).</p>
+
+    <div class="rejilla">
+      <article class="pieza pendiente" data-cierre="2026-12-13" style="grid-column:1 / -1;">
+        <div class="etq"><span>EF · Evaluación final</span><span class="pts">20 pts</span></div>
+        <h3>Caso Harvard · Estados Unidos – Camboya</h3>
+        <p>Resolución escrita del caso y su defensa oral.</p>
+        <div class="fechas">
+          <b>Entrega escrita (8 pts):</b> 13-12-2026 · <b>Exposición oral (12 pts):</b> 15-12-2026
+          <br><span class="estado"></span>
+        </div>
+        <span class="btn muerto">En preparación</span>
+      </article>
+    </div>
+  </section>
+
+  <div class="pie">
+    <h4>Cómo se califica lo que sale de aquí</h4>
+    <p>Las actividades emiten un <b>código de constancia</b> firmado.
+    <b>Al aula virtual se sube un solo archivo: el PDF.</b> El código se pega en la
+    <b>sección de comentarios</b> de la tarea, en Moodle, no como segundo archivo. Un
+    código retocado a mano se detecta al verificarlo.</p>
+
+    <h4>Si algo no abre</h4>
+    <p>Estas páginas necesitan JavaScript y conexión. Los foros, además, hablan
+    con un servidor propio: si al enviar un turno avisa de un error de red,
+    reinténtelo; su texto no se pierde. Y no descargue los archivos para abrirlos
+    sin conexión, porque el foro deja de funcionar fuera de esta dirección.</p>
+  </div>
+
+</div>
+
+<script>
+// Pinta el estado de cada tarea comparando su fecha de cierre con el reloj del
+// aparato. Es informativo: lo que cierra de verdad es el aula virtual.
+(function(){
+  var HOY = new Date(); HOY.setHours(0,0,0,0);
+  var tarjetas = document.querySelectorAll('[data-cierre]');
+  for (var i = 0; i < tarjetas.length; i++) {
+    var t = tarjetas[i];
+    var s = t.getAttribute('data-cierre').split('-');
+    var cierre = new Date(+s[0], +s[1]-1, +s[2]);
+    var dias = Math.round((cierre - HOY) / 86400000);
+    var caja = t.querySelector('.estado');
+    if (!caja) continue;
+    if (dias < 0) {
+      caja.className = 'estado cerrada';
+      caja.textContent = 'Plazo vencido';
+    } else if (dias === 0) {
+      caja.className = 'estado urgente';
+      caja.textContent = 'Cierra hoy';
+    } else if (dias <= 3) {
+      caja.className = 'estado urgente';
+      caja.textContent = 'Cierra en ' + dias + (dias === 1 ? ' día' : ' días');
+    } else if (dias <= 10) {
+      caja.className = 'estado proxima';
+      caja.textContent = 'Cierra en ' + dias + ' días';
+    } else {
+      caja.className = 'estado abierta';
+      caja.textContent = 'Cierra en ' + dias + ' días';
+    }
+  }
+})();
+</script>
+</body>
+</html>
