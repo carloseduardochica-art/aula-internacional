@@ -23,7 +23,7 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 | `arbol-b1/` | AA · Árbol Ontológico «La Bóveda del Tratado» · 15 pts | Pendiente |
 | `investigacion-formativa/` | AA · Ensayo, parte 2: cierre · 10 pts | Pendiente |
 | `linea-tiempo/` | AA · Línea de tiempo y video-defensa · 15 pts | Pendiente |
-| `caso-harvard/` | Práctica sin nota previa al EF: árbol de decisiones del caso Harvard EE. UU.–Camboya (5 nodos, 1998-2004). El EF (8 + 12) sigue en Moodle | Publicado |
+| `caso-harvard/` | Práctica sin nota previa al EF: **mapa de decisiones 3D** del caso Harvard EE. UU.–Camboya (globo Three.js r128 con 5 ciudades, rutas, HUD, 8 insignias, 4 finales; 5 nodos 1998-2004; sin WebGL funciona en 2D). Se regenera con `_fuentes/caso-harvard/armar.py` (plantilla3d.html + nodos de version2d.html). El EF (8 + 12) sigue en Moodle | Publicado |
 
 Las tarjetas en «En preparación» se activan cuando su carpeta existe: se cambia
 `pieza pendiente` por `pieza tarea` y el `span.btn.muerto` por un enlace.
