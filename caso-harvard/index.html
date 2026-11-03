@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Árbol de decisiones · Caso Harvard · Derecho Internacional Público y Privado</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<style>
+:root{
+  --papel:#f6f6f4;
+  --papel-alt:#ececea;
+  --blanco:#ffffff;
+  --tinta:#17181a;
+  --tinta-suave:#33353a;
+  --acento:#0b3a66;
+  --acento-claro:#1a5a94;
+  --acento-tenue:#e3ecf5;
+  --contra:#8a2b2b;
+  --contra-tenue:#f4e7e7;
+  --linea:#d0d0cd;
+  --nota:#474745;
+  --bien:#1d5e2f;
+  --serif:Charter,"Georgia","Segoe UI",system-ui,sans-serif;
+  --titulo:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--serif);font-size:18px;line-height:1.7}
+h1,h2,h3,h4{font-family:var(--titulo);font-weight:600;line-height:1.25;margin:0}
+
+.banda{background:var(--acento);color:#fff;padding:1.6rem 0 1.4rem}
+.banda-int{max-width:900px;margin:0 auto;padding:0 1.1rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.emisor{font-family:var(--titulo);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:#cfe0f0;margin:0 0 .35rem}
+.rotulo{font-size:clamp(1.3rem,4vw,2rem);color:#fff}
+.sello{font-family:var(--titulo);font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;color:#cfe0f0;text-align:center;border:1px solid #cfe0f0;border-radius:3px;padding:.4rem .7rem}
+.sello strong{display:block;font-size:1.05rem;color:#fff;letter-spacing:.04em}
+
+.hoja{max-width:900px;margin:0 auto;padding:0 1.1rem 5rem}
+.oculto{display:none !important}
+
+.portada h2{font-size:1.6rem;margin:2rem 0 .3rem}
+.bajada{font-family:var(--titulo);color:var(--nota);margin:0 0 1.4rem;font-size:.95rem}
+.ficha{background:var(--blanco);border:1px solid var(--linea);border-left:4px solid var(--acento);border-radius:3px;padding:1.2rem 1.4rem;margin:1rem 0}
+.ficha h3{font-size:1.05rem;margin-bottom:.5rem;color:var(--acento)}
+.ficha p{margin:0 0 .7rem}
+.ficha p:last-child{margin:0}
+.ficha ol,.ficha ul{margin:.3rem 0 .3rem 1.2rem;padding:0}
+.ficha li{margin:.25rem 0}
+
+.acceso{background:var(--blanco);border:1px solid var(--linea);border-radius:3px;padding:1.2rem 1.4rem;margin:1.4rem 0}
+.campos{display:grid;gap:1rem;grid-template-columns:1fr 2fr}
+.campo label{display:block;font-family:var(--titulo);font-size:.85rem;font-weight:600;margin-bottom:.3rem}
+.campo input{width:100%;font-size:1rem;padding:.55rem .7rem;border:1px solid var(--linea);border-radius:3px;font-family:var(--titulo)}
+.campo input:focus{outline:2px solid var(--acento-claro);outline-offset:1px}
+.pista{display:block;font-family:var(--titulo);font-size:.8rem;color:var(--nota);margin-top:.3rem;min-height:1.1em}
+.pista.mal{color:var(--contra)}
+
+.btn{display:inline-block;font-family:var(--titulo);font-size:.95rem;font-weight:600;background:var(--acento);color:#fff;border:1px solid var(--acento);border-radius:3px;padding:.65rem 1.2rem;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--acento-claro)}
+.btn:disabled{background:var(--papel-alt);color:var(--nota);border-color:var(--linea);cursor:not-allowed}
+.btn:focus-visible{outline:2px solid var(--tinta);outline-offset:2px}
+.btn.sec{background:transparent;color:var(--acento)}
+.btn.sec:hover{background:var(--acento-tenue)}
+
+/* tablero */
+.tablero{position:sticky;top:0;z-index:5;background:var(--papel);padding:.8rem 0 .6rem;border-bottom:1px solid var(--linea);margin-bottom:1.2rem}
+.identidad{font-family:var(--titulo);font-size:.82rem;color:var(--nota);display:flex;justify-content:space-between;flex-wrap:wrap;gap:.3rem;margin-bottom:.5rem}
+.indicadores{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem}
+.ind{font-family:var(--titulo);font-size:.75rem;color:var(--nota)}
+.ind b{display:flex;justify-content:space-between;color:var(--tinta);font-weight:600;margin-bottom:.2rem}
+.barra{height:8px;background:var(--papel-alt);border-radius:4px;overflow:hidden;border:1px solid var(--linea)}
+.barra i{display:block;height:100%;background:var(--acento);transition:width .6s}
+.ruta{display:flex;gap:.35rem;margin-top:.6rem}
+.ruta span{flex:1;height:5px;border-radius:3px;background:var(--papel-alt)}
+.ruta span.hecho{background:var(--acento)}
+.ruta span.actual{background:var(--acento-claro);opacity:.55}
+
+.nodo h2{font-size:1.35rem;margin:.2rem 0 .2rem}
+.momento{font-family:var(--titulo);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acento-claro)}
+.contexto{margin:.8rem 0 1rem}
+.contexto p{margin:0 0 .7rem}
+.pregunta{font-family:var(--titulo);font-weight:600;font-size:1.05rem;margin:1.2rem 0 .7rem}
+.opciones{display:grid;gap:.6rem}
+.opcion{display:block;text-align:left;font-family:var(--serif);font-size:1rem;line-height:1.5;background:var(--blanco);border:1px solid var(--linea);border-radius:4px;padding:.8rem 1rem;cursor:pointer;color:var(--tinta)}
+.opcion b{font-family:var(--titulo);display:block;margin-bottom:.15rem}
+.opcion:hover{border-color:var(--acento-claro)}
+.opcion.elegida{border:2px solid var(--acento);background:var(--acento-tenue)}
+.opcion:disabled{cursor:default}
+.opcion:disabled:not(.elegida){opacity:.55}
+
+.fundamento{margin-top:1.1rem}
+.fundamento label{display:block;font-family:var(--titulo);font-size:.9rem;font-weight:600;margin-bottom:.35rem}
+.fundamento .ayuda{font-family:var(--titulo);font-size:.8rem;color:var(--nota);margin:0 0 .5rem}
+.fundamento textarea{width:100%;min-height:150px;font-family:var(--serif);font-size:1rem;line-height:1.55;padding:.7rem .8rem;border:1px solid var(--linea);border-radius:3px;resize:vertical}
+.fundamento textarea:focus{outline:2px solid var(--acento-claro);outline-offset:1px}
+.pie-f{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:.5rem}
+.contador{font-family:var(--titulo);font-size:.8rem}
+.contador.mal{color:var(--contra)}
+.contador.bien{color:var(--bien)}
+
+.consecuencia{background:var(--blanco);border:1px solid var(--linea);border-top:3px solid var(--acento);border-radius:3px;padding:1.1rem 1.3rem;margin-top:1.2rem}
+.consecuencia h3{font-size:1rem;color:var(--acento);margin-bottom:.4rem}
+.consecuencia p{margin:0 0 .6rem}
+.deltas{display:flex;flex-wrap:wrap;gap:.4rem;margin:.4rem 0 .8rem}
+.delta{font-family:var(--titulo);font-size:.75rem;font-weight:600;border-radius:2px;padding:.1rem .45rem;border:1px solid}
+.delta.sube{color:var(--bien);border-color:var(--bien);background:#e8f3eb}
+.delta.baja{color:var(--contra);border-color:var(--contra);background:var(--contra-tenue)}
+.delta.igual{color:var(--nota);border-color:var(--linea);background:var(--papel-alt)}
+
+.cierre h2{font-size:1.5rem;margin:1rem 0 .4rem}
+.comparacion{display:grid;gap:.8rem;margin:1rem 0}
+.comp{background:var(--blanco);border:1px solid var(--linea);border-radius:3px;padding:1rem 1.2rem}
+.comp h4{font-size:.95rem;margin-bottom:.3rem}
+.comp .yo{font-family:var(--titulo);font-size:.85rem;color:var(--acento);margin:0 0 .4rem}
+.comp p{margin:0;font-size:.95rem}
+.codigo{font-family:Consolas,"Courier New",monospace;font-size:.85rem;background:var(--blanco);border:1px dashed var(--acento);padding:.7rem .9rem;border-radius:3px;word-break:break-all;margin:.6rem 0}
+.acciones{display:flex;gap:.7rem;flex-wrap:wrap;margin-top:.8rem}
+
+/* acta para el PDF */
+#acta{display:none;background:#fff;color:#111;font-family:Georgia,serif;font-size:11px;line-height:1.5;padding:6px 10px;width:190mm}
+#acta .cab{text-align:center;border-bottom:2.5px solid #0b3a66;padding-bottom:8px;margin-bottom:12px}
+#acta .cab h1{font-size:13px;margin:0 0 3px;font-family:Arial,sans-serif}
+#acta .cab h2{font-size:11.5px;margin:0;color:#0b3a66;font-family:Arial,sans-serif;font-weight:normal}
+#acta .meta{font-size:10.5px;margin-bottom:10px}
+#acta .apart{font-family:Arial,sans-serif;font-weight:bold;font-size:11px;color:#0b3a66;border-bottom:1px solid #ccc;margin:12px 0 6px;padding-bottom:2px}
+#acta .nodo-pdf{margin-bottom:9px;page-break-inside:avoid}
+#acta .nodo-pdf b{font-family:Arial,sans-serif}
+#acta .val{text-align:center;font-family:Consolas,monospace;font-size:10px;border:1px dashed #0b3a66;padding:6px;margin-top:12px;word-break:break-all}
+#acta .pie{text-align:center;font-size:9px;color:#555;margin-top:10px}
+
+@media (max-width:620px){
+  body{font-size:17px}
+  .campos{grid-template-columns:1fr}
+  .indicadores{grid-template-columns:1fr;gap:.35rem}
+  .sello{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="banda">
+  <div class="banda-int">
+    <div>
+      <p class="emisor">Universidad Católica de Cuenca · Carrera de Derecho</p>
+      <h1 class="rotulo">Derecho Internacional Público y Privado</h1>
+    </div>
+    <div class="sello">Evaluación final<strong>Práctica</strong></div>
+  </div>
+</div>
+
+<div class="hoja">
+
+<!-- ============ PORTADA ============ -->
+<section class="portada" id="portada">
+  <h2>Árbol de decisiones · Caso Harvard</h2>
+  <p class="bajada">Derechos de los trabajadores y comercio global: el acuerdo textil entre Estados Unidos y Camboya · Práctica previa al examen final · Sin calificación</p>
+
+  <div class="ficha">
+    <h3>Su papel</h3>
+    <p>Usted es <strong>asesor jurídico del Ministro de Comercio de Camboya</strong>
+    entre 1998 y 2004. El país sale de décadas de guerra y del genocidio de los
+    Jemeres Rojos, depende de la ayuda externa y tiene en la confección textil su
+    gran industria de exportación. Estados Unidos le ofrece algo que nadie había
+    ofrecido: más acceso a su mercado a cambio de mejores condiciones de trabajo.</p>
+    <p>Va a enfrentar <strong>cinco decisiones</strong> que el caso plantea de verdad. En
+    cada una elige un camino, lo <strong>fundamenta por escrito</strong> y ve qué pasa.
+    Tres indicadores se mueven con sus decisiones: <strong>acceso al mercado</strong>,
+    <strong>derechos de los trabajadores</strong> y <strong>credibilidad internacional</strong>.
+    No hay un camino perfecto: cada opción gana algo y pierde algo.</p>
+  </div>
+
+  <div class="ficha">
+    <h3>Para qué le sirve</h3>
+    <p>Es el ensayo del examen final. Al terminar, el acta le muestra, decisión por
+    decisión, <strong>lo que de verdad hizo Camboya según el caso</strong>, para que compare
+    su razonamiento con el de los protagonistas. Cierra con tres preguntas que
+    son las que va a tener que responder en la <strong>resolución escrita</strong> (8 puntos)
+    y defender en la <strong>exposición oral</strong> (12 puntos).</p>
+  </div>
+
+  <div class="ficha">
+    <h3>Reglas</h3>
+    <ol>
+      <li><strong>Cinco decisiones.</strong> Una vez enviada, una decisión no se puede cambiar: así se decide en la realidad.</li>
+      <li><strong>Cada decisión se fundamenta</strong> en 300 a 900 caracteres, con al menos una fuente del Derecho Internacional: un tratado, la costumbre, un principio, una sentencia o un convenio de la OIT.</li>
+      <li><strong>No se puede pegar texto.</strong> Se escribe.</li>
+      <li><strong>Una sola sesión</strong>, de unos cuarenta minutos. Tenga el caso a mano.</li>
+      <li>Al final descarga un <strong>acta en PDF</strong>. Súbala a la tarea de práctica y pegue el <strong>código de constancia</strong> en los comentarios.</li>
+    </ol>
+    <p><strong>Uso de IA: permisible y declarado.</strong> Puede consultar una IA para entender el caso, pero el fundamento lo escribe usted; si la usó, dígalo en el último fundamento.</p>
+  </div>
+
+  <div class="acceso">
+    <h3 style="font-size:1.05rem;margin-bottom:.8rem">Identificación</h3>
+    <div class="campos">
+      <div class="campo">
+        <label for="ced">Cédula de identidad</label>
+        <input type="text" id="ced" inputmode="numeric" maxlength="10" autocomplete="off" placeholder="10 dígitos">
+        <span class="pista" id="pista-ced"></span>
+      </div>
+      <div class="campo">
+        <label for="nom">Nombres y apellidos completos</label>
+        <input type="text" id="nom" maxlength="70" autocomplete="off" placeholder="Como consta en el aula virtual">
+        <span class="pista" id="pista-nom"></span>
+      </div>
+    </div>
+    <button type="button" class="btn" id="btn-entrar" disabled style="margin-top:1rem">Empezar el recorrido</button>
+  </div>
+</section>
+
+<!-- ============ RECORRIDO ============ -->
+<section class="oculto" id="recorrido">
+  <div class="tablero">
+    <div class="identidad">
+      <span>Asesor: <strong id="id-nom">—</strong> · Cédula: <strong id="id-ced">—</strong></span>
+      <span id="id-paso">Decisión 1 de 5</span>
+    </div>
+    <div class="indicadores" id="indicadores"></div>
+    <div class="ruta" id="ruta"></div>
+  </div>
+  <div id="escena"></div>
+</section>
+
+<!-- ============ CIERRE ============ -->
+<section class="oculto cierre" id="cierre"></section>
+
+</div>
+
+<!-- ============ ACTA PARA EL PDF ============ -->
+<div id="acta">
+  <div class="cab">
+    <h1>UNIVERSIDAD CATÓLICA DE CUENCA · CARRERA DE DERECHO</h1>
+    <h2>Acta del árbol de decisiones · Caso Harvard EE. UU.–Camboya · Derecho Internacional Público y Privado</h2>
+  </div>
+  <div class="meta" id="a-meta"></div>
+  <div class="apart">I · RUTA DE DECISIONES Y FUNDAMENTOS</div>
+  <div id="a-ruta"></div>
+  <div class="apart">II · ESTADO FINAL DE LOS INDICADORES</div>
+  <div id="a-ind"></div>
+  <div class="apart">III · LO QUE DE VERDAD OCURRIÓ SEGÚN EL CASO</div>
+  <div id="a-real"></div>
+  <div class="apart">IV · PREGUNTAS PUENTE HACIA EL EXAMEN FINAL</div>
+  <div id="a-preg"></div>
+  <div class="val">CÓDIGO DE CONSTANCIA<br><span id="a-codigo">—</span></div>
+  <div class="pie">Práctica sin calificación. Caso de referencia: R. Abrami, «Derechos de los Trabajadores y Comercio Global: el Acuerdo Bilateral de Comercio Textil entre Estados Unidos y Cambodia», HBS/LACC 706-S23 (2004). Los hechos se resumen con palabras propias.</div>
+</div>
+
+<script>
+/* =====================================================================
+   FECHA DE REFERENCIA
+   Es práctica sin nota: la fecha solo se informa en la constancia.
+   Formato AAAA-MM-DD HH:MM, hora de Ecuador.
+   ===================================================================== */
+var CIERRE_TAREA = '2026-12-13 23:59';
+
+const BLOQUE  = 'ARB';
+const MIN_CAR = 300;
+const MAX_CAR = 900;
+const SAL     = 'DIP-arbol-harvard-v1';
+
+const INDICADORES = [
+  { clave:'mercado',  nombre:'Acceso al mercado' },
+  { clave:'derechos', nombre:'Derechos de los trabajadores' },
+  { clave:'credito',  nombre:'Credibilidad internacional' }
+];
+
+/* ---------------------------------------------------------------------
+   LOS CINCO NODOS
+   Hechos tomados del caso HBS 706-S23 y contados con palabras propias.
+   «real» es lo que el caso dice que ocurrió; donde el caso deja la
+   cuestión abierta, se dice así.
+   --------------------------------------------------------------------- */
+const NODOS = [
+{
+  momento:'Finales de 1998 · Phnom Penh',
+  titulo:'¿Firmar un tratado comercial con cláusula laboral?',
+  contexto:[
+    'El negociador textil de Estados Unidos, el embajador Donald Johnson, propone un acuerdo por tres años. Por primera vez varias prendas camboyanas quedarán sujetas a cuota de importación, pero con una promesa inédita: si Camboya logra un <strong>«cumplimiento sustancial»</strong> de los estándares laborales internacionales en sus fábricas, su cuota crecerá un <strong>14 % al año</strong>, por encima del 6 % que el régimen de cuotas daba a todos.',
+    'Los vecinos asiáticos le aconsejan rechazarlo: en la OMC, los países en desarrollo vienen denunciando la «cláusula social» como proteccionismo encubierto, y en Singapur (1996) se acordó que los estándares laborales eran asunto de la OIT. Al mismo tiempo, la central sindical estadounidense AFL-CIO tiene pendiente una petición para que Camboya pierda sus preferencias arancelarias por violar derechos laborales. Camboya, por su parte, aprobó en 1997 uno de los códigos laborales más avanzados de Asia.'
+  ],
+  pregunta:'¿Qué le recomienda al Ministro?',
+  ayuda:'Piense en el consentimiento: ¿qué significa que un Estado soberano acepte obligarse por un tratado que le impone condiciones? ¿Es soberanía o es sumisión?',
+  opciones:[
+    { t:'Firmar el acuerdo con la cláusula laboral',
+      d:'Camboya se obliga a cumplir estándares laborales a cambio de más cuota.',
+      efecto:{ mercado:+15, derechos:+15, credito:+10 },
+      consecuencia:'El acuerdo se firma. Camboya acepta por primera vez cuotas sobre varias prendas, pero gana la promesa de un crecimiento que ningún otro país tiene. Los vecinos la miran con desconfianza: ha sentado el precedente que ellos combaten en la OMC. Dentro del país, el acuerdo obliga a los ministerios de trabajo, comercio, salud y justicia a coordinarse.' },
+    { t:'Rechazarlo y defender las preferencias arancelarias',
+      d:'Camboya se alinea con sus vecinos y pelea la petición de la AFL-CIO.',
+      efecto:{ mercado:-15, derechos:-5, credito:-5 },
+      consecuencia:'Camboya conserva intacto su margen de decisión, pero queda sola frente a la petición sindical: si prospera, pierde sus aranceles preferenciales en el mercado más grande del mundo. Sus vecinos aplauden, pero no compran su ropa. Y el Código Laboral de 1997 sigue siendo un texto sin un incentivo externo que empuje su cumplimiento.' },
+    { t:'Proponer que la cuestión laboral la lleve la OIT',
+      d:'Coherente con la Declaración de Singapur: los estándares laborales, a la OIT; el comercio, aparte.',
+      efecto:{ mercado:-5, derechos:+5, credito:+5 },
+      consecuencia:'La posición es jurídicamente impecable y respeta el reparto de competencias entre organizaciones internacionales. Pero Washington necesita un caso de prueba ahora, antes de la reunión de la OMC en Seattle, y no espera: la oferta se enfría y la petición de la AFL-CIO sigue su curso. Camboya gana respeto, no mercado.' }
+  ],
+  real:'Camboya firmó. El 20 de enero de 1999 el ministro Cham Prasidh y el embajador Johnson suscribieron el acuerdo trienal con la promesa del 14 % anual. Lo llamaron un acuerdo de «beneficios, no de sanciones». Los detalles de cómo financiar y montar el monitoreo quedaron sin resolver.'
+},
+{
+  momento:'Noviembre de 1999 · Seattle',
+  titulo:'Le pagan el 5 % de un premio del 14 %',
+  contexto:[
+    'En plena conferencia ministerial de la OMC, el embajador Johnson recibe al ministro con malas noticias. El sindicato textil estadounidense UNITE y varias ONG denuncian que siguen las horas extra obligatorias y no pagadas, el acoso a dirigentes sindicales y el incumplimiento del salario mínimo. Washington ofrece solo un <strong>5 %</strong> de aumento.',
+    'Camboya puede mostrar avances: registró a una federación sindical vinculada a la oposición, ratificó en 1999 los convenios fundamentales de la OIT y aceptó que un centro de la AFL-CIO capacitara a trabajadores en Phnom Penh. Y tiene un argumento textual: <strong>el acuerdo no dice nada sobre recompensas parciales</strong>. Tampoco dice cómo se mide el «cumplimiento sustancial»: ni el monitoreo ni su financiamiento estaban definidos.'
+  ],
+  pregunta:'¿Qué posición defiende Camboya?',
+  ayuda:'¿Qué dice el principio pacta sunt servanda? ¿Cómo se interpreta un tratado de buena fe cuando su texto calla? Ojo: Estados Unidos no ha ratificado la Convención de Viena de 1969; piense en qué sentido sus reglas le obligan igual.',
+  opciones:[
+    { t:'Aceptar el 5 % y exigir que se monte el monitoreo',
+      d:'Ceder hoy para que el «cumplimiento sustancial» tenga por fin una medida objetiva.',
+      efecto:{ mercado:+5, derechos:+10, credito:+10 },
+      consecuencia:'Camboya traga saliva y acepta. El incumplimiento parcial queda a la vista, pero también la falla de diseño del propio acuerdo: sin un sistema de verificación, «cumplimiento sustancial» significa lo que Washington quiera que signifique. La negociación se desplaza a lo que importa: quién mide y con qué criterios.' },
+    { t:'Exigir el 14 % íntegro',
+      d:'El texto no prevé recompensas parciales: o hay cumplimiento sustancial o no lo hay.',
+      efecto:{ mercado:0, derechos:-5, credito:-5 },
+      consecuencia:'El argumento literal tiene fuerza, pero choca con el objeto y fin del acuerdo, que era mejorar las condiciones de trabajo, y con informes que muestran violaciones reales. Estados Unidos no cede y los sindicatos estadounidenses endurecen su posición. Camboya queda como quien defiende la letra contra el espíritu.' },
+    { t:'Amenazar con abandonar el acuerdo',
+      d:'Si Estados Unidos no paga lo pactado, Camboya no tiene por qué seguir cumpliendo.',
+      efecto:{ mercado:-15, derechos:-10, credito:-10 },
+      consecuencia:'La amenaza asusta a los compradores, que buscan estabilidad, y da la razón a quienes decían que los países pobres no sostienen sus compromisos laborales. Además, la reciprocidad tiene límites: las obligaciones de proteger a los trabajadores que Camboya asumió con la OIT no desaparecen porque otro Estado incumpla un acuerdo comercial.' }
+  ],
+  real:'Estados Unidos dio solo el 5 %. El embajador camboyano en Washington, Roland Eng, protestó recordando que otros países se habían reído de Camboya al firmar. UNITE también quedó descontento, porque creía que no debía darse aumento alguno antes de que existiera monitoreo. Camboya siguió en el acuerdo y la discusión pasó a cómo verificar el cumplimiento.'
+},
+{
+  momento:'2000-2001 · El sistema de monitoreo',
+  titulo:'¿Quién vigila las fábricas?',
+  contexto:[
+    'Sin verificación independiente, el acuerdo no tiene credibilidad. Los activistas recuerdan que las auditorías sociales privadas suelen favorecer a la empresa que las paga; los gerentes de fábrica desconfían de los activistas; varios observadores denuncian corrupción entre los inspectores laborales del propio Estado. Camboya, Estados Unidos, la AFL-CIO, UNITE y la OIT llevan más de un año de reuniones, memorandos y faxes.',
+    'La OIT duda: su papel histórico es ayudar a los gobiernos a crear capacidad, no reemplazarlos ni sancionarlos. Los sindicatos estadounidenses exigen indicadores concretos y que los trabajadores camboyanos tengan voz.'
+  ],
+  pregunta:'¿Qué modelo de monitoreo propone?',
+  ayuda:'¿Qué es la OIT para el Derecho Internacional: un foro o un sujeto con personalidad jurídica propia? ¿Qué cede y qué conserva un Estado cuando consiente que una organización internacional entre a inspeccionar en su territorio?',
+  opciones:[
+    { t:'Auditoras privadas contratadas por las marcas',
+      d:'Rápido, financiado por quien compra, sin tocar la burocracia estatal.',
+      efecto:{ mercado:+5, derechos:-10, credito:-15 },
+      consecuencia:'El sistema arranca rápido, pero nace sin legitimidad: la auditora responde a quien le paga. Los sindicatos estadounidenses denuncian que es un maquillaje, y Washington tiene un argumento para no subir la cuota. El Estado camboyano, además, queda al margen del control de sus propias leyes.' },
+    { t:'La OIT, con un comité tripartito e informes públicos',
+      d:'Gobierno, empresarios y trabajadores en la conducción; acceso libre a las fábricas; resultados con nombre propio.',
+      efecto:{ mercado:+10, derechos:+15, credito:+15 },
+      consecuencia:'La OIT acepta un papel nuevo. Su estructura tripartita da legitimidad a los tres sectores, y la publicidad de los informes cambia las conductas: las fábricas que no corrigen aparecen señaladas. Es más lento y alguien tiene que pagarlo, pero por primera vez «cumplimiento sustancial» se puede medir.' },
+    { t:'Los inspectores del Ministerio de Trabajo',
+      d:'La soberanía primero: el control de la ley camboyana lo hace el Estado camboyano.',
+      efecto:{ mercado:-5, derechos:0, credito:-10 },
+      consecuencia:'Jurídicamente es lo más ortodoxo, pero choca con la realidad que todos conocen: la denuncia de corrupción entre los inspectores. Los compradores y los sindicatos estadounidenses no confían en los resultados, y la cuota no se mueve. La soberanía queda intacta y la credibilidad, en duda.' }
+  ],
+  real:'Se eligió a la OIT, con apoyo de Washington, que consideraba inaceptable construir el imperio de la ley saltándose a las instituciones del Estado. Un comité de nueve miembros —tres del gobierno, tres sindicales y tres empresariales— aprobó una lista de 150 puntos de control por fábrica. La OIT firmó un memorando de entendimiento con cada fábrica que le garantizaba libre acceso. El monitoreo empezó el 27 de junio de 2001 y lo financiaron Estados Unidos (1 millón de dólares), el gobierno camboyano (200 000) y la asociación de fabricantes (200 000). Solo las empresas registradas ante la OIT podían optar a la cuota estadounidense.'
+},
+{
+  momento:'2000 · La crisis de Nike',
+  titulo:'Una acusación de trabajo infantil',
+  contexto:[
+    'Medios británicos acusan de emplear trabajo infantil a June Textiles, proveedora de ropa deportiva de Nike. El gobierno y la asociación de fabricantes sostienen que las acusaciones son falsas, pero el daño ya está hecho: <strong>Nike cancela sus contratos y se va del país</strong>, con una pérdida estimada en 10 millones de dólares. Otro gran comprador, The Gap, tiene demasiados pedidos para irse.',
+    'En paralelo hay huelgas por el salario mínimo, y trabajadores que cargan ropa de grandes marcas logran entrar a la embajada de Estados Unidos para denunciar salarios impagos.'
+  ],
+  pregunta:'¿Cómo responde el Estado camboyano?',
+  ayuda:'Un Estado responde internacionalmente por sus propios actos y también por no prevenir lo que debía prevenir. ¿Qué obligaciones asumió Camboya al ratificar los convenios fundamentales de la OIT, y qué le exige la debida diligencia frente a lo que hacen empresas privadas en su territorio?',
+  opciones:[
+    { t:'Desmentir públicamente y defender a la fábrica',
+      d:'Las acusaciones son falsas; Camboya no puede dejarse difamar.',
+      efecto:{ mercado:-10, derechos:-5, credito:-15 },
+      consecuencia:'Aunque las acusaciones fueran falsas, un desmentido oficial sin verificación independiente suena a encubrimiento. Los compradores sensibles a su reputación no esperan a saber quién tiene razón: se van. El problema no era solo la verdad del hecho, sino la falta de un sistema creíble para probarla.' },
+    { t:'Transparencia total: inspección independiente y resultados públicos',
+      d:'Que lo verifique un tercero y que se publique con nombre de fábrica, sea cual sea el resultado.',
+      efecto:{ mercado:+10, derechos:+10, credito:+15 },
+      consecuencia:'La transparencia convierte una crisis en una prueba de seriedad. Si la acusación es falsa, el informe independiente la desmiente mejor que cualquier gobierno; si es cierta, la corrección pública muestra que el sistema funciona. Los compradores que se quedan empiezan a usar los informes favorables como argumento de venta.' },
+    { t:'Sancionar: suspender las licencias de exportación del infractor',
+      d:'El Estado usa sus propias herramientas contra quien viole derechos laborales.',
+      efecto:{ mercado:-5, derechos:+15, credito:+5 },
+      consecuencia:'El Estado demuestra que su Código Laboral no es decorativo y que asume su deber de prevenir y sancionar. Pero sancionar sin una verificación independiente previa expone al gobierno a equivocarse o a que lo acusen de usar la sanción con fines políticos, y los fabricantes protestan.' }
+  ],
+  real:'Las empresas aprendieron, tarde, que la transparencia era su mejor defensa: Nike ya se había ido. The Gap se quedó e intensificó la capacitación de trabajadores y gerentes a través de ONG locales. Con el monitoreo de la OIT, los informes públicos con nombre de fábrica cambiaron conductas, y el gobierno se reservó el derecho de suspender certificados de origen y licencias de exportación a las empresas que violaran derechos laborales, exportaran adonde exportaran.'
+},
+{
+  momento:'2004 · El fin de las cuotas',
+  titulo:'¿Y cuando se acaben las cuotas?',
+  contexto:[
+    'El régimen mundial de cuotas textiles termina el <strong>31 de diciembre de 2004</strong>. Sin cuotas, la recompensa del acuerdo pierde sentido. Un experto de la industria predice una «gran masacre»: la mitad de las fábricas de exportación del mundo podría desaparecer. La «Gran China» (China, Hong Kong, Macao y Taiwán) ya tiene cerca del 30 % de las exportaciones mundiales de prendas y México está junto al mercado estadounidense. Camboya tarda 60 días en entregar un pedido, cuando otros tardan 30 o 45, y sus costos burocráticos equivalen a casi el 7 % de sus ventas.',
+    'Los fabricantes piden flexibilizar el Código Laboral: el bono por asistencia, los sábados más cortos y el tope de dos horas extra diarias, dicen, estorban el crecimiento. Otros sostienen que la única carta de Camboya es su reputación de <strong>«abastecimiento seguro»</strong>, y que entrar a la OMC la pondría en pie de igualdad con sus vecinos.'
+  ],
+  pregunta:'¿Qué estrategia recomienda para después de 2004?',
+  ayuda:'¿Puede un Estado rebajar la protección laboral que ya reconoció sin incumplir los convenios que ratificó? Piense en la realización progresiva de los derechos económicos y sociales y en lo que significa entrar a la OMC.',
+  opciones:[
+    { t:'Apostar por el «abastecimiento seguro» y entrar a la OMC',
+      d:'Hacer de los derechos laborales verificados una marca país, y competir con reglas multilaterales.',
+      efecto:{ mercado:+5, derechos:+10, credito:+15 },
+      consecuencia:'Camboya apuesta a que los compradores, presionados por sus consumidores, paguen por cadenas de suministro limpias. La entrada a la OMC la libera de las cuotas y la obliga a reformas. El riesgo, que el propio presidente de la asociación de fabricantes señaló, es el doble estándar de los compradores: sus departamentos de cumplimiento exigen derechos y sus departamentos de compras, el precio más bajo.' },
+    { t:'Competir por precio flexibilizando el Código Laboral',
+      d:'Bajar costos para sobrevivir frente a China y México.',
+      efecto:{ mercado:+5, derechos:-20, credito:-15 },
+      consecuencia:'Los costos bajan algo, pero el salario directo era solo una parte pequeña del precio de una prenda: los tiempos de entrega y la burocracia pesan igual o más. Y Camboya pierde lo único que la distinguía, en un mercado donde otros siempre serán más baratos. Rebajar protecciones ya reconocidas, además, choca con los convenios ratificados.' },
+    { t:'Negociar otro acuerdo preferencial bilateral',
+      d:'Repetir la fórmula de 1999 con Estados Unidos o con otros socios.',
+      efecto:{ mercado:0, derechos:+5, credito:0 },
+      consecuencia:'Sin cuotas no queda moneda de cambio: la recompensa del 14 % solo tenía sentido dentro del sistema de cuotas. Un nuevo acuerdo exigiría ofrecer otra cosa, y en Washington los productores textiles del sur, golpeados por la competencia asiática, no están para regalar acceso. La vía bilateral se estrecha.' }
+  ],
+  real:'El caso deja esta decisión abierta: termina con el ministro preguntándose si proteger los derechos humanos puede ser una ventaja competitiva o si Camboya será abandonada después de 2004 por mercados más baratos. El presidente de la asociación de fabricantes sostenía que la única oportunidad del país era la imagen de abastecimiento seguro; otros insistían en la entrada a la OMC. Esa pregunta abierta es, precisamente, la que usted tendrá que responder en el examen.'
+}
+];
+
+const PREGUNTAS_PUENTE = [
+  '¿El acuerdo de 1999 fue un ejercicio de la soberanía de Camboya o una imposición de una potencia? Responda desde la teoría del consentimiento y el principio pacta sunt servanda.',
+  '¿Qué papel cumplió la OIT como sujeto del Derecho Internacional en este caso, y qué habría cambiado si el monitoreo lo hubiera hecho solo el Estado camboyano?',
+  'Si usted asesorara a Camboya en 2004, ¿qué recomendaría y con qué fundamento jurídico? ¿Pueden los derechos humanos ser una ventaja competitiva en el comercio internacional?'
+];
+
+/* ---------------------------------------------------------------------
+   ESTADO
+   --------------------------------------------------------------------- */
+let alumno  = { ced:'', nom:'' };
+let valores = { mercado:50, derechos:50, credito:50 };
+let paso    = 0;
+let ruta    = [];      // { nodo, opcion, fundamento }
+let inicio  = null;
+
+/* ---------------------------------------------------------------------
+   UTILIDADES (mismas que los foros: la constancia se verifica igual)
+   --------------------------------------------------------------------- */
+function cedulaValida(c){
+  if(!/^\d{10}$/.test(c)) return false;
+  const prov = parseInt(c.slice(0,2),10);
+  if(!((prov>=1 && prov<=24) || prov===30)) return false;
+  if(parseInt(c[2],10) > 5) return false;
+  let suma = 0;
+  for(let i=0;i<9;i++){
+    let d = parseInt(c[i],10) * (i%2===0 ? 2 : 1);
+    if(d>9) d -= 9;
+    suma += d;
+  }
+  return ((10 - (suma%10)) % 10) === parseInt(c[9],10);
+}
+function djb2(s){ let h=5381; for(let i=0;i<s.length;i++) h=((h*33)+s.charCodeAt(i))>>>0; return h; }
+function base36(n){ if(n===0) return '0'; const d='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'; let s=''; while(n>0){ s=d[n%36]+s; n=Math.floor(n/36);} return s; }
+function sinTildes(s){ return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim().toUpperCase(); }
+function dos(n){ return String(n).padStart(2,'0'); }
+function fechaLocal(d){ return d.getFullYear()+'-'+dos(d.getMonth()+1)+'-'+dos(d.getDate())+' '+dos(d.getHours())+':'+dos(d.getMinutes()); }
+function fechaCierre(){ const m=(CIERRE_TAREA||'').match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/); return m ? new Date(+m[1],+m[2]-1,+m[3],+m[4],+m[5]) : null; }
+function enPlazo(){ const c=fechaCierre(); return c ? new Date()<=c : true; }
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function acota(n){ return Math.max(0, Math.min(100, n)); }
+
+/* ---------------------------------------------------------------------
+   PORTADA
+   --------------------------------------------------------------------- */
+const iCed=document.getElementById('ced'), iNom=document.getElementById('nom');
+const pCed=document.getElementById('pista-ced'), pNom=document.getElementById('pista-nom');
+const bEnt=document.getElementById('btn-entrar');
+
+function revisaPortada(){
+  const c=iCed.value.trim(), n=iNom.value.trim();
+  let okC=false, okN=false;
+  if(!c){ pCed.textContent=''; pCed.classList.remove('mal'); }
+  else if(c.length<10){ pCed.textContent='Faltan '+(10-c.length)+' dígitos.'; pCed.classList.remove('mal'); }
+  else if(!cedulaValida(c)){ pCed.textContent='Esa cédula no es válida. Revísela.'; pCed.classList.add('mal'); }
+  else { pCed.textContent='Correcta.'; pCed.classList.remove('mal'); okC=true; }
+  if(!n){ pNom.textContent=''; pNom.classList.remove('mal'); }
+  else if(n.replace(/\s+/g,' ').split(' ').length<2){ pNom.textContent='Escriba nombres y apellidos.'; pNom.classList.add('mal'); }
+  else { pNom.textContent=''; pNom.classList.remove('mal'); okN=true; }
+  bEnt.disabled = !(okC && okN);
+}
+iCed.addEventListener('input', () => { iCed.value=iCed.value.replace(/\D/g,'').slice(0,10); revisaPortada(); });
+iNom.addEventListener('input', revisaPortada);
+
+bEnt.addEventListener('click', () => {
+  alumno.ced = iCed.value.trim();
+  alumno.nom = iNom.value.trim().replace(/\s+/g,' ');
+  inicio = new Date();
+  document.getElementById('id-nom').textContent = alumno.nom;
+  document.getElementById('id-ced').textContent = alumno.ced;
+  document.getElementById('portada').classList.add('oculto');
+  document.getElementById('recorrido').classList.remove('oculto');
+  pintaTablero();
+  pintaNodo();
+  window.scrollTo(0,0);
+});
+
+/* ---------------------------------------------------------------------
+   TABLERO
+   --------------------------------------------------------------------- */
+function pintaTablero(){
+  document.getElementById('indicadores').innerHTML = INDICADORES.map(i =>
+    '<div class="ind"><b><span>'+i.nombre+'</span><span>'+valores[i.clave]+'</span></b>' +
+    '<div class="barra"><i style="width:'+valores[i.clave]+'%"></i></div></div>').join('');
+  document.getElementById('ruta').innerHTML = NODOS.map((_,k) =>
+    '<span class="'+(k<paso?'hecho':(k===paso?'actual':''))+'"></span>').join('');
+  document.getElementById('id-paso').textContent =
+    paso < NODOS.length ? 'Decisión '+(paso+1)+' de '+NODOS.length : 'Recorrido completo';
+}
+
+/* ---------------------------------------------------------------------
+   NODO
+   --------------------------------------------------------------------- */
+function pintaNodo(){
+  const n = NODOS[paso];
+  let elegida = null;
+  const escena = document.getElementById('escena');
+  escena.innerHTML =
+    '<article class="nodo">' +
+      '<div class="momento">'+n.momento+'</div>' +
+      '<h2>'+n.titulo+'</h2>' +
+      '<div class="contexto">'+n.contexto.map(p=>'<p>'+p+'</p>').join('')+'</div>' +
+      '<p class="pregunta">'+n.pregunta+'</p>' +
+      '<div class="opciones">' + n.opciones.map((o,k) =>
+        '<button type="button" class="opcion" data-k="'+k+'"><b>'+String.fromCharCode(65+k)+' · '+o.t+'</b>'+o.d+'</button>').join('') +
+      '</div>' +
+      '<div class="fundamento">' +
+        '<label for="fund">Su fundamento</label>' +
+        '<p class="ayuda">'+n.ayuda+'</p>' +
+        '<textarea id="fund" placeholder="Explique por qué recomienda esa opción y cite al menos una fuente del Derecho Internacional."></textarea>' +
+        '<div class="pie-f"><span class="contador mal" id="cont">Elija primero una opción</span>' +
+        '<button type="button" class="btn" id="btn-decidir" disabled>Decidir</button></div>' +
+      '</div>' +
+      '<div id="conseq"></div>' +
+    '</article>';
+
+  const ta = document.getElementById('fund');
+  const cont = document.getElementById('cont');
+  const bDec = document.getElementById('btn-decidir');
+
+  function revisa(){
+    const len = ta.value.trim().length;
+    if(elegida===null){ cont.textContent='Elija primero una opción'; cont.className='contador mal'; bDec.disabled=true; return; }
+    if(len<MIN_CAR){ cont.textContent=len+' caracteres · faltan '+(MIN_CAR-len)+' para el mínimo'; cont.className='contador mal'; bDec.disabled=true; }
+    else if(len>MAX_CAR){ cont.textContent=len+' caracteres · sobran '+(len-MAX_CAR); cont.className='contador mal'; bDec.disabled=true; }
+    else { cont.textContent=len+' caracteres · dentro del rango'; cont.className='contador bien'; bDec.disabled=false; }
+  }
+
+  escena.querySelectorAll('.opcion').forEach(b => b.addEventListener('click', () => {
+    elegida = +b.dataset.k;
+    escena.querySelectorAll('.opcion').forEach(x => x.classList.toggle('elegida', x===b));
+    revisa(); ta.focus();
+  }));
+  ta.addEventListener('input', revisa);
+  ta.addEventListener('paste', e => { e.preventDefault(); cont.textContent='No se puede pegar texto. Escriba su fundamento.'; cont.className='contador mal'; setTimeout(revisa,2500); });
+  ta.addEventListener('drop', e => e.preventDefault());
+
+  bDec.addEventListener('click', () => {
+    const o = n.opciones[elegida];
+    ruta.push({ nodo:paso, opcion:elegida, fundamento:ta.value.trim() });
+    for(const k in o.efecto) valores[k] = acota(valores[k] + o.efecto[k]);
+
+    escena.querySelectorAll('.opcion').forEach(x => x.disabled = true);
+    ta.disabled = true; bDec.classList.add('oculto');
+    cont.textContent = 'Decisión registrada'; cont.className='contador bien';
+
+    const deltas = INDICADORES.map(i => {
+      const v = o.efecto[i.clave]||0;
+      const cls = v>0?'sube':(v<0?'baja':'igual');
+      return '<span class="delta '+cls+'">'+i.nombre+' '+(v>0?'+':'')+v+'</span>';
+    }).join('');
+    const ultimo = (paso === NODOS.length-1);
+    document.getElementById('conseq').innerHTML =
+      '<div class="consecuencia"><h3>Qué pasa</h3><div class="deltas">'+deltas+'</div>' +
+      '<p>'+o.consecuencia+'</p>' +
+      '<button type="button" class="btn" id="btn-seguir">'+(ultimo?'Ver el cierre y el acta':'Siguiente decisión')+'</button></div>';
+    paso++;
+    pintaTablero();
+    document.getElementById('btn-seguir').addEventListener('click', () => {
+      if(paso < NODOS.length){ pintaNodo(); window.scrollTo(0,0); } else { cierra(); }
+    });
+    document.getElementById('conseq').scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+}
+
+/* ---------------------------------------------------------------------
+   CIERRE
+   --------------------------------------------------------------------- */
+function cierra(){
+  const fin = new Date();
+  const minutos = Math.max(1, Math.round((fin - inicio)/60000));
+  const letras = ruta.map(r => String.fromCharCode(65 + r.opcion)).join('');
+  const cuerpo = BLOQUE+'|'+alumno.ced+'|'+sinTildes(alumno.nom)+'|'+NODOS.length+'/'+NODOS.length+'|'+
+                 letras+'|'+valores.mercado+'-'+valores.derechos+'-'+valores.credito+'|'+
+                 minutos+'M|'+fechaLocal(fin)+'|'+(enPlazo()?'EP':'FP');
+  const codigo = cuerpo + '|' + base36(djb2(SAL + cuerpo));
+
+  document.getElementById('recorrido').classList.add('oculto');
+  const c = document.getElementById('cierre');
+  c.classList.remove('oculto');
+  c.innerHTML =
+    '<h2>Recorrido completo</h2>' +
+    '<p>Así quedaron sus indicadores: <strong>acceso al mercado '+valores.mercado+'</strong>, ' +
+    '<strong>derechos de los trabajadores '+valores.derechos+'</strong> y <strong>credibilidad internacional '+valores.credito+'</strong>. ' +
+    'No hay una cifra correcta: lo que cuenta es si sus fundamentos sostienen sus decisiones.</p>' +
+    '<h3 style="font-size:1.1rem;margin:1.4rem 0 .3rem">Su decisión frente a lo que de verdad ocurrió</h3>' +
+    '<div class="comparacion">' + ruta.map(r => {
+      const n = NODOS[r.nodo], o = n.opciones[r.opcion];
+      return '<div class="comp"><h4>'+(r.nodo+1)+'. '+n.titulo+'</h4>' +
+        '<p class="yo">Usted eligió: '+String.fromCharCode(65+r.opcion)+' · '+o.t+'</p>' +
+        '<p>'+n.real+'</p></div>';
+    }).join('') + '</div>' +
+    '<div class="ficha"><h3>Preguntas puente hacia el examen final</h3><ol>' +
+      PREGUNTAS_PUENTE.map(p=>'<li>'+p+'</li>').join('') + '</ol></div>' +
+    '<p style="margin-top:1rem"><strong>Cómo se entrega:</strong> suba el acta en PDF a la tarea de práctica y pegue el código en los <strong>comentarios</strong> de la entrega. Es práctica sin nota.</p>' +
+    '<div class="codigo" id="txt-codigo">'+codigo+'</div>' +
+    '<div class="acciones"><button type="button" class="btn" id="btn-pdf">Descargar el acta en PDF</button>' +
+    '<button type="button" class="btn sec" id="btn-copiar">Copiar el código</button></div>';
+
+  preparaActa(codigo, fin, minutos);
+  document.getElementById('btn-pdf').addEventListener('click', descargaActa);
+  document.getElementById('btn-copiar').addEventListener('click', function(){
+    navigator.clipboard.writeText(codigo).then(() => { this.textContent='Copiado'; }, () => { this.textContent='Selecciónelo y cópielo a mano'; });
+  });
+  window.scrollTo(0,0);
+}
+
+function preparaActa(codigo, fin, minutos){
+  document.getElementById('a-meta').innerHTML =
+    '<strong>Estudiante:</strong> '+esc(alumno.nom)+' &nbsp;·&nbsp; <strong>Cédula:</strong> '+alumno.ced+'<br>' +
+    '<strong>Emitida:</strong> '+fechaLocal(fin)+' &nbsp;·&nbsp; <strong>Duración:</strong> '+minutos+' min &nbsp;·&nbsp; <strong>Decisiones:</strong> '+ruta.length+' de '+NODOS.length;
+  document.getElementById('a-ruta').innerHTML = ruta.map(r => {
+    const n = NODOS[r.nodo], o = n.opciones[r.opcion];
+    return '<div class="nodo-pdf"><b>'+(r.nodo+1)+'. '+n.titulo+'</b> ('+n.momento+')<br>' +
+      '<b>Decisión:</b> '+String.fromCharCode(65+r.opcion)+' · '+o.t+'<br>' +
+      '<b>Fundamento:</b> '+esc(r.fundamento)+'</div>';
+  }).join('');
+  document.getElementById('a-ind').innerHTML = INDICADORES.map(i => i.nombre+': <b>'+valores[i.clave]+'</b>/100').join(' &nbsp;·&nbsp; ');
+  document.getElementById('a-real').innerHTML = ruta.map(r =>
+    '<div class="nodo-pdf"><b>'+(r.nodo+1)+'. '+NODOS[r.nodo].titulo+'</b><br>'+NODOS[r.nodo].real+'</div>').join('');
+  document.getElementById('a-preg').innerHTML = '<ol>'+PREGUNTAS_PUENTE.map(p=>'<li>'+p+'</li>').join('')+'</ol>';
+  document.getElementById('a-codigo').textContent = codigo;
+}
+
+function descargaActa(){
+  const boton = document.getElementById('btn-pdf');
+  const acta  = document.getElementById('acta');
+  const banda = document.querySelector('.banda');
+  const hoja  = document.querySelector('.hoja');
+  const scrollPrevio = window.scrollY;
+  boton.disabled = true; boton.textContent = 'Generando…';
+  // Igual que en los foros: html2canvas captura en coordenadas de documento,
+  // así que se oculta la página y se sube al inicio o el acta sale en blanco.
+  banda.style.display='none'; hoja.style.display='none'; acta.style.display='block';
+  window.scrollTo(0,0);
+  const restaurar = () => { acta.style.display='none'; banda.style.display=''; hoja.style.display=''; window.scrollTo(0,scrollPrevio); };
+  setTimeout(() => {
+    html2pdf().set({
+      margin:10,
+      filename:'Acta_Arbol_Harvard_'+alumno.ced+'.pdf',
+      image:{ type:'jpeg', quality:0.96 },
+      html2canvas:{ scale:2, useCORS:true, scrollX:0, scrollY:0 },
+      jsPDF:{ unit:'mm', format:'a4', orientation:'portrait' },
+      pagebreak:{ mode:['avoid-all','css'] }
+    }).from(acta).save().then(() => {
+      restaurar(); boton.disabled=false; boton.textContent='Descargar el acta en PDF';
+    }).catch(() => {
+      restaurar(); boton.disabled=false; boton.textContent='Reintentar la descarga';
+    });
+  }, 350);
+}
+
+window.addEventListener('beforeunload', e => {
+  if(inicio && paso < NODOS.length){ e.preventDefault(); e.returnValue=''; }
+});
+</script>
+</body>
+</html>
