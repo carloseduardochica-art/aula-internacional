@@ -46,5 +46,5 @@ de plazo son las de `CIERRE_TAREA`. **Si cambia una, cambie las dos.**
 
 ## Fechas por confirmar
 
-- **Guía 2 (audio):** el sílabo pone la entrega el 06-11-2026, antes de la asignación del 23-11.
+- **Guía 2 (audio):** el sílabo pone la entrega el 06-11-2026, antes de la asignación del 23-11. Se tomó como 06-12-2026 (día y mes invertidos); así está en Moodle 2067.
 - **Investigación formativa:** el sílabo dice 09-12 y el cronograma marca «IF» el 10-11.
