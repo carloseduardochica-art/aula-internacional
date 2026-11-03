@@ -16,7 +16,7 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 |---|---|---|
 | `index.html` | La portada: los dos bloques y la evaluación final, con tareas y fechas del sílabo | Hecha |
 | `foro-b1/` | AD · Foro de Fricción Epistémica · 8 pts · 3 rondas, nodos A (realista) y B (voluntarista) por paridad de cédula. Usa el Worker de `aula-mercantil`. Se regenera con `_fuentes/foro-b1/armar.py` | Publicado |
-| `foro-b2/` | AD · Foro Adversarial «La trampa del orden público» · 7 pts | Pendiente |
+| `foro-b2/` | AD · Foro Adversarial «La trampa del orden público» · 7 pts · 3 rondas; magistrado Conservador (par) y Cosmopolita (impar); sucesión Laurent. Se regenera con `_fuentes/foro-b2/armar.py` | Publicado |
 | `docente-invitado/` | AD · Docente invitado, Dr. Azhir Sandoval · 5 pts | Pendiente |
 | `guia-1/` | AP · Convenio de Viena sobre Relaciones Diplomáticas · 10 pts | Pendiente |
 | `guia-2/` | AP · Audio sobre los sujetos del DIPr · 10 pts | Pendiente |
