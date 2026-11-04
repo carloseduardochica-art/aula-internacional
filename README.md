@@ -15,6 +15,8 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 | Ruta | Qué es | Estado |
 |---|---|---|
 | `index.html` | La portada: los dos bloques y la evaluación final, con tareas y fechas del sílabo | Hecha |
+| `contenido-b1/` | Contenido científico del Bloque 1 con forma de tratado (preámbulo, capítulos I–V, artículos 1.x.x, notas interpretativas y del docente, 3 esquemas SVG). Fuente del autocontrol B1. Se regenera con `_fuentes/contenido/armar.py` | Publicado |
+| `contenido-b2/` | Contenido científico del Bloque 2, mismo formato (2 esquemas). Fuente del autocontrol B2 | Publicado |
 | `foro-b1/` | AD · Foro de Fricción Epistémica · 8 pts · 3 rondas, nodos A (realista) y B (voluntarista) por paridad de cédula. Usa el Worker de `aula-mercantil`. Se regenera con `_fuentes/foro-b1/armar.py` | Publicado |
 | `foro-b2/` | AD · Foro Adversarial «La trampa del orden público» · 7 pts · 3 rondas; magistrado Conservador (par) y Cosmopolita (impar); sucesión Laurent. Se regenera con `_fuentes/foro-b2/armar.py` | Publicado |
 | `docente-invitado/` | AD · Docente invitado, Dr. Azhir Sandoval · 5 pts | Pendiente |
@@ -27,6 +29,10 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 
 Las tarjetas en «En preparación» se activan cuando su carpeta existe: se cambia
 `pieza pendiente` por `pieza tarea` y el `span.btn.muerto` por un enlace.
+
+## Láminas
+
+Las imágenes de Google Flow van en `recursos/laminas/` con estos nombres exactos (16:9, JPG): `b1-portada.jpg`, `b1-westfalia.jpg`, `b2-portada.jpg`, `b2-bolonia.jpg`. Mientras no existan, la página oculta su lugar sola.
 
 ## Protección común
 
