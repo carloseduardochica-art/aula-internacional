@@ -22,9 +22,9 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 | `docente-invitado/` | AD · Docente invitado, Dr. Azhir Sandoval · 5 pts | Pendiente |
 | `guia-1/` | AP · Convenio de Viena sobre Relaciones Diplomáticas · 10 pts | Pendiente |
 | `guia-2/` | AP · Audio sobre los sujetos del DIPr · 10 pts | Pendiente |
-| `autocontrol-b1/` | AA · Autocontrol del Bloque 1 · 15 pts · atado al contenido científico del B1 | Pendiente (falta el contenido) |
+| `autocontrol-b1/` | AA · Autocontrol del Bloque 1 · 15 pts · 17 apartados del Instrumento B1 con pregunta de control (variante par/impar por cédula, respuesta con hash), constancia PDF. Modelo Filosofía 2C. Se regenera con `_fuentes/autocontrol/armar.py` | Publicado |
 | `investigacion-formativa/` | AA · Ensayo, parte 2: cierre · 10 pts | Pendiente |
-| `autocontrol-b2/` | AA · Autocontrol del Bloque 2 · 15 pts · atado al contenido científico del B2 | Pendiente (falta el contenido) |
+| `autocontrol-b2/` | AA · Autocontrol del Bloque 2 · 15 pts · 18 apartados del Instrumento B2 | Publicado |
 | `caso-harvard/` | Práctica sin nota previa al EF: **mapa de decisiones 3D** del caso Harvard EE. UU.–Camboya (globo Three.js r128 con 5 ciudades, rutas, HUD, 8 insignias, 4 finales; 5 nodos 1998-2004; sin WebGL funciona en 2D). Se regenera con `_fuentes/caso-harvard/armar.py` (plantilla3d.html + nodos de version2d.html). El EF (8 + 12) sigue en Moodle | Publicado |
 
 Las tarjetas en «En preparación» se activan cuando su carpeta existe: se cambia

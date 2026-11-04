@@ -101,4 +101,15 @@
     obs.observe(nom, { childList:true, characterData:true, subtree:true });
     obs.observe(ced, { childList:true, characterData:true, subtree:true });
   }
+
+  // Los autocontroles piden la identidad en campos de texto, no en etiquetas.
+  var cn = document.getElementById('nombre-estudiante'), cc = document.getElementById('cedula-estudiante');
+  if(cn && cc){
+    var firmar = function(){
+      var n = (cn.value || '').trim(), c = (cc.value || '').replace(/\D/g,'');
+      if(n.length > 2 && c.length === 10) marca(n.replace(/[<>&]/g,'') + ' · ' + c);
+    };
+    cn.addEventListener('input', firmar); cc.addEventListener('input', firmar);
+    firmar();
+  }
 })();

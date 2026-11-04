@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Derecho Internacional · Autocontrol de lectura · Bloque 2</title>
+<!-- Genera la constancia como archivo PDF de verdad, sin pasar por el dialogo
+     de impresion. Es la misma biblioteca que usan los foros y el Caso Harvard. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --papel:#fcf9f4;
+  --papel-alt:#f3ecdf;
+  --tinta:#1f1810;
+  --tinta-suave:#3f3323;
+  --sepia:#65441c;
+  --sepia-claro:#7d5c2e;
+  --linea:#cbbda3;
+  --nota:#5b4a34;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --escala:1;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  padding:0 1.1rem 4rem;
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:var(--serif);
+  font-size:calc(19.5px * var(--escala));
+  line-height:1.72;
+}
+.hoja{max-width:1180px;margin:0 auto}
+.lectura{
+  position:sticky;top:0;z-index:20;
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;
+  background:var(--papel);border-bottom:1px solid var(--linea);
+  padding:.5rem;margin:0 -1.1rem 0;font-size:.8rem;
+}
+.lectura span{color:var(--nota);letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+.lectura button{
+  font-family:var(--serif);font-size:.88rem;
+  background:var(--papel-alt);color:var(--tinta);
+  border:1px solid var(--linea);border-radius:2px;
+  padding:.34rem .72rem;cursor:pointer;min-height:34px;
+}
+.lectura button:hover{background:#e8dcc7}
+.lectura button:focus-visible{outline:2px solid var(--sepia);outline-offset:2px}
+body.contraste{--papel:#fffdf9;--papel-alt:#f2ece1;--tinta:#000;--tinta-suave:#1a1a1a;
+  --sepia:#4a3110;--sepia-claro:#4a3110;--linea:#8d7f68;--nota:#3a3025}
+.cabecera{padding:2.2rem 0 .4rem;text-align:center}
+.filete{border:0;border-top:2px solid var(--tinta);margin:0}
+.filete--fino{border-top:1px solid var(--linea);margin:.28rem 0 0}
+.rotulo{
+  font-size:clamp(1.5rem,4.8vw,2.7rem);
+  letter-spacing:.28em;text-transform:uppercase;
+  margin:.85rem 0 .6rem;font-weight:400;text-indent:.28em;
+}
+.membrete{
+  display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:center;
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--nota);padding:.5rem 0 .7rem;
+}
+.antetitulo{
+  text-align:center;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sepia);margin:2.2rem 0 .7rem;
+}
+.titular{
+  font-size:clamp(1.9rem,5.6vw,3.2rem);
+  line-height:1.14;text-align:center;font-weight:400;
+  margin:0 auto .9rem;max-width:21ch;letter-spacing:-.01em;
+}
+.entradilla{
+  text-align:center;max-width:58ch;margin:0 auto 1.3rem;
+  font-size:1.06rem;font-style:italic;color:var(--tinta-suave);line-height:1.6;
+}
+.firma{
+  text-align:center;font-size:.82rem;color:var(--nota);
+  margin-bottom:1.9rem;line-height:1.7;
+}
+.firma b{color:var(--tinta);font-weight:400;letter-spacing:.04em}
+.firma .rol{
+  display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-top:.3rem;
+}
+.cuerpo{
+  column-count:2;column-gap:3rem;
+  column-rule:1px solid var(--linea);
+  text-align:justify;hyphens:auto;-webkit-hyphens:auto;
+  padding-top:1.6rem;border-top:1px solid var(--linea);
+}
+.cuerpo > *{break-inside:avoid-column}
+.cuerpo p{margin:0 0 1.05em;break-inside:auto}
+.cuerpo p + p{text-indent:1.25em}
+h2{
+  font-size:.86rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);font-weight:400;
+  margin:2em 0 .75em;padding-bottom:.45em;border-bottom:1px solid var(--linea);
+  break-after:avoid;
+}
+h3{
+  font-size:1.04rem;font-weight:400;font-style:italic;
+  margin:1.55em 0 .4em;color:var(--tinta);break-after:avoid;
+}
+.capitular::first-letter{
+  float:left;font-size:4em;line-height:.8;
+  padding:.06em .1em 0 0;margin:.02em .05em 0 0;
+  color:var(--sepia);font-weight:400;
+}
+.destacado{
+  margin:1.6em 0;padding:1.1em 0;
+  border-top:2px solid var(--tinta);border-bottom:1px solid var(--linea);
+  font-size:1.24rem;line-height:1.4;font-style:italic;text-align:left;
+  color:var(--sepia);text-indent:0;hyphens:none;
+}
+.destacado cite{display:block;margin-top:.6em;font-size:.7rem;font-style:normal;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--nota)}
+.caso{
+  background:var(--papel-alt);border-left:4px solid var(--sepia-claro);
+  padding:1em 1.1em;margin:1.35em 0;font-size:.97rem;text-indent:0;
+}
+.caso .etiqueta,.aviso .etiqueta{
+  display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.5em;
+}
+.aviso{
+  border:1px solid var(--sepia-claro);padding:1.05em 1.15em;margin:1.6em 0;
+  font-size:.96rem;text-indent:0;background:var(--papel-alt);
+}
+.procede{
+  display:block;margin:.2em 0 1.4em;padding-left:.9em;
+  border-left:2px solid var(--linea);
+  font-size:.82rem;font-style:italic;color:var(--nota);
+  text-indent:0;text-align:left;hyphens:none;
+}
+.grabado{margin:1.6em 0;padding:0;text-indent:0;break-inside:avoid}
+.grabado .marco{
+  border:1px solid var(--linea);
+  background:repeating-linear-gradient(45deg,rgba(101,68,28,.06) 0 7px,transparent 7px 14px);
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  color:var(--nota);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  text-align:center;padding:1rem;
+}
+.grabado figcaption{
+  font-size:.82rem;color:var(--nota);line-height:1.55;
+  padding-top:.55em;border-top:1px solid var(--linea);margin-top:.55em;
+  text-align:left;hyphens:none;
+}
+.grabado figcaption b{color:var(--sepia);font-weight:400}
+.cierre{
+  column-span:all;margin:2.8rem 0 0;padding:1.8rem 1.5rem;
+  border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta);
+  text-align:center;
+}
+.cierre .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.85em;
+}
+.cierre p{
+  font-size:1.2rem;font-style:italic;line-height:1.55;max-width:56ch;
+  margin:0 auto;text-indent:0;text-align:center;hyphens:none;
+}
+.cierre .apunte{font-size:.86rem;font-style:normal;color:var(--nota);margin-top:1.15em}
+.aporte{
+  column-span:all;margin:1.7rem 0 0;padding:1.3rem 1.4rem;
+  border:1px dashed var(--sepia-claro);background:var(--papel-alt);
+  font-size:.95rem;color:var(--tinta);text-align:left;hyphens:none;
+}
+.aporte .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.9em;text-align:center;
+}
+.aporte p{margin:0 0 .85em;text-indent:0;line-height:1.65}
+.aporte b{color:var(--sepia);font-weight:400}
+.aporte u{
+  text-decoration:none;border-bottom:1px solid var(--sepia-claro);
+  background:rgba(101,68,28,.07);font-style:italic;color:var(--nota);
+}
+.aporte .cautela{
+  margin:1.1em 0 0;padding-top:.8em;border-top:1px solid var(--linea);
+  font-size:.83rem;font-style:italic;color:var(--nota);
+}
+.aporte .sugerida{
+  font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--nota);font-style:normal;
+}
+.grabado svg,.grabado img{display:block;width:100%;height:auto;border:1px solid var(--linea)}
+.grabado[hidden]{display:none}
+.pendiente{
+  column-span:all;margin:1.6rem 0;padding:1.1rem 1.2rem;
+  border:1px solid var(--sepia-claro);background:var(--papel-alt);
+  font-size:.9rem;text-indent:0;hyphens:none;
+}
+.pendiente .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.6em;
+}
+.pendiente table{border-collapse:collapse;width:100%;margin:.7em 0;font-size:.86rem}
+.pendiente th,.pendiente td{
+  border-bottom:1px solid var(--linea);padding:.34em .5em;text-align:left;vertical-align:top;
+}
+.pendiente th{color:var(--sepia);font-weight:400;font-size:.74rem;
+  letter-spacing:.12em;text-transform:uppercase}
+.pendiente .mal{color:#8a2f14}
+.pendiente .bien{color:#3d5c2a}
+.pie{
+  column-span:all;margin-top:2.5rem;padding-top:1.1rem;
+  border-top:1px solid var(--linea);
+  font-size:.85rem;color:var(--nota);line-height:1.7;
+  text-align:left;hyphens:none;
+}
+.pie h4{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin:1.4em 0 .6em;font-weight:400;
+}
+.pie h4:first-child{margin-top:0}
+.pie ol,.pie ul{margin:0;padding-left:1.3em}
+.pie li{margin-bottom:.55em}
+.pie .refs{list-style:none;padding-left:0}
+.pie .refs li{padding-left:2.2em;text-indent:-2.2em;margin-bottom:.7em}
+@media (max-width:820px){
+  .cuerpo{column-count:1;column-rule:none}
+  .rotulo{letter-spacing:.16em}
+  .capitular::first-letter{font-size:3.2em}
+  .destacado{font-size:1.1rem}
+}
+@media print{
+  @page{size:A4;margin:17mm 15mm}
+  body{background:#fff;color:#000;font-size:10.5pt;padding:0}
+  .lectura{display:none}
+  .hoja{max-width:none}
+  .cuerpo{column-gap:9mm}
+  .grabado .marco{aspect-ratio:16/9}
+  .destacado,.caso,.aviso,.grabado,.cierre,.pie{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .aporte{border-style:solid}
+}
+.comparativa{
+  column-span:all;margin:2rem 0;
+  border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta);
+  padding:1.2rem 0;
+}
+.comparativa .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.9em;text-align:center;
+}
+.tabla-envoltorio{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comparativa table{
+  border-collapse:collapse;width:100%;min-width:640px;
+  font-size:.92rem;text-align:left;hyphens:none;
+}
+.comparativa th,.comparativa td{
+  border-bottom:1px solid var(--linea);padding:.75em .8em;vertical-align:top;
+  line-height:1.5;
+}
+.comparativa thead th{
+  border-bottom:2px solid var(--sepia);color:var(--sepia);font-weight:400;
+  font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.comparativa tbody th{
+  color:var(--tinta);font-weight:400;font-style:italic;width:20%;
+  background:var(--papel-alt);
+}
+.comparativa .gana{color:#2f5a1f}
+.comparativa .pierde{color:#8a2f14}
+@media (max-width:820px){
+  .comparativa table{font-size:.86rem}
+}
+@media print{
+  .comparativa table{min-width:0;font-size:8.5pt}
+  .comparativa{break-inside:avoid}
+}
+
+/* ---------- BARRA SUPERIOR ----------
+   La barra de lectura y las pestanas van juntas dentro de un unico
+   contenedor pegajoso. Por separado, ambas declaraban `top:0` y se
+   superponian: las pestanas quedaban ocultas bajo la barra de lectura en
+   cuanto se desplazaba la pagina. */
+.barra-superior{
+  position:sticky;top:0;z-index:20;
+  background:var(--papel);
+  margin:0 -1.1rem;
+}
+.barra-superior .lectura{
+  position:static;margin:0;
+}
+
+/* ---------- NAVEGACION POR PESTANAS ---------- */
+.pestanas{
+  background:var(--papel);
+  border-top:1px solid var(--linea);
+  border-bottom:2px solid var(--tinta);
+  margin:0;padding:0;
+}
+.pestanas-pista{
+  display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+  max-width:1180px;margin:0 auto;padding:0 1.1rem;
+}
+.pestanas button{
+  flex:0 0 auto;
+  font-family:var(--serif);font-size:.74rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  background:none;color:var(--nota);
+  border:0;border-bottom:3px solid transparent;
+  padding:.85rem .95rem;cursor:pointer;white-space:nowrap;
+  min-height:44px;
+}
+.pestanas button:hover{color:var(--tinta);background:var(--papel-alt)}
+.pestanas button:focus-visible{outline:2px solid var(--sepia);outline-offset:-3px}
+.pestanas button[aria-selected="true"]{
+  color:var(--sepia);border-bottom-color:var(--sepia);
+}
+.seccion[hidden]{display:none}
+.seccion:focus{outline:none}
+
+/* aviso de seccion para lectores de pantalla y para imprimir */
+.marca-seccion{
+  display:none;
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);text-align:center;margin:1.5rem 0 .4rem;
+}
+
+@media (max-width:820px){
+  .pestanas button{font-size:.7rem;padding:.8rem .7rem}
+}
+
+@media print{
+  .barra-superior{display:none}
+  .seccion[hidden]{display:block !important}
+  .seccion{break-before:page}
+  .seccion:first-of-type{break-before:auto}
+  .marca-seccion{display:block}
+}
+
+
+/* ---------- CONTROL DE LECTURA ---------- */
+.identificacion{
+  column-span:all;margin:1.6rem 0 0;padding:1.1rem 1.2rem;
+  border:1px solid var(--sepia-claro);background:var(--papel-alt);
+  text-indent:0;hyphens:none;
+}
+.identificacion label{
+  display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.55em;
+}
+.identificacion input{
+  font-family:var(--serif);font-size:1rem;
+  width:100%;max-width:34ch;padding:.5em .6em;
+  border:1px solid var(--linea);border-radius:2px;
+  background:var(--papel);color:var(--tinta);
+}
+.identificacion input:focus-visible{outline:2px solid var(--sepia);outline-offset:1px}
+.identificacion .nota-id{font-size:.85rem;color:var(--nota);margin:.7em 0 0;text-indent:0}
+
+.control{
+  border:1px solid var(--sepia-claro);border-left:4px solid var(--sepia);
+  background:var(--papel-alt);
+  padding:1em 1.1em;margin:1.5em 0;
+  font-size:.95rem;text-indent:0;hyphens:none;break-inside:avoid;
+}
+.control .etiqueta{
+  display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.6em;
+}
+.control .enunciado{margin:0 0 .8em;text-indent:0;line-height:1.55}
+.control ul{list-style:none;margin:0;padding:0}
+.control li{margin:0 0 .45em}
+.control button.opcion{
+  display:block;width:100%;text-align:left;
+  font-family:var(--serif);font-size:.93rem;line-height:1.5;
+  background:var(--papel);color:var(--tinta);
+  border:1px solid var(--linea);border-radius:2px;
+  padding:.6em .75em;cursor:pointer;min-height:44px;
+}
+.control button.opcion:hover{background:#f7f1e5}
+.control button.opcion:focus-visible{outline:2px solid var(--sepia);outline-offset:1px}
+.control button.opcion[disabled]{cursor:default}
+.control button.opcion.acierto{
+  border-color:#3d5c2a;border-width:2px;background:rgba(61,92,42,.09);
+}
+.control button.opcion.fallo{
+  border-color:#8a2f14;border-width:2px;background:rgba(138,47,20,.08);
+}
+.control .respuesta{margin:.7em 0 0;font-size:.88rem;font-style:italic;color:var(--nota);text-indent:0}
+.control .respuesta b{font-style:normal;font-weight:400;color:var(--sepia)}
+.control[hidden]{display:none}
+
+/* aviso cuando aun no hay nombre */
+.control .pide-nombre{margin:0;font-size:.9rem;font-style:italic;color:var(--nota);text-indent:0}
+
+/* panel de avance y constancia */
+.avance{
+  column-span:all;margin:2rem 0 0;padding:1.3rem 1.4rem;
+  border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta);
+  text-indent:0;hyphens:none;
+}
+.avance .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.85em;text-align:center;
+}
+.avance .barra{
+  height:10px;background:var(--papel-alt);border:1px solid var(--linea);
+  margin:.6em 0;overflow:hidden;
+}
+.avance .barra i{display:block;height:100%;background:var(--sepia);width:0}
+.avance .cifras{font-size:.9rem;color:var(--nota);text-align:center;margin:.4em 0 0}
+.avance ol{margin:1em 0 0;padding-left:1.4em;font-size:.88rem;color:var(--nota)}
+.avance li{margin-bottom:.3em}
+.avance li.completa{color:var(--tinta)}
+.avance li.completa::marker{color:var(--sepia)}
+
+.constancia{margin:1.2em 0 0;padding-top:1em;border-top:1px solid var(--linea)}
+.constancia textarea{
+  font-family:ui-monospace,"Cascadia Mono","Consolas",monospace;
+  font-size:.95rem;letter-spacing:.06em;
+  width:100%;min-height:5.5em;padding:.6em;
+  border:1px solid var(--sepia-claro);border-radius:2px;
+  background:var(--papel-alt);color:var(--tinta);resize:vertical;
+}
+.constancia .acciones{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6em}
+.constancia button{
+  font-family:var(--serif);font-size:.88rem;
+  background:var(--papel-alt);color:var(--tinta);
+  border:1px solid var(--linea);border-radius:2px;
+  padding:.45rem .9rem;cursor:pointer;min-height:40px;
+}
+.constancia button:hover{background:#e8dcc7}
+.constancia button:focus-visible{outline:2px solid var(--sepia);outline-offset:2px}
+.constancia .instruccion{font-size:.88rem;color:var(--nota);margin:.2em 0 .7em;text-indent:0}
+.constancia .cierre-seccion{
+  margin:0 0 .8em;padding:.7em .85em;
+  border-left:4px solid var(--sepia);background:var(--papel-alt);
+  font-size:.92rem;text-indent:0;
+}
+.constancia code.pase{
+  display:block;margin-top:.6em;padding:.5em;
+  font-family:ui-monospace,"Cascadia Mono","Consolas",monospace;font-size:.78rem;
+  word-break:break-all;background:var(--papel);border:1px dashed var(--sepia-claro);
+}
+.constancia .aun-no{font-size:.9rem;font-style:italic;color:var(--nota);text-indent:0;margin:0}
+
+/* La version de demostracion tiene que distinguirse de un vistazo de la
+   tarea real: es la unica salvaguarda visual contra publicar por error un
+   archivo con el banco a medias. */
+.aviso-muestra{
+  margin:1.4rem 0 0;padding:.8rem 1rem;
+  border:2px solid #8a2f14;background:rgba(138,47,20,.07);color:#8a2f14;
+  font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-align:center;
+}
+.identificacion .fila{display:flex;flex-wrap:wrap;gap:1.2rem}
+.identificacion .campo{flex:1 1 16rem;min-width:0}
+.identificacion .aviso-campo{
+  display:block;font-size:.83rem;font-style:italic;color:var(--nota);margin-top:.4em;
+}
+.identificacion input[readonly]{background:var(--papel-alt);color:var(--nota)}
+.identificacion .fijada{
+  font-size:.83rem;font-style:italic;color:var(--sepia);margin:.6em 0 0;text-indent:0;
+}
+.identificacion .fijada[hidden]{display:none}
+.identificacion details{margin-top:.9em}
+.identificacion summary{
+  font-size:.83rem;color:var(--nota);cursor:pointer;
+}
+.identificacion .acciones-id{margin-top:.7em}
+.identificacion .acciones-id button{
+  font-family:var(--serif);font-size:.85rem;
+  background:var(--papel);color:#8a2f14;
+  border:1px solid #8a2f14;border-radius:2px;
+  padding:.45rem .9rem;cursor:pointer;min-height:40px;
+}
+.identificacion .acciones-id button:hover{background:rgba(138,47,20,.07)}
+.identificacion .acciones-id button:focus-visible{outline:2px solid #8a2f14;outline-offset:2px}
+.identificacion details textarea{
+  font-family:ui-monospace,"Cascadia Mono","Consolas",monospace;font-size:.8rem;
+  width:100%;min-height:4em;margin-top:.5em;padding:.5em;
+  border:1px solid var(--linea);border-radius:2px;
+  background:var(--papel);color:var(--tinta);
+}
+
+/* ---------- HOJA DE CONSTANCIA (solo al imprimir) ---------- */
+#hoja-constancia{display:none}
+.cons-carat{text-align:center;border-bottom:2px solid #000;padding-bottom:1em;margin-bottom:1.4em}
+.cons-carat h1{font-size:20pt;font-weight:400;margin:.3em 0;letter-spacing:.04em}
+.cons-inst{font-size:9pt;letter-spacing:.18em;text-transform:uppercase;margin:0}
+.cons-sub{font-size:10pt;margin:.2em 0;color:#333}
+.cons-datos,.cons-tabla{border-collapse:collapse;width:100%;margin-bottom:1.3em;font-size:10.5pt}
+.cons-datos th,.cons-datos td{border-bottom:1px solid #bbb;padding:.5em .6em;text-align:left;vertical-align:top}
+.cons-datos th{width:11em;font-weight:400;color:#555}
+.cons-tabla th,.cons-tabla td{border:1px solid #bbb;padding:.45em .6em;text-align:left}
+.cons-tabla thead th{background:#eee;font-weight:400;font-size:9.5pt;letter-spacing:.06em;text-transform:uppercase}
+.cons-tabla tfoot th{background:#f6f6f6;font-weight:400}
+.cons-grupo{color:#555;font-size:9.5pt}
+.cons-nota{font-size:14pt;text-align:center;margin:1.2em 0;padding:.6em;border:2px solid #000}
+.cons-cod{margin-top:1.4em;font-size:9.5pt;color:#333}
+.cons-cod code{
+  display:block;font-family:ui-monospace,"Consolas",monospace;font-size:10pt;
+  word-break:break-all;padding:.5em;border:1px dashed #888;margin-top:.4em;
+}
+.cons-pie{margin-top:1.2em;font-size:8.5pt;color:#555;border-top:1px solid #ccc;padding-top:.6em}
+
+@media print{
+  .identificacion,.control,.avance{display:none}
+  /* Al generar la constancia se imprime SOLO la constancia: el periodico
+     entero saldria en decenas de hojas y el estudiante subiria un PDF
+     inservible a la tarea. */
+  body.imprimiendo-constancia > *{display:none !important}
+  body.imprimiendo-constancia #hoja-constancia{display:block !important}
+  body.imprimiendo-constancia{background:#fff;color:#000}
+}
+
+
+/* --- añadidos para el Instrumento de Estudio de Derecho Internacional --- */
+.cuerpo{column-count:1;column-rule:none;max-width:820px;margin:0 auto}
+.cuerpo p + p{text-indent:0}
+h3.articulo,h3.seccion{font-size:1.05rem;margin:1.4em 0 .5em;line-height:1.3}
+h3.articulo .n{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acento,#8e1f1f)}
+.cuerpo h4{font-size:1rem;font-style:italic;margin:1.2em 0 .4em}
+aside.interpretativa,aside.docente{border-radius:4px;padding:.9em 1.1em .3em;margin:1.2em 0}
+aside.interpretativa{background:#fbf7ec;border:1px solid #d6c8a6;border-left:4px solid #a5822e}
+aside.docente{background:#eef3ee;border:1px solid #c9d8cc;border-left:4px solid #3f6b4f}
+aside .rotulo{display:block;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.2em}
+aside.interpretativa .rotulo{color:#a5822e} aside.docente .rotulo{color:#3f6b4f}
+aside .tit{display:block;font-weight:600;margin-bottom:.4em}
+.cuadro{overflow-x:auto;margin:1em 0}
+.cuadro table{border-collapse:collapse;width:100%;font-size:.88rem;line-height:1.4}
+.cuadro th,.cuadro td{border:1px solid #d6c8a6;padding:.45em .6em;vertical-align:top;text-align:left}
+.cuadro th{background:#ece3cc}
+figure.esquema,figure.lamina{margin:1.2em 0}
+figure.esquema svg,figure.lamina img{display:block;width:100%;height:auto}
+figure figcaption{font-size:.8rem;font-style:italic;color:#5b4a3a;text-align:center;margin-top:.4em}
+.instrumento{display:block;margin:.6em 0 0;font-size:.9rem}
+</style>
+<script type="application/json" id="datos-control">{"sal": "DIP-AC2-lectura-v1", "bloque": "B2", "titulo": "Autocontrol de lectura · Bloque 2", "institucion": "Universidad Católica de Cuenca", "membrete": "Derecho Internacional Público y Privado · Derecho Internacional Privado · Tercer ciclo 3A", "muestra": false, "secciones_del_bloque": 5, "nota_maxima": 15.0, "puntos_seccion": 3.0, "indice": {"origen-dipr::0": {"grupos": {"pares": {"e": "¿Qué distinguió Bartolo de Sassoferrato en su teoría de los estatutos?", "o": ["Estatutos reales, de efecto territorial, y estatutos personales, de efecto extraterritorial.", "Estatutos nacionales y estatutos internacionales.", "Estatutos públicos y estatutos privados, ambos territoriales."], "h": 2862993940}, "impares": {"e": "¿Qué ley rige los bienes según el estatuto real?", "o": ["La que elijan libremente las partes.", "La del lugar donde están (lex rei sitae).", "La de la nacionalidad del propietario."], "h": 730915979}}}, "origen-dipr::1": {"grupos": {"pares": {"e": "¿Qué principio defendió Charles Dumoulin?", "o": ["La cortesía internacional entre soberanos.", "La autonomía de la voluntad en la elección del derecho aplicable.", "El territorialismo radical: todas las costumbres son reales."], "h": 3397573431}, "impares": {"e": "¿Qué sostuvo Bertrand D’Argentré?", "o": ["Un territorialismo radical que reducía el estatuto personal a una excepción.", "La libre elección del derecho por los contratantes.", "La doctrina de los derechos adquiridos."], "h": 2616176919}}}, "origen-dipr::2": {"grupos": {"pares": {"e": "Para Huber, ¿por qué un Estado admite la aplicación del derecho extranjero?", "o": ["Por cortesía y conveniencia mutua (comitas gentium), sin lesionar sus derechos.", "Porque el derecho extranjero es siempre superior al propio.", "Porque un tratado universal lo obliga."], "h": 1636574208}, "impares": {"e": "¿Qué noción acuñaron los Voet y Huber?", "o": ["La autonomía de la voluntad.", "Los derechos adquiridos (vested rights).", "El choque de soberanías y la comitas gentium."], "h": 2557561108}}}, "origen-dipr::3": {"grupos": {"pares": {"e": "¿Qué doctrina desarrollaron Story y Dicey?", "o": ["La de los derechos adquiridos (vested rights).", "La teoría de los estatutos.", "La comitas gentium como arbitrio del juez."], "h": 1313673241}, "impares": {"e": "Según Story, ¿de quién depende la cortesía internacional?", "o": ["De las naciones (comity of nations), no del arbitrio del juez.", "Del juez de cada caso (comity of judges).", "De la Corte Internacional de Justicia."], "h": 2834508345}}}, "origen-dipr::4": {"grupos": {"pares": {"e": "¿Cuáles son los tres pilares del objeto del DIPr?", "o": ["La competencia judicial internacional, el derecho aplicable y el reconocimiento de resoluciones extranjeras.", "Los tratados, la costumbre y los principios generales.", "La soberanía, el territorio y la población."], "h": 3785839887}, "impares": {"e": "¿Qué pregunta responde la determinación del derecho aplicable?", "o": ["Qué ley, nacional o extranjera, resuelve el fondo del litigio.", "Qué juez es competente para conocer el caso.", "Si una sentencia extranjera vale en el país."], "h": 497815438}}}, "origen-dipr::5": {"grupos": {"pares": {"e": "Cuando un Estado compra suministros actuando como particular (jure gestionis), ¿qué ocurre?", "o": ["El contrato queda regido solo por el Derecho Internacional Público.", "Queda sometido al DIPr y pierde la inmunidad de jurisdicción en ese ámbito comercial.", "Conserva siempre su inmunidad absoluta."], "h": 1676626526}, "impares": {"e": "Según el art. 9 de la Constitución, las personas extranjeras en el Ecuador:", "o": ["Solo tienen derechos si poseen residencia permanente.", "Carecen de derechos civiles hasta naturalizarse.", "Tienen los mismos derechos y deberes que las ecuatorianas."], "h": 1844364337}}}, "organismos::0": {"grupos": {"pares": {"e": "¿Desde cuándo es el Ecuador Miembro de la Conferencia de La Haya (HCCH)?", "o": ["Desde 1961, con el Convenio de la Apostilla.", "Desde el 2 de noviembre de 2007.", "Desde 1928, con el Código Bustamante."], "h": 1771667407}, "impares": {"e": "¿Qué suprime el Convenio de La Haya de 1961?", "o": ["La sustracción internacional de menores.", "El cobro internacional de alimentos.", "La exigencia de legalizar los documentos públicos extranjeros (apostilla)."], "h": 441580157}}}, "organismos::1": {"grupos": {"pares": {"e": "¿Qué organismo regional impulsa las CIDIP?", "o": ["La Unión Europea.", "La Comunidad Andina.", "La Organización de los Estados Americanos (OEA)."], "h": 342005645}, "impares": {"e": "¿Cómo ratificó el Ecuador el Código Bustamante?", "o": ["Con reservas: se aplica en cuanto no se oponga a la legislación nacional.", "Nunca lo ratificó.", "Sin reservas y con rango superior a la Constitución."], "h": 1819689658}}}, "organismos::2": {"grupos": {"pares": {"e": "¿Qué instrumento de soft law formuló UNIDROIT?", "o": ["Los Principios sobre los Contratos Comerciales Internacionales.", "La Ley Modelo sobre Arbitraje Comercial Internacional.", "El Convenio de la Apostilla."], "h": 3796509921}, "impares": {"e": "¿Qué organismo es autor de la Ley Modelo sobre Arbitraje Comercial Internacional?", "o": ["La HCCH.", "UNIDROIT.", "La UNCITRAL."], "h": 909360172}}}, "tratados-dipr::0": {"grupos": {"pares": {"e": "¿Qué obligación genera la firma de un tratado según el art. 18 de la Convención de Viena?", "o": ["No frustrar el objeto y el fin del tratado.", "Cumplirlo íntegramente aunque no se haya ratificado.", "Registrarlo de inmediato en la ONU."], "h": 3864616374}, "impares": {"e": "¿Para qué sirve registrar un tratado en la Secretaría General de la ONU (art. 102 de la Carta)?", "o": ["Para que entre en vigor automáticamente.", "Para que lo apruebe la Asamblea General.", "Para garantizar la transparencia: un tratado secreto no puede invocarse ante la CIJ."], "h": 1214392940}}}, "tratados-dipr::1": {"grupos": {"pares": {"e": "¿Qué convención sostiene el reconocimiento de laudos arbitrales extranjeros?", "o": ["La Convención de Viena de 1969.", "El Código Bustamante de 1928.", "La Convención de Nueva York de 1958."], "h": 1272710450}, "impares": {"e": "¿Qué prohíbe el art. 422 de la Constitución?", "o": ["Celebrar cualquier tratado de inversiones.", "Que los jueces ecuatorianos apliquen derecho extranjero.", "Celebrar tratados que cedan jurisdicción a arbitraje internacional en controversias contractuales o comerciales con privados."], "h": 3666826465}}}, "extraterritorialidad::0": {"grupos": {"pares": {"e": "¿Qué es la extraterritorialidad en el DIPr?", "o": ["Que los diplomáticos no paguen impuestos.", "Que un Estado ocupe militarmente el territorio de otro.", "Que una norma de un Estado despliegue efectos en otro, o que un juez aplique ley extranjera."], "h": 640685183}, "impares": {"e": "Según la nota interpretativa, ¿qué pasaría sin extraterritorialidad?", "o": ["Los Estados perderían su soberanía.", "Los tratados dejarían de existir.", "El tráfico comercial transfronterizo colapsaría por falta de certeza jurídica."], "h": 3470109188}}}, "extraterritorialidad::1": {"grupos": {"pares": {"e": "¿Qué institución permite al juez rechazar una ley extranjera contraria a los valores fundamentales del foro?", "o": ["La excepción de orden público internacional.", "El reenvío de segundo grado.", "La autonomía de la voluntad."], "h": 2718712501}, "impares": {"e": "Cambiar ficticiamente de domicilio para eludir las normas imperativas propias es:", "o": ["Calificación.", "Fraude a la ley.", "Reenvío de primer grado."], "h": 1554214064}}}, "extraterritorialidad::2": {"grupos": {"pares": {"e": "¿Qué es la calificación?", "o": ["Elegir por sorteo el juez competente.", "Poner una nota a la sentencia extranjera.", "Definir la naturaleza jurídica de la situación antes de elegir la ley aplicable."], "h": 2116592121}, "impares": {"e": "Decidir si un matrimonio celebrado en el extranjero es válido antes de resolver quién hereda como cónyuge es un ejemplo de:", "o": ["Cuestión previa.", "Fraude a la ley.", "Exequátur."], "h": 53305143}}}, "derecho-extranjero::0": {"grupos": {"pares": {"e": "¿Qué criterio de conexión moderno prefiere la Conferencia de La Haya?", "o": ["El lugar de celebración del contrato.", "La residencia habitual.", "La nacionalidad."], "h": 2146353914}, "impares": {"e": "¿Qué abarca el estatuto personal?", "o": ["Los contratos comerciales internacionales.", "El estado civil, la capacidad y las relaciones de familia.", "Los bienes inmuebles de la persona."], "h": 3719550855}}}, "derecho-extranjero::1": {"grupos": {"pares": {"e": "Según el art. 15 del Código Civil, ¿qué ley rige los bienes situados en el Ecuador?", "o": ["La ley del domicilio del dueño.", "La ley que elijan las partes.", "La ley ecuatoriana, aunque sus dueños sean extranjeros."], "h": 3432648051}, "impares": {"e": "Según el Código Bustamante (arts. 27 a 35), ¿qué ley rige la capacidad de las personas?", "o": ["La ley del juez que conoce el caso.", "La ley del lugar donde está el bien.", "Su ley personal."], "h": 3016855929}}}, "derecho-extranjero::2": {"grupos": {"pares": {"e": "¿Qué tesis sobre sucesiones sigue el Código Civil ecuatoriano (art. 997)?", "o": ["La unitaria: la ley del último domicilio del causante.", "La de la nacionalidad del heredero.", "La fragmentaria: la ley del lugar de cada bien."], "h": 3566088095}, "impares": {"e": "Para los inmuebles, la tesis fragmentaria aplica:", "o": ["La ley del lugar donde están (lex rei sitae).", "La ley del último domicilio del causante.", "La ley de la nacionalidad del causante."], "h": 2643914432}}}, "derecho-extranjero::3": {"grupos": {"pares": {"e": "¿Ante qué órgano se pide el exequátur en el Ecuador según el COGEP?", "o": ["La Sala de la Corte Provincial del domicilio de la persona requerida.", "La Corte Constitucional.", "El Ministerio de Relaciones Exteriores."], "h": 3843900229}, "impares": {"e": "¿Cuál de estos es un requisito del exequátur según el instrumento?", "o": ["Que la sentencia haya sido dictada en español.", "Que el demandado sea ecuatoriano.", "Que la sentencia haya pasado en autoridad de cosa juzgada."], "h": 1398494103}}}}, "secciones": [{"pestana": "ORIGEN Y SUJETOS", "apartados": [{"id": "origen-dipr::0", "titulo": "a · Bartolo y la escuela estatutaria italiana"}, {"id": "origen-dipr::1", "titulo": "b · La escuela francesa: Dumoulin y D’Argentré"}, {"id": "origen-dipr::2", "titulo": "c · La escuela holandesa y la comitas gentium"}, {"id": "origen-dipr::3", "titulo": "d · El sistema angloamericano"}, {"id": "origen-dipr::4", "titulo": "e · Ubicación y objeto del DIPr"}, {"id": "origen-dipr::5", "titulo": "f · Los sujetos del DIPr"}]}, {"pestana": "ORGANISMOS", "apartados": [{"id": "organismos::0", "titulo": "a · La Conferencia de La Haya (HCCH)"}, {"id": "organismos::1", "titulo": "b · Las CIDIP y el Código Bustamante"}, {"id": "organismos::2", "titulo": "c · UNIDROIT y UNCITRAL"}]}, {"pestana": "TRATADOS", "apartados": [{"id": "tratados-dipr::0", "titulo": "a · Las fases del tratado"}, {"id": "tratados-dipr::1", "titulo": "b · La solución de controversias en el DIPr"}]}, {"pestana": "EXTRATERRITORIALIDAD", "apartados": [{"id": "extraterritorialidad::0", "titulo": "a · Qué es la extraterritorialidad"}, {"id": "extraterritorialidad::1", "titulo": "b · Orden público, fraude a la ley y reenvío"}, {"id": "extraterritorialidad::2", "titulo": "c · Calificación y cuestión previa"}]}, {"pestana": "DERECHO EXTRANJERO", "apartados": [{"id": "derecho-extranjero::0", "titulo": "a · El estatuto personal y los puntos de conexión"}, {"id": "derecho-extranjero::1", "titulo": "b · El Código Civil y el Código Bustamante"}, {"id": "derecho-extranjero::2", "titulo": "c · Las sucesiones internacionales"}, {"id": "derecho-extranjero::3", "titulo": "d · El exequátur"}]}]}</script>
+</head>
+<body>
+
+<div class="hoja">
+
+<header class="cabecera">
+  <hr class="filete"><hr class="filete filete--fino">
+  <h1 class="rotulo">Derecho Internacional Público y Privado · Bloque 2</h1>
+  <hr class="filete filete--fino"><hr class="filete">
+  <div class="membrete">
+    <span>Universidad Católica de Cuenca</span>
+    <span>Bloque 2 · Derecho Internacional Privado</span>
+    <span>Tercer ciclo · 3A</span>
+    <span>Sep. 2026 – Feb. 2027</span>
+  </div>
+  <hr class="filete filete--fino">
+</header>
+
+<div class="identificacion">
+  <div class="fila">
+    <div class="campo">
+      <label for="nombre-estudiante">Nombres y apellidos completos</label>
+      <input type="text" id="nombre-estudiante" autocomplete="name"
+             placeholder="Como consta en su matr&#237;cula">
+    </div>
+    <div class="campo">
+      <label for="cedula-estudiante">N&#250;mero de c&#233;dula</label>
+      <input type="text" id="cedula-estudiante" inputmode="numeric"
+             maxlength="10" autocomplete="off" placeholder="10 d&#237;gitos">
+      <span class="aviso-campo" id="aviso-cedula" role="status"></span>
+    </div>
+  </div>
+  <p class="nota-id">Al cerrar cada apartado encontrará una pregunta de control (18 en total). Su cédula decide qué variante le toca. Esta actividad es el Autocontrol del Bloque 2 (aprendizaje autónomo) y vale 15 puntos. Al terminar, descargue la constancia en PDF y súbala a la tarea del aula con su código.</p>
+  <p class="fijada" id="identidad-fijada" hidden>C&#233;dula fijada: ya hay respuestas registradas con ella.</p>
+  <details>
+    <summary>&#191;Perdi&#243; su avance, o necesita empezar de nuevo?</summary>
+    <label for="restaurar-avance">Pegue aqu&#237; el texto que empieza por RESPALDO</label>
+    <textarea id="restaurar-avance" placeholder="RESPALDO|..."></textarea>
+    <span class="aviso-campo" id="aviso-restaurar" role="status"></span>
+    <div class="acciones-id">
+      <button type="button" id="reiniciar-control">Empezar de nuevo (borra mi avance en este navegador)</button>
+    </div>
+  </details>
+</div>
+</div>
+
+<div class="barra-superior">
+  <nav class="lectura" aria-label="Ajustes de lectura">
+    <span>Lectura</span>
+    <button type="button" onclick="escala(-1)" aria-label="Reducir el tama&#241;o del texto">A&minus;</button>
+    <button type="button" onclick="escala(0)" aria-label="Tama&#241;o de texto normal">A</button>
+    <button type="button" onclick="escala(1)" aria-label="Aumentar el tama&#241;o del texto">A+</button>
+    <button type="button" onclick="document.body.classList.toggle('contraste')">Alto contraste</button>
+    <button type="button" onclick="document.body.classList.toggle('unacol')">Una columna</button>
+  </nav>
+  <nav class="pestanas" aria-label="Secciones del bloque">
+    <div class="pestanas-pista" role="tablist" aria-label="Secciones del bloque">
+      <button type="button" role="tab" id="tab-origen-dipr" aria-controls="origen-dipr" aria-selected="true" tabindex="0">ORIGEN Y SUJETOS</button>
+      <button type="button" role="tab" id="tab-organismos" aria-controls="organismos" aria-selected="false" tabindex="-1">ORGANISMOS</button>
+      <button type="button" role="tab" id="tab-tratados-dipr" aria-controls="tratados-dipr" aria-selected="false" tabindex="-1">TRATADOS</button>
+      <button type="button" role="tab" id="tab-extraterritorialidad" aria-controls="extraterritorialidad" aria-selected="false" tabindex="-1">EXTRATERRITORIALIDAD</button>
+      <button type="button" role="tab" id="tab-derecho-extranjero" aria-controls="derecho-extranjero" aria-selected="false" tabindex="-1">DERECHO EXTRANJERO</button>
+    </div>
+  </nav>
+</div>
+
+<div class="hoja">
+<section class="seccion" id="origen-dipr" role="tabpanel" aria-labelledby="tab-origen-dipr" tabindex="0">
+  <p class="marca-seccion">ORIGEN Y SUJETOS</p>
+  <p class="antetitulo">Capítulo I · Subtemas 2.1.1 y 2.1.2</p>
+  <p class="titular">Antecedentes Históricos del Derecho Internacional, Conceptos y División</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque II y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b2/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · Bartolo y la escuela estatutaria italiana</h2>
+<p>El origen del DIPr responde a la necesidad histórica de dar respuesta a los conflictos de leyes en el espacio originados por el libre tránsito de personas y el intercambio de mercancías. Aunque en la Antigüedad romana existían instituciones como el <em>Praetor Peregrinus</em> y el <em>Ius Gentium</em> para resolver disputas entre ciudadanos y extranjeros (Dávalos, 2006), la verdadera génesis científica de la disciplina se consolida con la <strong>Escuela Estatutaria</strong> a partir del siglo XIII en el norte de Italia.</p>
+<h3 class="articulo" id="art-2-1-1"><span class="n">Artículo 2.1.1</span>Origen, Ubicación y Objeto del Derecho Internacional Privado</h3>
+<h4>1. La Escuela Estatutaria Italiana (Siglo XIII–XV)</h4><p>En el norte de Italia, ciudades-estado independientes como Bolonia, Florencia, Venecia y Génova compartían el Derecho Romano como tronco común, pero dictaban sus propios estatutos y costumbres locales. Ante las colisiones normativas entre distintas ciudades, surge <strong>Bartolo de Sassoferrato (1314–1357)</strong>, sistematizador de la «Teoría de los Estatutos». Bartolo distinguió dos grandes categorías normativas:</p><ul><li>Estatutos Reales (bienes): Tienen efecto estrictamente territorial (lex rei sitae). Rigen donde se ubican las cosas.</li><li>Estatutos Personales (personas, capacidad, estado civil): Acompañan al individuo a donde quiera que vaya, teniendo efecto extraterritorial.</li><li>En materia de contratos, Bartolo distinguió la forma de celebración (gobernada por el locus regit actum) de sus efectos y de las consecuencias especiales como la mora, sujetas a la lex fori (Biggs, 1956).</li></ul>
+<aside class="interpretativa"><span class="rotulo">Nota interpretativa</span><span class="tit">Los Edificios y los Pasaportes Jurídicos</span><p><em>Imaginemos que cada estatuto real es como un edificio anclado al suelo: no puede moverse de su ciudad. En cambio, el estatuto personal es como el pasaporte del individuo: una vestimenta jurídica que la persona lleva sobre sus hombros sin importar qué frontera cruce.</em></p></aside>
+<figure class="lamina"><img src="../recursos/laminas/b2-bolonia.jpg" alt="Lámina. Un jurista enseña en la Bolonia medieval, cuna de la teoría de los estatutos." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>Lámina. Un jurista enseña en la Bolonia medieval, cuna de la teoría de los estatutos.</figcaption></figure>
+  <div class="control" data-control="origen-dipr::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · La escuela francesa: Dumoulin y D’Argentré</h2>
+<h4>2. La Escuela Estatutaria Francesa (Siglo XVI)</h4><p>En la Francia feudal del siglo XVI convivían dos tradiciones: el Sur romanista (universalista) y el Norte consuetudinario (territorialista). En este escenario destacan dos grandes juristas de postulados opuestos:</p><ul><li><strong>Charles Dumoulin (1500–1566):</strong> Defensor de la <strong>Autonomía de la Voluntad</strong>. Dumoulin sostuvo que los contratantes tienen la libertad de elegir el derecho aplicable a sus negocios mercantiles (Andrade &amp; Fernández, 2006). Esta elección puede ser expresa o tácita, caso en el cual el juez presumirá el estatuto que las partes habrían elegido (Aranguren, 1975).</li><li><strong>Bertrand D’Argentré (1519–1590):</strong> Aristócrata bretón que impulsó un territorialismo radical («todas las costumbres son reales»), reduciendo el estatuto personal a una rara excepción para proteger la soberanía local frente a leyes foráneas.</li></ul>
+  <div class="control" data-control="origen-dipr::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · La escuela holandesa y la comitas gentium</h2>
+<h4>3. La Escuela Flamenco-Holandesa (Siglo XVII) y la Comitas Gentium</h4><p>En las Provincias Unidas de Holanda, tras la independencia, floreció un comercio internacional vigoroso. Juristas como <strong>Pablo Voet, Juan Voet y Ulrico Huber (1636–1694)</strong> acuñaron la noción del choque de soberanías y postularon la <strong>Comitas Gentium</strong> (cortesía internacional). Para Huber, las leyes de un Estado solo reinan dentro de sus fronteras; sin embargo, los soberanos, por pura cortesía y conveniencia mutua, admiten la aplicación del derecho extranjero siempre que no se lesionen los derechos ni el poder del Estado receptor (Fernández Arroyo &amp; Moreno Rodríguez, 2016).</p>
+  <div class="control" data-control="origen-dipr::2" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>d · El sistema angloamericano</h2>
+<h4>4. El Sistema Anglo-Americano (Siglos XIX–XX)</h4><p>Influenciados por Huber, juristas como <strong>Joseph Story (1779–1845)</strong> en Estados Unidos y <strong>Albert Venn Dicey (1835–1922)</strong> en Inglaterra desarrollaron la doctrina de los <strong>Derechos Adquiridos (Vested Rights)</strong>. Story precisó que la cortesía no depende del arbitrio del juez (Comity of Judges), sino de las naciones (Comity of Nations), reconciliando la soberanía territorial con el reconocimiento de derechos subjetivos legítimamente creados en el extranjero.</p>
+  <div class="control" data-control="origen-dipr::3" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>e · Ubicación y objeto del DIPr</h2>
+<h4>Ubicación y Objeto del Derecho Internacional Privado</h4>
+<p>El DIPr se ubica en la intersección entre el derecho interno y el ordenamiento internacional, constituyendo una rama transnacional y facilitadora. Su objeto esencial comprende tres grandes pilares normativos (Font i Segura et al., 2019), que muestra el Esquema 1:</p><ol class="lista"><li><strong>Determinación de la Competencia Judicial Internacional (CJI):</strong> Identifica qué juez o tribunal estatal está facultado para conocer una controversia transfronteriza.</li><li><strong>Determinación del Derecho Aplicable (Conflicto de Leyes):</strong> Selecciona la norma sustantiva (nacional o extranjera) que resolverá el fondo del litigio.</li><li><strong>Reconocimiento y Ejecución de Resoluciones Extranjeras (Exequátur):</strong> Fija los cauces para que una sentencia o laudo arbitral dictado en un país produzca plenos efectos jurídicos en otro.</li></ol>
+<figure class="esquema"><svg viewBox="0 0 720 210" role="img" aria-label="Los tres pilares del objeto del DIPr" font-family="EB Garamond, Georgia, serif">
+<g font-size="16" fill="#2a2018" text-anchor="middle">
+<rect x="10" y="40" width="210" height="120" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/>
+<text x="115" y="30" font-size="13" fill="#8e1f1f" letter-spacing="2">1 · ¿QUÉ JUEZ?</text>
+<text x="115" y="88" font-weight="600">Competencia judicial</text><text x="115" y="110" font-weight="600">internacional</text>
+<rect x="255" y="40" width="210" height="120" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/>
+<text x="360" y="30" font-size="13" fill="#8e1f1f" letter-spacing="2">2 · ¿QUÉ LEY?</text>
+<text x="360" y="88" font-weight="600">Derecho aplicable</text><text x="360" y="110" font-weight="600">(conflicto de leyes)</text>
+<rect x="500" y="40" width="210" height="120" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/>
+<text x="605" y="30" font-size="13" fill="#8e1f1f" letter-spacing="2">3 · ¿VALE AQUÍ?</text>
+<text x="605" y="88" font-weight="600">Reconocimiento y</text><text x="605" y="110" font-weight="600">ejecución (exequátur)</text>
+<path d="M220 100 H253" stroke="#a5822e" stroke-width="2" marker-end="url(#fp)"/><path d="M465 100 H498" stroke="#a5822e" stroke-width="2" marker-end="url(#fp)"/>
+<text x="360" y="196" font-size="15" font-style="italic" fill="#5b4a3a">Toda situación privada con elemento extranjero se resuelve con estas tres preguntas, en este orden</text>
+</g>
+<defs><marker id="fp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#a5822e"/></marker></defs>
+</svg><figcaption>Esquema 1. Las tres preguntas del Derecho Internacional Privado.</figcaption></figure>
+  <div class="control" data-control="origen-dipr::4" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>f · Los sujetos del DIPr</h2>
+<h3 class="articulo" id="art-2-1-2"><span class="n">Artículo 2.1.2</span>Sujetos del Derecho Internacional Privado</h3>
+<p>Los sujetos del DIPr son los actores que intervienen en relaciones jurídicas privadas internacionales. A diferencia del DIP clásico, el protagonismo estelar pertenece a los particulares, aunque la nómina de sujetos es amplia y diversa:</p>
+<ul>
+  <li><strong>Personas Físicas / Naturales: </strong>Ciudadanos que trasladan su residencia, contraen matrimonio, adquieren bienes o trabajan transfronterizamente.</li>
+  <li><strong>Personas Jurídicas Privadas: </strong>Empresas multinacionales y sociedades comerciales que celebran contratos de importación/exportación o inversión.</li>
+  <li><strong>Los Estados como Entes Privados (Jure Gestionis): </strong>Cuando un Estado celebra un contrato de arrendamiento o compra suministros actuando como particular, queda sometido al DIPr y pierde inmunidad de jurisdicción comercial.</li>
+  <li><strong>Organizaciones Internacionales: </strong>Entidades que contratan servicios o expiden normativas con impacto transnacional (p. ej., protección de datos en la UE).</li>
+  <li><strong>Particulares con Estatuto Especial: </strong>Diplomáticos, cónsules o refugiados que gozan de regímenes especiales de inmunidad o protección civil.</li>
+  <li><strong>Consumidores y Trabajadores en Entornos Digitales: </strong>Sujetos débiles en contratos de comercio electrónico transfronterizo que exigen normas de protección específica.</li>
+</ul>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">La persona extranjera en el Ecuador</span><p>La condición jurídica de las personas extranjeras es el punto de partida de muchos casos de DIPr. La Constitución dispone que las personas extranjeras que se encuentran en el territorio ecuatoriano tienen los mismos derechos y deberes que las ecuatorianas (art. 9). La desarrolla la <strong>Ley Orgánica de Movilidad Humana</strong> (2017), que regula las categorías migratorias (visitantes, residencia temporal y permanente), la protección internacional (refugio y apatridia) y los derechos de las personas ecuatorianas en el exterior, bajo los principios de ciudadanía universal y libre movilidad.</p></aside>
+  <div class="control" data-control="origen-dipr::5" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="organismos" role="tabpanel" aria-labelledby="tab-organismos" tabindex="0" hidden>
+  <p class="marca-seccion">ORGANISMOS</p>
+  <p class="antetitulo">Capítulo II · Subtema 2.2</p>
+  <p class="titular">Organismos del Derecho Internacional Privado</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque II y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b2/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · La Conferencia de La Haya (HCCH)</h2>
+<p>Debido a la dispersión de las legislaciones nacionales, la armonización del DIPr requiere la intervención de foros codificadores e instituciones internacionales especializadas que elaboran convenios, leyes modelo y principios jurídicos universales:</p>
+<h3 class="seccion">1. La Conferencia de La Haya de Derecho Internacional Privado (HCCH)</h3>
+<p>Es el principal foro mundial para la unificación de las reglas de conflicto y cooperación procesal. El Ecuador es Miembro de la HCCH desde el 2 de noviembre de 2007 y es Parte en seis instrumentos de La Haya:</p><ul><li>Convenio de 5 de octubre de 1961 suprimiendo la exigencia de legalización de documentos públicos extranjeros (<strong>Convenio de la Apostilla</strong>).</li><li>Convenio de 25 de octubre de 1980 sobre Aspectos Civiles de la Sustracción Internacional de Menores.</li><li>Convenio de 29 de mayo de 1993 relativo a la Protección del Niño y Cooperación en Materia de Adopción Internacional.</li><li>Convenio de 19 de octubre de 1996 sobre Responsabilidad Parental y Medidas de Protección de Niños.</li><li>Convenio de 23 de noviembre de 2007 sobre Cobro Internacional de Alimentos para Niños y Familia.</li><li>Protocolo de 23 de noviembre de 2007 sobre la Ley Aplicable a las Obligaciones Alimenticias.</li></ul>
+  <div class="control" data-control="organismos::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · Las CIDIP y el Código Bustamante</h2>
+<h3 class="seccion">2. Las Conferencias Especializadas Interamericanas (CIDIP / OEA)</h3>
+<p>A nivel regional, la Organización de Estados Americanos (OEA), a través del Comité Jurídico Interamericano y las CIDIP, ha impulsado 26 instrumentos interamericanos (convenciones, protocolos, documentos uniformes y una ley modelo) para armonizar el DIPr en las Américas, complementando la tradición del histórico <strong>Código Sánchez de Bustamante de 1928</strong>.</p>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">El Código Bustamante en el Ecuador</span><p>El Ecuador ratificó el Código Sánchez de Bustamante con reservas. Por eso el juez ecuatoriano lo aplica en las relaciones con los demás Estados parte en la medida en que no se oponga a la legislación nacional, y acude primero al Código Civil y a los convenios más recientes (La Haya, CIDIP) cuando regulan la misma materia.</p></aside>
+  <div class="control" data-control="organismos::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · UNIDROIT y UNCITRAL</h2>
+<h3 class="seccion">3. UNIDROIT y UNCITRAL (Soft Law y Contratos Comerciales)</h3>
+<p>El Instituto Internacional para la Unificación del Derecho Privado (<strong>UNIDROIT</strong>) ha formulado los célebres <strong>Principios UNIDROIT sobre los Contratos Comerciales Internacionales</strong>, consagrando la plena libertad de contratación y la buena fe transnacional. Asimismo, en colaboración con el American Law Institute (ALI), promulgó los Principios ALI/UNIDROIT del Proceso Civil Transnacional. Por su parte, la Comisión de las Naciones Unidas para el Derecho Mercantil Internacional (<strong>UNCITRAL</strong>) destaca por la Ley Modelo sobre Arbitraje Comercial Internacional y las normas de comercio electrónico.</p>
+  <div class="control" data-control="organismos::2" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="tratados-dipr" role="tabpanel" aria-labelledby="tab-tratados-dipr" tabindex="0" hidden>
+  <p class="marca-seccion">TRATADOS</p>
+  <p class="antetitulo">Capítulo III · Subtema 2.3</p>
+  <p class="titular">El Derecho: Elaboración, Procedimiento de Negociación, Aprobación, Ratificación, Registro y Publicación de los Tratados Internacionales</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque II y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b2/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · Las fases del tratado</h2>
+<p>Los tratados internacionales constituyen la fuente primaria del DIPr, gozando de primacía sobre las leyes internas en el ordenamiento ecuatoriano (Art. 425 de la Constitución de la República). El procedimiento formal de los tratados se rige por las Convenciones de Viena de 1969 y 1986 y comprende las siguientes etapas secuenciales:</p>
+<div class="cuadro"><table>
+<tr><th><strong>Fase del Tratado</strong></th><th><strong>Descripción y Alcance Jurídico en DIPr</strong></th></tr>
+<tr><td><strong>1. Negociación y Adopción</strong></td><td>Fase inicial donde delegados plenipotenciarios redactan y convienen el texto en foros bilaterales o multilaterales (ej. Conferencia de La Haya).</td></tr>
+<tr><td><strong>2. Autenticación y Firma</strong></td><td>El texto se fija como definitivo. La firma manifiesta la intención de vincularse y genera la obligación de no frustrar el objeto y fin del tratado (art. 18 Convención de Viena).</td></tr>
+<tr><td><strong>3. Aprobación Interna</strong></td><td>Trámite constitucional dentro del Estado. En Ecuador requiere dictamen previo de la Corte Constitucional y aprobación de la Asamblea Nacional cuando versa sobre materia civil/comercial o DD.HH.</td></tr>
+<tr><td><strong>4. Ratificación o Adhesión</strong></td><td>Acto soberano mediante el cual el Ejecutivo confirma el consentimiento definitivo del Estado en obligarse internacionalmente.</td></tr>
+<tr><td><strong>5. Registro y Publicación</strong></td><td>El depósito en la Secretaría General de la ONU (art. 102 Carta ONU) garantiza la transparencia e impide invocar tratados secretos ante la CIJ.</td></tr>
+<tr><td><strong>6. Entrada en Vigor</strong></td><td>Momento en que el tratado adquiere plena exigibilidad jurídica, tras cumplirse el número requerido de ratificaciones.</td></tr>
+</table></div>
+  <div class="control" data-control="tratados-dipr::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · La solución de controversias en el DIPr</h2>
+<h3 class="seccion">Mecanismos de Solución de Controversias en el DIPr</h3>
+<p>En el DIPr, la resolución de controversias combina el acceso a los tribunales estatales con vías alternativas de alta eficacia:</p><ul><li><strong>Cláusulas de Selección de Foro:</strong> Pacto por el cual las partes someten sus litigios a la jurisdicción de un tribunal específico.</li><li><strong>Arbitraje Comercial Internacional:</strong> Método por excelencia para dirimir conflictos mercantiles. Basado en la autonomía privada, la 'deslocalización' y la Convención de Nueva York de 1958 sobre Reconocimiento de Laudos Arbitrales Extranjeros (Fernández Rozas, 2007).</li><li><strong>Arbitraje de Inversiones (APPRI/CIADI):</strong> Modalidad transnacional unilateral donde un inversor privado demanda a un Estado sobre la base de un Tratado Bilateral de Inversiones.</li></ul>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">El arbitraje de inversiones y la Constitución ecuatoriana</span><p>El art. 422 de la Constitución prohíbe celebrar tratados en los que el Estado ceda jurisdicción soberana a instancias de arbitraje internacional en controversias contractuales o comerciales con personas naturales o jurídicas privadas. El tema sigue abierto: el Ecuador volvió al Convenio del CIADI en 2021 y, en la consulta popular del 21 de abril de 2024, el electorado rechazó reconocer el arbitraje internacional para esas controversias.</p></aside>
+  <div class="control" data-control="tratados-dipr::1" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="extraterritorialidad" role="tabpanel" aria-labelledby="tab-extraterritorialidad" tabindex="0" hidden>
+  <p class="marca-seccion">EXTRATERRITORIALIDAD</p>
+  <p class="antetitulo">Capítulo IV · Subtema 2.4</p>
+  <p class="titular">Extraterritorialidad del Derecho Internacional Privado</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque II y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b2/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · Qué es la extraterritorialidad</h2>
+<p>La <strong>extraterritorialidad</strong> es el fenómeno jurídico en virtud del cual una norma dictada por un Estado despliega sus efectos dentro del territorio de otro Estado, o un juez nacional aplica leyes foráneas para resolver un caso litigioso (Balestra, 1990). Este fenómeno supera la antigua doctrina de la territorialidad absoluta e intransigente.</p>
+<aside class="interpretativa"><span class="rotulo">Nota interpretativa</span><span class="tit">El Puente de Reconocimiento entre Soberanías</span><p><em>La extraterritorialidad es la puerta de enlace del comercio internacional. Si un Estado exigiera que todos los contratos, matrimonios y capacidades de los extranjeros se juzguen únicamente con su ley local sin reconocer lo actuado en su país de origen, el tráfico comercial transfronterizo colapsaría por falta de certeza jurídica.</em></p></aside>
+  <div class="control" data-control="extraterritorialidad::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · Orden público, fraude a la ley y reenvío</h2>
+<h4>Límites a la Extraterritorialidad (Mecanismos de Salvaguardia):</h4>
+<ul>
+  <li><strong>La Excepción de Orden Público Internacional: </strong>Permite al juez del foro (lex fori) rechazar la aplicación de una ley extranjera o el reconocimiento de una sentencia foránea cuando contraviene de forma manifiesta los valores constitucionales y principios morales fundamentales del Estado receptor (Font i Segura et al., 2019).</li>
+  <li><strong>El Fraude a la Ley (Fraus Legis): </strong>Sanciona la manipulación artificiosa de los puntos de conexión (ej. cambiar ficticiamente de domicilio o nacionalidad) con el propósito malicioso de eludir las normas imperativas del propio Estado (Silva Silva, 2015).</li>
+  <li><strong>El Reenvío: </strong>Surge cuando la norma de conflicto del foro remite al derecho extranjero, pero la norma conflictual extranjera devuelve la competencia al juez nacional (reenvío de primer grado) o la remite a un tercer Estado (reenvío de segundo grado).</li>
+</ul>
+<figure class="esquema"><svg viewBox="0 0 720 250" role="img" aria-label="Reenvío de primer y de segundo grado" font-family="EB Garamond, Georgia, serif">
+<g font-size="16" fill="#2a2018" text-anchor="middle">
+<text x="180" y="24" font-size="18" font-weight="600">Reenvío de primer grado</text>
+<rect x="20" y="60" width="120" height="56" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/><text x="80" y="93">Estado A (foro)</text>
+<rect x="220" y="60" width="120" height="56" rx="4" fill="#fbf7ec" stroke="#a5822e"/><text x="280" y="93">Estado B</text>
+<path d="M140 74 H218" stroke="#8e1f1f" stroke-width="2" marker-end="url(#fr)"/>
+<path d="M220 104 H142" stroke="#a5822e" stroke-width="2" marker-end="url(#fr2)"/>
+<text x="180" y="150" font-size="14" font-style="italic" fill="#5b4a3a">A remite a B; la norma de conflicto de B</text><text x="180" y="168" font-size="14" font-style="italic" fill="#5b4a3a">devuelve el caso a la ley de A</text>
+<text x="540" y="24" font-size="18" font-weight="600">Reenvío de segundo grado</text>
+<rect x="390" y="60" width="96" height="56" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/><text x="438" y="93">A (foro)</text>
+<rect x="506" y="60" width="96" height="56" rx="4" fill="#fbf7ec" stroke="#a5822e"/><text x="554" y="93">B</text>
+<rect x="622" y="60" width="90" height="56" rx="4" fill="#fbf7ec" stroke="#a5822e"/><text x="667" y="93">C</text>
+<path d="M486 88 H504" stroke="#8e1f1f" stroke-width="2" marker-end="url(#fr)"/><path d="M602 88 H620" stroke="#a5822e" stroke-width="2" marker-end="url(#fr2)"/>
+<text x="550" y="150" font-size="14" font-style="italic" fill="#5b4a3a">A remite a B; B remite a un tercer Estado C</text>
+<text x="360" y="230" font-size="15" fill="#5b4a3a">El juez debe decidir si acepta el reenvío o aplica directamente el derecho material de B</text>
+</g>
+<defs><marker id="fr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8e1f1f"/></marker>
+<marker id="fr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#a5822e"/></marker></defs>
+</svg><figcaption>Esquema 2. El reenvío de primer y de segundo grado.</figcaption></figure>
+  <div class="control" data-control="extraterritorialidad::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · Calificación y cuestión previa</h2>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">Dos problemas previos que el juez resuelve antes de aplicar la ley extranjera</span><ul><li><strong>La calificación.</strong> Antes de elegir la ley aplicable, el juez debe definir la naturaleza jurídica de la situación: si es un problema de capacidad, de forma, de régimen de bienes o de sucesión. Por regla general califica con su propio derecho (<em>lex fori</em>).</li><li><strong>La cuestión previa (o incidental).</strong> Ocurre cuando la cuestión principal depende de otra que debe resolverse primero. Por ejemplo, para decidir quién hereda como cónyuge hay que saber antes si el matrimonio celebrado en el extranjero es válido. El juez decide qué ley rige esa cuestión previa.</li></ul></aside>
+  <div class="control" data-control="extraterritorialidad::2" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="derecho-extranjero" role="tabpanel" aria-labelledby="tab-derecho-extranjero" tabindex="0" hidden>
+  <p class="marca-seccion">DERECHO EXTRANJERO</p>
+  <p class="antetitulo">Capítulo V · Subtema 2.5</p>
+  <p class="titular">Aplicación del Derecho Extranjero</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque II y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b2/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · El estatuto personal y los puntos de conexión</h2>
+<p>Cuando las reglas de conflicto del DIPr señalan que el fondo del litigio debe ser resuelto por una norma extranjera, la doctrina procesal analiza dos instituciones capitales: el estatuto personal y el exequátur.</p>
+<h3 class="seccion">1. El Estatuto Personal y los Puntos de Conexión</h3>
+<p>El estatuto personal abarca el estado civil, la capacidad jurídica y de obrar, y las relaciones de familia de la persona. Para determinar qué ley personal rige a un individuo, la evolución histórica ha consagrado tres criterios de conexión:</p><ul><li><strong>Nacionalidad:</strong> Vínculo político-jurídico con el Estado de origen. Predominó en el siglo XIX (Codificación Napoleónica).</li><li><strong>Domicilio:</strong> Asiento legal donde la persona reside con ánimo de permanencia.</li><li><strong>Residencia Habitual:</strong> Criterio moderno adoptado por la Conferencia de La Haya por su realismo y efectividad para evitar supuestos de apatridia o doble nacionalidad.</li></ul>
+  <div class="control" data-control="derecho-extranjero::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · El Código Civil y el Código Bustamante</h2>
+<h4>Aplicación en el Código Civil Ecuatoriano y Código Sánchez de Bustamante</h4>
+<p>El Código Civil del Ecuador consagra reglas conflictuales clave:</p><ul><li><strong>Bienes (Art. 15):</strong> «Los bienes situados en el Ecuador están sujetos a las leyes ecuatorianas, aunque sus dueños sean extranjeros y residan en otra nación» (Principio de lex rei sitae).</li><li><strong>Matrimonio Extranjero (Art. 91 y 104):</strong> El matrimonio celebrado en el extranjero conforme a sus leyes surte plenos efectos en el Ecuador, salvo violación del orden público o nulidades insubsanables.</li><li><strong>Contratos y Capacidad (Arts. 16, 17, 1453 y 1461):</strong> Se exige capacidad legal, consentimiento no viciado, objeto y causa lícita, aplicando la ley del lugar de celebración (locus regit actum) combinada con la autonomía de la voluntad en los pactos comerciales.</li></ul>
+<p>Por su parte, el <strong>Código Sánchez de Bustamante</strong> (Arts. 27 a 35) dispone que la capacidad de las personas se rige por su ley personal y el reconocimiento de personas jurídicas por la ley territorial.</p>
+  <div class="control" data-control="derecho-extranjero::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · Las sucesiones internacionales</h2>
+<h3 class="seccion">2. Régimen de Sucesiones Internacionales</h3>
+<p>La transmisión mortis causa con elementos transfronterizos enfrenta dos doctrinas contrapuestas:</p><ul><li><strong>Tesis Unitaria:</strong> Somete toda la sucesión a una sola ley (la ley del último domicilio o nacionalidad del causante / de cujus), garantizando la unidad del haber hereditario.</li><li><strong>Tesis Fragmentaria (o de la Pluralidad):</strong> Aplica la ley del lugar de ubicación de cada bien (lex rei sitae) para los inmuebles, y la ley personal para los muebles.</li></ul>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">¿Qué tesis sigue el Ecuador?</span><p>La <strong>unitaria</strong>. Según el art. 997 del Código Civil, la sucesión se abre en el último domicilio del causante y se rige por la ley de ese domicilio, salvo las excepciones legales. Una de ellas protege a los herederos ecuatorianos frente a la sucesión de una persona que fallece en el extranjero.</p></aside>
+  <div class="control" data-control="derecho-extranjero::2" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>d · El exequátur</h2>
+<h3 class="seccion">3. El Reconocimiento y Ejecución de Sentencias Extranjeras (Exequátur)</h3>
+<p>El <strong>Exequátur</strong> es el procedimiento de homologación mediante el cual el tribunal del foro verifica que una sentencia firme dictada por un juez extranjero cumple con los requisitos formales y sustanciales para ser ejecutada localmente. En Ecuador, el Código Orgánico General de Procesos (COGEP) exige comprobar: 1) Que la sentencia no contravenga el orden público; 2) Que haya pasado en autoridad de cosa juzgada; y 3) Que se haya garantizado el debido proceso y el derecho a la defensa de las partes.</p>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">Cómo se pide el exequátur en el Ecuador</span><p>El COGEP (arts. 102 a 105) regula el reconocimiento de sentencias, laudos arbitrales y actas de mediación expedidos en el extranjero. Se solicita ante la Sala de la Corte Provincial del domicilio de la persona requerida. Además de lo anterior, la resolución debe reunir las formalidades que la hagan auténtica en su Estado de origen, estar apostillada o legalizada y, si hace falta, traducida. El juez verifica también que se citó legalmente a la parte demandada y que el asunto no sea de competencia exclusiva de los jueces ecuatorianos. Con el Convenio de la Apostilla de 1961, la legalización consular ya no es necesaria entre los Estados parte.</p></aside>
+  <div class="control" data-control="derecho-extranjero::3" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+
+<div class="avance">
+  <span class="etiqueta">Su avance y su nota</span>
+  <div class="barra"><i></i></div>
+  <p class="cifras"></p>
+  <ol><li></li><li></li><li></li><li></li><li></li></ol>
+  <div class="constancia"></div>
+</div>
+</div>
+<div id="hoja-constancia" aria-hidden="true"></div>
+<script>
+var nivel = 0;
+function escala(d){
+  nivel = d === 0 ? 0 : Math.max(-1, Math.min(4, nivel + d));
+  document.documentElement.style.setProperty('--escala', (1 + nivel * 0.12).toFixed(2));
+}
+var css = document.createElement('style');
+css.textContent = '.unacol .cuerpo{column-count:1;column-rule:none}';
+document.head.appendChild(css);
+
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var paneles = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  if (!tabs.length) return;
+
+  function activar(i, mover, marcarUrl){
+    for (var j = 0; j < tabs.length; j++) {
+      var sel = j === i;
+      tabs[j].setAttribute('aria-selected', sel ? 'true' : 'false');
+      tabs[j].tabIndex = sel ? 0 : -1;
+      paneles[j].hidden = !sel;
+    }
+    if (mover) {
+      tabs[i].focus();
+      if (tabs[i].scrollIntoView) tabs[i].scrollIntoView({block:'nearest', inline:'nearest'});
+    }
+    // Abierto con file:// hay navegadores que rechazan replaceState. Si
+    // fallara sin proteger, la excepcion cortaria el manejador y las
+    // pestanas dejarian de responder: la navegacion importa mas que la URL.
+    if (marcarUrl && window.history && history.replaceState) {
+      try { history.replaceState(null, '', '#' + paneles[i].id); } catch (e) {}
+    }
+  }
+
+  for (var k = 0; k < tabs.length; k++) {
+    (function(i){
+      tabs[i].addEventListener('click', function(){
+        activar(i, false, true);
+        window.scrollTo(0, 0);
+      });
+      tabs[i].addEventListener('keydown', function(e){
+        var d = e.key === 'ArrowLeft' ? -1 : (e.key === 'ArrowRight' ? 1 : 0);
+        if (d) { e.preventDefault(); activar((i + d + tabs.length) % tabs.length, true, true); }
+        else if (e.key === 'Home') { e.preventDefault(); activar(0, true, true); }
+        else if (e.key === 'End') { e.preventDefault(); activar(tabs.length - 1, true, true); }
+      });
+    })(k);
+  }
+
+  // Enlace directo a una seccion concreta: archivo.html#ancla
+  if (location.hash) {
+    for (var m = 0; m < paneles.length; m++) {
+      if ('#' + paneles[m].id === location.hash) { activar(m, false, false); break; }
+    }
+  }
+})();
+
+/* ---------- CONTROL DE LECTURA ---------- */
+(function(){
+  var nodo = document.getElementById('datos-control');
+  if (!nodo) return;
+  var BANCO = JSON.parse(nodo.textContent);
+  var SAL = BANCO.sal;
+  /* La clave lleva version de esquema Y marca de muestra. Sin lo primero, un
+     avance guardado por una version anterior del material se cuela en la
+     nueva; sin lo segundo, probar la demostracion contamina el avance real de
+     la tarea. Ambas cosas ya pasaron una vez. */
+  var CLAVE = 'control-lectura::' + BANCO.bloque + '::dipyp-v1'
+            + (BANCO.muestra ? '::muestra' : '');
+  var TOPE = BANCO.nota_maxima;
+  /* Una lectura formativa declara sin_nota en el banco: no muestra nota ni
+     puntos y no emite constancia. Conserva el avance y el pase. */
+  var SIN_NOTA = !!BANCO.sin_nota;
+  /* ---------- redondeo de la nota (regla tomada de Derecho Mercantil) ----------
+     El docente califica en medios puntos y la nota informada sube SIEMPRE al
+     medio punto inmediato superior: 12,10 se informa 12,5 y 14,23 se informa
+     14,5. Nunca baja, y nunca pasa del tope. El epsilon evita que un 14,5
+     exacto, guardado como 14,499999 por la aritmetica de coma flotante, suba
+     a 15. */
+  function mediaPuntoArriba(n){
+    var r = Math.ceil(n * 2 - 1e-9) / 2;
+    if (r < 0) r = 0;
+    return Math.min(TOPE, r);
+  }
+  /* Para mostrarla: sin ceros de relleno. 14,5 y 14, no 14,50 ni 14,00. */
+  function fmtNota(n){
+    return String(Math.round(n * 2) / 2);
+  }
+
+  var PUNTOS_SECCION = BANCO.puntos_seccion; // 1 por seccion
+
+  function djb2(s){
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h * 33) + s.charCodeAt(i)) >>> 0;
+    return h;
+  }
+  function b36(n){ return n.toString(36).toUpperCase(); }
+
+  function normNombre(s){
+    return (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/\s+/g, ' ').trim().toUpperCase();
+  }
+  function soloDigitos(s){ return (s || '').replace(/\D/g, ''); }
+
+  /* Validacion de cedula ecuatoriana. Importa mas de lo que parece: el ultimo
+     digito decide que banco de preguntas le toca, asi que un error de tecleo
+     no solo ensucia el registro, tambien cambia el cuestionario. */
+  function cedulaValida(c){
+    c = soloDigitos(c);
+    if (c.length !== 10) return false;
+    var prov = parseInt(c.slice(0, 2), 10);
+    if (!((prov >= 1 && prov <= 24) || prov === 30)) return false;
+    if (parseInt(c[2], 10) > 5) return false;
+    var suma = 0;
+    for (var i = 0; i < 9; i++) {
+      var d = parseInt(c[i], 10) * (i % 2 === 0 ? 2 : 1);
+      if (d > 9) d -= 9;
+      suma += d;
+    }
+    var ver = (10 - (suma % 10)) % 10;
+    return ver === parseInt(c[9], 10);
+  }
+  function grupoDe(c){
+    return (parseInt(soloDigitos(c).slice(-1), 10) % 2 === 0) ? 'pares' : 'impares';
+  }
+
+  var TOTAL_AP = 0;
+  for (var s = 0; s < BANCO.secciones.length; s++) TOTAL_AP += BANCO.secciones[s].apartados.length;
+
+  /* ---------- estado ---------- */
+  var estado = cargar();
+  function vacio(){ return { nombre:'', cedula:'', respuestas:{}, inicio:0, ultima:0 }; }
+
+  /* Un avance guardado por una version anterior del material puede tener otra
+     forma: la primera version repartia las preguntas por nombre y ni siquiera
+     pedia cedula. Si ese estado se acepta tal cual, la pagina ve que ya hay
+     respuestas, bloquea el campo de la cedula —que esta vacio— y el estudiante
+     no puede empezar. Por eso se valida la forma antes de aceptarlo, y ante la
+     duda se descarta: perder un avance de prueba es molesto, quedarse sin
+     poder escribir la cedula es un callejon sin salida. */
+  function coherente(st){
+    if (!st || typeof st !== 'object') return false;
+    if (!st.respuestas || typeof st.respuestas !== 'object') return false;
+    var hay = Object.keys(st.respuestas).length > 0;
+    if (hay && !cedulaValida(st.cedula)) return false;
+    return true;
+  }
+  function cargar(){
+    try {
+      var c = localStorage.getItem(CLAVE);
+      if (c) {
+        var st = JSON.parse(c);
+        if (coherente(st)) return st;
+        localStorage.removeItem(CLAVE);
+      }
+    } catch (e) {}
+    return vacio();
+  }
+  function guardar(){
+    estado.ultima = Date.now();
+    try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {}
+  }
+  function identificado(){
+    return normNombre(estado.nombre).length > 2 && cedulaValida(estado.cedula);
+  }
+
+  function pregunta(clave){
+    var ap = BANCO.indice[clave];
+    if (!ap) return null;
+    return ap.grupos[grupoDe(estado.cedula)];
+  }
+  function acerto(clave){
+    var d = estado.respuestas[clave];
+    if (d === undefined) return false;
+    var p = pregunta(clave);
+    return !!p && djb2(SAL + clave + grupoDe(estado.cedula) + p.o[d]) === p.h;
+  }
+
+  /* ---------- nota ----------
+     Cada seccion vale PUNTOS_SECCION, repartido a partes iguales entre sus
+     apartados. La suma de las secciones da exactamente la nota maxima, de
+     modo que no hay margen: ninguna seccion es opcional. La nota informada
+     se redondea al medio punto superior. */
+  function notaPorSeccion(){
+    return BANCO.secciones.map(function(sec){
+      var n = sec.apartados.length, bien = 0, hechos = 0;
+      for (var a = 0; a < n; a++) {
+        var k = sec.apartados[a].id;
+        if (estado.respuestas[k] !== undefined) hechos++;
+        if (acerto(k)) bien++;
+      }
+      return { pestana: sec.pestana, total: n, hechos: hechos, aciertos: bien,
+               puntos: n ? (bien * PUNTOS_SECCION / n) : 0 };
+    });
+  }
+  function resumen(){
+    var por = notaPorSeccion(), bruto = 0, bien = 0, hechos = 0;
+    for (var i = 0; i < por.length; i++) {
+      bruto += por[i].puntos; bien += por[i].aciertos; hechos += por[i].hechos;
+    }
+    return { por: por, bruto: bruto, nota: mediaPuntoArriba(bruto),
+             aciertos: bien, hechos: hechos, completo: hechos === TOTAL_AP && TOTAL_AP > 0 };
+  }
+
+  /* ---------- identificacion ---------- */
+  var campoN = document.getElementById('nombre-estudiante');
+  var campoC = document.getElementById('cedula-estudiante');
+  var avisoC = document.getElementById('aviso-cedula');
+
+  /* La cedula se fija cuando ya se ha respondido CON ella. Nunca se bloquea un
+     campo vacio: dejaria al estudiante sin poder empezar, sin entender por que
+     y sin salida. */
+  function bloquearIdentidad(){
+    var fijar = Object.keys(estado.respuestas).length > 0 && cedulaValida(estado.cedula);
+    if (campoC) campoC.readOnly = fijar;
+    var nota = document.getElementById('identidad-fijada');
+    if (nota) nota.hidden = !fijar;
+  }
+
+  function revisarCedula(){
+    var c = soloDigitos(campoC.value);
+    campoC.value = c;
+    if (!c) { avisoC.textContent = ''; return false; }
+    if (!cedulaValida(c)) {
+      avisoC.textContent = 'Esa cédula no es válida. Revísela: el último dígito no cuadra.';
+      return false;
+    }
+    avisoC.textContent = 'Cédula correcta. Le corresponde el cuestionario de cédulas '
+      + grupoDe(c) + '.';
+    return true;
+  }
+
+  if (campoN) {
+    campoN.value = estado.nombre || '';
+    campoN.addEventListener('input', function(){ estado.nombre = campoN.value; guardar(); pintarTodo(); });
+  }
+  if (campoC) {
+    campoC.value = estado.cedula || '';
+    campoC.addEventListener('input', function(){
+      var antes = estado.cedula;
+      var ahora = soloDigitos(campoC.value);
+      var hay = Object.keys(estado.respuestas).length;
+      // Cambiar la cedula cambia el banco de preguntas: lo respondido dejaria
+      // de corresponder. Se avisa antes de borrar nada.
+      if (hay && antes && grupoDe(ahora) !== grupoDe(antes)) {
+        if (!confirm('Cambiar la cédula a otro grupo (par/impar) cambia su cuestionario '
+            + 'y reinicia las ' + hay + ' respuestas ya registradas. ¿Continuar?')) {
+          campoC.value = antes; return;
+        }
+        estado.respuestas = {};
+      }
+      estado.cedula = ahora;
+      if (!estado.inicio) estado.inicio = Date.now();
+      revisarCedula(); guardar(); pintarTodo();
+    });
+    revisarCedula();
+  }
+
+  /* ---------- preguntas ---------- */
+  function pintarControl(caja){
+    var clave = caja.getAttribute('data-control');
+    if (!BANCO.indice[clave]) return;
+
+    if (!identificado()) {
+      caja.innerHTML = '<span class="etiqueta">Control de lectura</span>'
+        + '<p class="pide-nombre">Escriba su nombre y su cédula al principio del '
+        + 'documento para activar las preguntas.</p>';
+      return;
+    }
+
+    var p = pregunta(clave), dada = estado.respuestas[clave];
+    var html = '<span class="etiqueta">Control de lectura</span>'
+      + '<p class="enunciado">' + p.e + '</p><ul>';
+    for (var i = 0; i < p.o.length; i++) {
+      var cl = 'opcion';
+      if (dada !== undefined) {
+        if (djb2(SAL + clave + grupoDe(estado.cedula) + p.o[i]) === p.h) cl += ' acierto';
+        else if (i === dada) cl += ' fallo';
+      }
+      html += '<li><button type="button" class="' + cl + '" data-i="' + i + '"'
+        + (dada !== undefined ? ' disabled' : '') + '>' + p.o[i] + '</button></li>';
+    }
+    html += '</ul>';
+    if (dada !== undefined) {
+      html += '<p class="respuesta"><b>' + (acerto(clave) ? 'Correcto.' : 'No es esa.')
+        + '</b> Queda registrado. No se puede cambiar.</p>';
+    }
+    caja.innerHTML = html;
+
+    if (dada === undefined) {
+      var bs = caja.querySelectorAll('button.opcion');
+      for (var b = 0; b < bs.length; b++) {
+        bs[b].addEventListener('click', function(){
+          estado.respuestas[clave] = parseInt(this.getAttribute('data-i'), 10);
+          if (!estado.inicio) estado.inicio = Date.now();
+          guardar(); pintarControl(caja); pintarAvance(); avisarSiCierraSeccion();
+        });
+      }
+    }
+  }
+
+  /* ---------- avance ---------- */
+  function minutos(){
+    if (!estado.inicio) return 0;
+    return Math.max(0, Math.round(((estado.ultima || Date.now()) - estado.inicio) / 60000));
+  }
+
+  function pintarAvance(){
+    var r = resumen();
+    var pct = TOTAL_AP ? Math.round(r.hechos * 100 / TOTAL_AP) : 0;
+    var barra = document.querySelector('.avance .barra i');
+    if (barra) barra.style.width = pct + '%';
+    var cifras = document.querySelector('.avance .cifras');
+    if (cifras) {
+      cifras.textContent = r.hechos + ' de ' + TOTAL_AP + ' apartados (' + pct + ' %)'
+        + (SIN_NOTA ? '  ·  lectura no calificada'
+                    : '  ·  nota provisional ' + fmtNota(r.nota) + ' / ' + TOPE);
+    }
+    var lista = document.querySelector('.avance ol');
+    if (lista) {
+      var lis = lista.querySelectorAll('li');
+      for (var i = 0; i < r.por.length && i < lis.length; i++) {
+        var s = r.por[i];
+        lis[i].className = (s.hechos === s.total && s.total) ? 'completa' : '';
+        lis[i].textContent = s.pestana + ' — ' + s.hechos + '/' + s.total
+          + (s.hechos === s.total && s.total && !SIN_NOTA ? '  ·  ' + s.puntos.toFixed(2) + ' pt' : '');
+      }
+    }
+    bloquearIdentidad();
+    pintarConstancia(r);
+  }
+
+  /* ---------- constancia ---------- */
+  function codigo(r){
+    var cuerpo = [
+      BANCO.muestra ? 'MUESTRA' : BANCO.bloque,
+      soloDigitos(estado.cedula),
+      normNombre(estado.nombre),
+      r.hechos + '/' + TOTAL_AP,
+      r.aciertos + 'A',
+      r.nota.toFixed(2) + 'N',
+      minutos() + 'M',
+      new Date().toISOString().slice(0, 16).replace('T', ' ')
+    ].join('|');
+    return cuerpo + '|' + b36(djb2(SAL + cuerpo));
+  }
+
+  function pintarConstancia(r){
+    var caja = document.querySelector('.constancia');
+    if (!caja) return;
+    // El respaldo se ofrece SIEMPRE, completa la tarea o no: el riesgo de
+    // perder el avance no desaparece al terminar, y quien acaba de noche
+    // puede querer guardarlo antes de generar el PDF al día siguiente.
+    var respaldoHtml = '<div class="acciones"><button type="button" class="respaldo">'
+      + 'Copiar mi pase de avance</button></div>'
+      + '<p class="aun-no" id="pista-respaldo"></p>';
+    function engancharRespaldo(){
+      var br = caja.querySelector('.respaldo');
+      if (br) br.addEventListener('click', function(){ copiarRespaldo(this); });
+    }
+    if (SIN_NOTA) {
+      caja.innerHTML = '<p class="aun-no">Su avance queda guardado en este navegador. '
+        + 'Este bloque no emite constancia ni suma puntos: lo que aquí comprueba se le '
+        + 'preguntará en el caso Harvard y en su sustentación.</p>' + respaldoHtml;
+      engancharRespaldo();
+      return;
+    }
+    if (!r.completo) {
+      var faltan = TOTAL_AP - r.hechos;
+      caja.innerHTML = '<p class="aun-no">Su avance queda guardado en este navegador; '
+        + 'puede continuar otro día. La constancia con su nota se emite cuando haya '
+        + 'respondido los ' + TOTAL_AP + ' apartados de las ' + BANCO.secciones.length
+        + ' secciones. <b>Faltan ' + faltan + '.</b></p>' + respaldoHtml;
+      engancharRespaldo();
+      return;
+    }
+    caja.innerHTML =
+        '<p class="instruccion">Ha completado la lectura. Pulse el botón para '
+      + 'descargar su constancia en PDF. Ese archivo es el que debe subir a la '
+      + 'tarea del aula virtual.</p>'
+      + '<div class="acciones">'
+      + '  <button type="button" class="descargar">Descargar mi constancia en PDF</button>'
+      + '  <button type="button" class="imprimir">Imprimir o guardar como PDF</button>'
+      + '  <button type="button" class="copiar">Copiar solo el código</button>'
+      + '</div>'
+      + '<p class="aun-no">Si el botón no descarga nada —ocurre en la aplicación de '
+      + 'Moodle y en el navegador interno de WhatsApp o Facebook—, abra esta página en '
+      + 'Chrome, Safari o Edge. Si al cambiar de navegador no ve su avance, pegue allí '
+      + 'su pase de avance en «Continuar en otro dispositivo».</p>'
+      + '<textarea readonly aria-label="Código de validación"></textarea>'
+      + respaldoHtml;
+    engancharRespaldo();
+    var area = caja.querySelector('textarea');
+    area.value = codigo(r);
+    caja.querySelector('.copiar').addEventListener('click', function(){
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      if (!ok && navigator.clipboard) navigator.clipboard.writeText(area.value);
+      var b = this; b.textContent = 'Copiado';
+      setTimeout(function(){ b.textContent = 'Copiar solo el código'; }, 2000);
+    });
+    caja.querySelector('.descargar').addEventListener('click', function(){ descargarConstancia(r, this); });
+    caja.querySelector('.imprimir').addEventListener('click', function(){ imprimirConstancia(r); });
+  }
+
+  /* ---------- pase de avance ----------
+     El navegador guarda el avance por dominio, por navegador y por aparato.
+     Un estudiante que responde dos secciones en el laboratorio y sigue en su
+     telefono no encuentra nada, y lo mismo si limpia los datos de navegacion.
+     En una tarea que dura semanas eso no es un caso raro: es lo normal.
+
+     De ahi que el pase no sea una salida de emergencia sino el mecanismo de
+     continuidad. Se codifica compacto —una letra por respuesta— para que
+     quepa en un mensaje y se pueda pegar desde el movil sin pelearse con el
+     portapapeles. */
+  function ordenApartados(){
+    var lista = [];
+    for (var s = 0; s < BANCO.secciones.length; s++) {
+      var ap = BANCO.secciones[s].apartados;
+      for (var a = 0; a < ap.length; a++) lista.push(ap[a].id);
+    }
+    return lista;
+  }
+
+  function serializar(){
+    var orden = ordenApartados(), respuestas = '';
+    for (var i = 0; i < orden.length; i++) {
+      var v = estado.respuestas[orden[i]];
+      respuestas += (v === undefined) ? '-' : String(v);
+    }
+    var cuerpo = ['PASE', BANCO.bloque, soloDigitos(estado.cedula),
+                  normNombre(estado.nombre), respuestas,
+                  Math.round((estado.inicio || Date.now()) / 60000)].join('|');
+    return cuerpo + '|' + b36(djb2(SAL + cuerpo));
+  }
+
+  function deserializar(texto){
+    var p = String(texto || '').trim().split('|');
+    if (p.length !== 7 || p[0] !== 'PASE') return null;
+    if (p[1] !== BANCO.bloque) return null;          // pase de otro bloque
+    var cuerpo = p.slice(0, 6).join('|');
+    if (b36(djb2(SAL + cuerpo)) !== p[6]) return null; // copiado a medias o retocado
+    var orden = ordenApartados(), marcas = p[4];
+    if (marcas.length !== orden.length) return null;   // pase de otra version
+    var resp = {};
+    for (var i = 0; i < orden.length; i++) {
+      if (marcas[i] !== '-') resp[orden[i]] = parseInt(marcas[i], 10);
+    }
+    return { nombre: p[3], cedula: p[2], respuestas: resp,
+             inicio: parseInt(p[5], 10) * 60000, ultima: Date.now() };
+  }
+
+  function alPortapapeles(texto){
+    var ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, texto.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    if (!ok && navigator.clipboard) navigator.clipboard.writeText(texto);
+    document.body.removeChild(ta);
+  }
+
+  function copiarRespaldo(boton){
+    var texto = serializar();
+    alPortapapeles(texto);
+    boton.textContent = 'Pase copiado';
+    var pista = document.getElementById('pista-respaldo');
+    if (pista) {
+      pista.innerHTML = 'Péguelo donde pueda recuperarlo: un mensaje a usted mismo, '
+        + 'una nota del teléfono o el borrador de la tarea en el aula virtual. Si '
+        + 'continúa en otro equipo, péguelo en «Continuar en otro dispositivo», '
+        + 'al principio del documento.<br><code class="pase">' + texto + '</code>';
+    }
+    setTimeout(function(){ boton.textContent = 'Copiar mi pase de avance'; }, 2500);
+  }
+
+  /* ---------- empezar de nuevo ----------
+     Siempre tiene que haber una salida. Un estudiante que se equivoco de
+     cedula, o que hereda un avance de otra persona en un equipo compartido,
+     no puede quedarse sin manera de arrancar. */
+  var botonReinicio = document.getElementById('reiniciar-control');
+  if (botonReinicio) {
+    botonReinicio.addEventListener('click', function(){
+      var hay = Object.keys(estado.respuestas).length;
+      if (hay && !confirm('Se borrarán las ' + hay + ' respuestas registradas en este '
+          + 'navegador y volverá a empezar de cero. Esta acción no se puede deshacer. '
+          + '¿Continuar?')) return;
+      estado = vacio();
+      try { localStorage.removeItem(CLAVE); } catch (e) {}
+      if (campoN) campoN.value = '';
+      if (campoC) { campoC.value = ''; campoC.readOnly = false; }
+      if (avisoC) avisoC.textContent = '';
+      pintarTodo();
+    });
+  }
+
+  /* ---------- continuar en otro dispositivo ---------- */
+  var campoR = document.getElementById('restaurar-avance');
+  if (campoR) {
+    campoR.addEventListener('change', function(){
+      var v = campoR.value.trim();
+      var avisoR = document.getElementById('aviso-restaurar');
+      if (!v) return;
+      var st = deserializar(v);
+      if (!st) {
+        avisoR.textContent = 'Ese pase no se pudo leer. Cópielo entero, desde la '
+          + 'palabra PASE hasta el último carácter, sin espacios ni saltos de línea '
+          + 'en medio.';
+        return;
+      }
+      var tenia = Object.keys(estado.respuestas).length;
+      var trae = Object.keys(st.respuestas).length;
+      // Pegar un pase mas atrasado que lo ya registrado borraria trabajo hecho.
+      if (tenia > trae && !confirm('En este navegador ya hay ' + tenia + ' respuestas y '
+          + 'el pase trae ' + trae + '. Si continúa, se quedará con las del pase y '
+          + 'perderá las otras. ¿Continuar?')) { campoR.value = ''; return; }
+      estado = st; guardar();
+      if (campoN) campoN.value = estado.nombre || '';
+      if (campoC) campoC.value = estado.cedula || '';
+      revisarCedula(); pintarTodo();
+      avisoR.textContent = 'Avance recuperado: ' + trae + ' respuestas de '
+        + TOTAL_AP + '. Puede seguir donde lo dejó.';
+      campoR.value = '';
+    });
+  }
+
+  /* ---------- aviso al cerrar una seccion ----------
+     El momento natural para guardar el pase es al terminar una seccion, no
+     cuando ya se ha perdido el avance. Se avisa una sola vez por seccion. */
+  var seccionesAvisadas = {};
+  function avisarSiCierraSeccion(){
+    var r = resumen();
+    for (var i = 0; i < r.por.length; i++) {
+      var s = r.por[i];
+      var id = BANCO.secciones[i].pestana;
+      if (s.total && s.hechos === s.total && !seccionesAvisadas[id] && !r.completo) {
+        seccionesAvisadas[id] = true;
+        var caja = document.querySelector('.constancia');
+        if (caja) {
+          var aviso = document.createElement('p');
+          aviso.className = 'cierre-seccion';
+          aviso.innerHTML = 'Ha terminado <b>' + id + '</b>. Si va a continuar otro día '
+            + 'o en otro equipo, copie ahora su pase de avance.';
+          caja.insertBefore(aviso, caja.firstChild);
+          try { caja.scrollIntoView({ block: 'nearest' }); } catch (e) {}
+        }
+        return;
+      }
+    }
+  }
+
+  /* ---------- contenido de la constancia ----------
+     El PDF descargado y la hoja imprimible salen los dos de aqui. */
+  function contenidoConstancia(r){
+    var d = { nota: r.nota, aciertos: r.aciertos, minutos: minutos(), por: r.por,
+              bruto: r.bruto };
+    var ahora = new Date();
+    var datos = [
+      ['Estudiante', normNombre(estado.nombre)],
+      ['Cédula', soloDigitos(estado.cedula) + '  (cuestionario de cédulas ' + grupoDe(estado.cedula) + ')'],
+      ['Emitida', ahora.toLocaleDateString('es-EC') + ' a las ' + ahora.toLocaleTimeString('es-EC')],
+      ['Tiempo de trabajo', d.minutos + ' minutos repartidos en una o varias sesiones']
+    ];
+    var filas = [];
+    if (d.por) for (var k = 0; k < d.por.length; k++) {
+      var s = d.por[k];
+      filas.push([String(k + 1), s.pestana, s.aciertos + ' / ' + s.total, s.puntos.toFixed(2)]);
+    }
+    return {
+      datos: datos, filas: filas,
+      total: ['Total', d.aciertos + ' / ' + TOTAL_AP, d.bruto === null ? '' : d.bruto.toFixed(2)],
+      nota: fmtNota(d.nota) + ' / ' + TOPE,
+      topada: (d.bruto !== null && d.bruto > TOPE)
+        ? '(' + d.bruto.toFixed(2) + ' puntos brutos, topados en ' + TOPE + ')' : '',
+      codigo: codigo(r)
+    };
+  }
+
+  /* ---------- constancia en PDF ----------
+     La constancia salia solo por el dialogo de impresion, y ese camino falla
+     justo donde mas estudiantes la piden: en el telefono. La aplicacion de
+     Moodle y los navegadores internos de WhatsApp o Facebook ignoran
+     window.print() y el boton no hacia nada; Chrome en Android no espera al
+     dialogo y la pagina se restauraba antes de que la vista previa la leyera.
+     Aqui el PDF se escribe directamente, como texto, y se descarga. */
+  function descargarConstancia(r, boton){
+    var J = window.jspdf && window.jspdf.jsPDF;
+    if (!J) {
+      alert('No se pudo cargar el generador de PDF; revise su conexión a internet. '
+          + 'Se abrirá el diálogo de impresión: elija «Guardar como PDF».');
+      imprimirConstancia(r);
+      return;
+    }
+    var c = contenidoConstancia(r);
+    var doc = new J({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+    var IZQ = 20, DER = 190, ANCHO = DER - IZQ, y = 22;
+    function salto(h){ if (y + h > 282) { doc.addPage(); y = 20; } }
+    function parrafo(texto, tam, estilo, color, alto){
+      doc.setFont('helvetica', estilo); doc.setFontSize(tam); doc.setTextColor(color);
+      var ls = doc.splitTextToSize(texto, ANCHO);
+      for (var i = 0; i < ls.length; i++) { salto(alto); doc.text(ls[i], IZQ, y); y += alto; }
+    }
+
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(90);
+    doc.text(BANCO.institucion.toUpperCase(), 105, y, { align: 'center' }); y += 10;
+    doc.setFont('times', 'bold'); doc.setFontSize(21); doc.setTextColor(0);
+    doc.text('Constancia de lectura', 105, y, { align: 'center' }); y += 7;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(70);
+    var sub = doc.splitTextToSize(BANCO.titulo + ' · ' + BANCO.membrete, ANCHO);
+    for (var a = 0; a < sub.length; a++) { doc.text(sub[a], 105, y, { align: 'center' }); y += 4.5; }
+    doc.text('Actividad autónoma — control de lectura del bloque', 105, y, { align: 'center' });
+    y += 4; doc.setDrawColor(0); doc.setLineWidth(0.4); doc.line(IZQ, y, DER, y); y += 8;
+
+    for (var b = 0; b < c.datos.length; b++) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(90);
+      doc.text(c.datos[b][0], IZQ, y);
+      doc.setTextColor(0);
+      var v = doc.splitTextToSize(c.datos[b][1], ANCHO - 42);
+      for (var e = 0; e < v.length; e++) { doc.text(v[e], IZQ + 42, y); y += 5; }
+      y += 1;
+    }
+    y += 4;
+
+    var COL = [IZQ, IZQ + 10, IZQ + 128, IZQ + 152];
+    function fila(celdas, negrita, fondo){
+      salto(7);
+      if (fondo) { doc.setFillColor(fondo); doc.rect(IZQ, y - 4.6, ANCHO, 6.6, 'F'); }
+      doc.setFont('helvetica', negrita ? 'bold' : 'normal'); doc.setFontSize(9.5); doc.setTextColor(0);
+      for (var i = 0; i < celdas.length; i++) {
+        var t = doc.splitTextToSize(celdas[i], (COL[i + 1] || DER) - COL[i] - 2)[0] || '';
+        doc.text(t, COL[i] + 1, y);
+      }
+      doc.setDrawColor(190); doc.setLineWidth(0.2); doc.line(IZQ, y + 2, DER, y + 2);
+      y += 6.6;
+    }
+    if (c.filas.length) {
+      fila(['#', 'Sección', 'Aciertos', 'Puntos'], true, 235);
+      for (var f = 0; f < c.filas.length; f++) fila(c.filas[f], false, null);
+      fila(['', c.total[0], c.total[1], c.total[2]], true, 246);
+    } else {
+      parrafo('Aciertos: ' + c.total[1] + '. El desglose por sección no se conservó '
+        + 'para este intento.', 9.5, 'normal', 0, 5);
+    }
+
+    y += 6; salto(20);
+    doc.setDrawColor(0); doc.setLineWidth(0.6); doc.rect(IZQ + 30, y - 6, ANCHO - 60, c.topada ? 18 : 13);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(14); doc.setTextColor(0);
+    doc.text('Nota final  ' + c.nota, 105, y + 2.5, { align: 'center' });
+    if (c.topada) {
+      doc.setFontSize(9); doc.setTextColor(90);
+      doc.text(c.topada, 105, y + 8.5, { align: 'center' });
+    }
+    y += c.topada ? 20 : 15;
+
+    parrafo('Código de validación', 9.5, 'normal', 60, 5);
+    doc.setFont('courier', 'normal'); doc.setFontSize(9.5); doc.setTextColor(0);
+    var cod = doc.splitTextToSize(c.codigo, ANCHO - 6);
+    salto(cod.length * 4.6 + 6);
+    doc.setDrawColor(140); doc.setLineWidth(0.3);
+    doc.setLineDashPattern([1.2, 1], 0);
+    doc.rect(IZQ, y - 3, ANCHO, cod.length * 4.6 + 3.5);
+    doc.setLineDashPattern([], 0);
+    for (var g = 0; g < cod.length; g++) { doc.text(cod[g], IZQ + 3, y + 1.5); y += 4.6; }
+    y += 8;
+
+    doc.setDrawColor(200); doc.setLineWidth(0.2); salto(12); doc.line(IZQ, y - 4, DER, y - 4);
+    parrafo('Este documento lo genera el propio material de lectura. El código de validación '
+      + 'permite al docente comprobar que los datos no han sido alterados.', 8.5, 'normal', 90, 4.2);
+
+    /* El PDF lleva dentro el codigo y el pase: el docente los lee soltando el
+       PDF en la mesa del docente, sin que el estudiante copie nada. */
+    doc.setProperties({ title: 'Constancia de lectura · ' + BANCO.titulo, creator: 'Aula',
+                        keywords: c.codigo + '\n' + serializar() });
+    var nombre = 'Constancia_' + BANCO.bloque + '_' + soloDigitos(estado.cedula) + '_'
+      + normNombre(estado.nombre).replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 40)
+      + '.pdf';
+    try {
+      doc.save(nombre);
+      if (boton) {
+        boton.textContent = 'PDF descargado';
+        setTimeout(function(){ boton.textContent = 'Descargar mi constancia en PDF'; }, 2500);
+      }
+    } catch (err) {
+      alert('Este navegador no permitió descargar el archivo. Se abrirá el diálogo de '
+          + 'impresión: elija «Guardar como PDF».');
+      imprimirConstancia(r);
+    }
+  }
+
+  /* ---------- constancia imprimible ----------
+     Queda como segundo camino, para quien prefiera el dialogo del sistema. */
+  function celdas(fila, etiqueta){
+    var h = '';
+    for (var i = 0; i < fila.length; i++) h += '<' + etiqueta + '>' + fila[i] + '</' + etiqueta + '>';
+    return '<tr>' + h + '</tr>';
+  }
+  function imprimirConstancia(r){
+    var hoja = document.getElementById('hoja-constancia');
+    if (!hoja) return;
+    var c = contenidoConstancia(r);
+    var datos = '', filas = '';
+    for (var i = 0; i < c.datos.length; i++) {
+      datos += '<tr><th>' + c.datos[i][0] + '</th><td>' + c.datos[i][1] + '</td></tr>';
+    }
+    for (var k = 0; k < c.filas.length; k++) filas += celdas(c.filas[k], 'td');
+    hoja.innerHTML =
+        '<div class="cons-carat">'
+      + '  <p class="cons-inst">' + BANCO.institucion + '</p>'
+      + '  <h1>Constancia de lectura</h1>'
+      + '  <p class="cons-sub">' + BANCO.titulo + ' · ' + BANCO.membrete + '</p>'
+      + '  <p class="cons-sub">Actividad autónoma — control de lectura del bloque</p>'
+      + '</div>'
+      + '<table class="cons-datos"><tbody>' + datos + '</tbody></table>'
+      + (c.filas.length
+          ? '<table class="cons-tabla"><thead><tr><th>#</th><th>Sección</th>'
+            + '<th>Aciertos</th><th>Puntos</th></tr></thead><tbody>' + filas + '</tbody>'
+            + '<tfoot><tr><th colspan="2">' + c.total[0] + '</th><th>' + c.total[1]
+            + '</th><th>' + c.total[2] + '</th></tr></tfoot></table>'
+          : '<p>Aciertos: ' + c.total[1] + '. El desglose por sección no se conservó '
+            + 'para este intento.</p>')
+      + '<p class="cons-nota">Nota final <b>' + c.nota + '</b>'
+      + (c.topada ? ' <span class="cons-grupo">' + c.topada + '</span>' : '') + '</p>'
+      + '<p class="cons-cod">Código de validación<br><code>' + c.codigo + '</code></p>'
+      + '<p class="cons-pie">Este documento lo genera el propio material de lectura. '
+      + 'El código de validación permite al docente comprobar que los datos no han sido '
+      + 'alterados.</p>';
+    /* La clase se retira SOLO al cerrar el dialogo. Antes se retiraba tambien a
+       los 1,5 s por si acaso, pero en Android window.print() no espera: la
+       vista previa llegaba tarde y leia el periodico entero, o una hoja en
+       blanco. Mientras la clase esta puesta la pantalla no cambia: solo afecta
+       a la impresion. */
+    document.body.classList.add('imprimiendo-constancia');
+    var limpiar = function(){
+      document.body.classList.remove('imprimiendo-constancia');
+      window.removeEventListener('afterprint', limpiar);
+    };
+    window.addEventListener('afterprint', limpiar);
+    setTimeout(function(){
+      try { window.print(); } catch (e) {}
+    }, 60);
+  }
+
+  function pintarTodo(){
+    var cajas = document.querySelectorAll('[data-control]');
+    for (var i = 0; i < cajas.length; i++) pintarControl(cajas[i]);
+    pintarAvance();
+  }
+
+  pintarTodo();
+})();
+
+</script>
+<script src="../recursos/proteccion.js"></script>
+</body>
+</html>

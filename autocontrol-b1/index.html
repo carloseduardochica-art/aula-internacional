@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Derecho Internacional · Autocontrol de lectura · Bloque 1</title>
+<!-- Genera la constancia como archivo PDF de verdad, sin pasar por el dialogo
+     de impresion. Es la misma biblioteca que usan los foros y el Caso Harvard. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{
+  --papel:#fcf9f4;
+  --papel-alt:#f3ecdf;
+  --tinta:#1f1810;
+  --tinta-suave:#3f3323;
+  --sepia:#65441c;
+  --sepia-claro:#7d5c2e;
+  --linea:#cbbda3;
+  --nota:#5b4a34;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --escala:1;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  padding:0 1.1rem 4rem;
+  background:var(--papel);
+  color:var(--tinta);
+  font-family:var(--serif);
+  font-size:calc(19.5px * var(--escala));
+  line-height:1.72;
+}
+.hoja{max-width:1180px;margin:0 auto}
+.lectura{
+  position:sticky;top:0;z-index:20;
+  display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;justify-content:center;
+  background:var(--papel);border-bottom:1px solid var(--linea);
+  padding:.5rem;margin:0 -1.1rem 0;font-size:.8rem;
+}
+.lectura span{color:var(--nota);letter-spacing:.1em;text-transform:uppercase;font-size:.7rem}
+.lectura button{
+  font-family:var(--serif);font-size:.88rem;
+  background:var(--papel-alt);color:var(--tinta);
+  border:1px solid var(--linea);border-radius:2px;
+  padding:.34rem .72rem;cursor:pointer;min-height:34px;
+}
+.lectura button:hover{background:#e8dcc7}
+.lectura button:focus-visible{outline:2px solid var(--sepia);outline-offset:2px}
+body.contraste{--papel:#fffdf9;--papel-alt:#f2ece1;--tinta:#000;--tinta-suave:#1a1a1a;
+  --sepia:#4a3110;--sepia-claro:#4a3110;--linea:#8d7f68;--nota:#3a3025}
+.cabecera{padding:2.2rem 0 .4rem;text-align:center}
+.filete{border:0;border-top:2px solid var(--tinta);margin:0}
+.filete--fino{border-top:1px solid var(--linea);margin:.28rem 0 0}
+.rotulo{
+  font-size:clamp(1.5rem,4.8vw,2.7rem);
+  letter-spacing:.28em;text-transform:uppercase;
+  margin:.85rem 0 .6rem;font-weight:400;text-indent:.28em;
+}
+.membrete{
+  display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;justify-content:center;
+  font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--nota);padding:.5rem 0 .7rem;
+}
+.antetitulo{
+  text-align:center;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sepia);margin:2.2rem 0 .7rem;
+}
+.titular{
+  font-size:clamp(1.9rem,5.6vw,3.2rem);
+  line-height:1.14;text-align:center;font-weight:400;
+  margin:0 auto .9rem;max-width:21ch;letter-spacing:-.01em;
+}
+.entradilla{
+  text-align:center;max-width:58ch;margin:0 auto 1.3rem;
+  font-size:1.06rem;font-style:italic;color:var(--tinta-suave);line-height:1.6;
+}
+.firma{
+  text-align:center;font-size:.82rem;color:var(--nota);
+  margin-bottom:1.9rem;line-height:1.7;
+}
+.firma b{color:var(--tinta);font-weight:400;letter-spacing:.04em}
+.firma .rol{
+  display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  margin-top:.3rem;
+}
+.cuerpo{
+  column-count:2;column-gap:3rem;
+  column-rule:1px solid var(--linea);
+  text-align:justify;hyphens:auto;-webkit-hyphens:auto;
+  padding-top:1.6rem;border-top:1px solid var(--linea);
+}
+.cuerpo > *{break-inside:avoid-column}
+.cuerpo p{margin:0 0 1.05em;break-inside:auto}
+.cuerpo p + p{text-indent:1.25em}
+h2{
+  font-size:.86rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);font-weight:400;
+  margin:2em 0 .75em;padding-bottom:.45em;border-bottom:1px solid var(--linea);
+  break-after:avoid;
+}
+h3{
+  font-size:1.04rem;font-weight:400;font-style:italic;
+  margin:1.55em 0 .4em;color:var(--tinta);break-after:avoid;
+}
+.capitular::first-letter{
+  float:left;font-size:4em;line-height:.8;
+  padding:.06em .1em 0 0;margin:.02em .05em 0 0;
+  color:var(--sepia);font-weight:400;
+}
+.destacado{
+  margin:1.6em 0;padding:1.1em 0;
+  border-top:2px solid var(--tinta);border-bottom:1px solid var(--linea);
+  font-size:1.24rem;line-height:1.4;font-style:italic;text-align:left;
+  color:var(--sepia);text-indent:0;hyphens:none;
+}
+.destacado cite{display:block;margin-top:.6em;font-size:.7rem;font-style:normal;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--nota)}
+.caso{
+  background:var(--papel-alt);border-left:4px solid var(--sepia-claro);
+  padding:1em 1.1em;margin:1.35em 0;font-size:.97rem;text-indent:0;
+}
+.caso .etiqueta,.aviso .etiqueta{
+  display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.5em;
+}
+.aviso{
+  border:1px solid var(--sepia-claro);padding:1.05em 1.15em;margin:1.6em 0;
+  font-size:.96rem;text-indent:0;background:var(--papel-alt);
+}
+.procede{
+  display:block;margin:.2em 0 1.4em;padding-left:.9em;
+  border-left:2px solid var(--linea);
+  font-size:.82rem;font-style:italic;color:var(--nota);
+  text-indent:0;text-align:left;hyphens:none;
+}
+.grabado{margin:1.6em 0;padding:0;text-indent:0;break-inside:avoid}
+.grabado .marco{
+  border:1px solid var(--linea);
+  background:repeating-linear-gradient(45deg,rgba(101,68,28,.06) 0 7px,transparent 7px 14px);
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  color:var(--nota);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;
+  text-align:center;padding:1rem;
+}
+.grabado figcaption{
+  font-size:.82rem;color:var(--nota);line-height:1.55;
+  padding-top:.55em;border-top:1px solid var(--linea);margin-top:.55em;
+  text-align:left;hyphens:none;
+}
+.grabado figcaption b{color:var(--sepia);font-weight:400}
+.cierre{
+  column-span:all;margin:2.8rem 0 0;padding:1.8rem 1.5rem;
+  border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta);
+  text-align:center;
+}
+.cierre .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.85em;
+}
+.cierre p{
+  font-size:1.2rem;font-style:italic;line-height:1.55;max-width:56ch;
+  margin:0 auto;text-indent:0;text-align:center;hyphens:none;
+}
+.cierre .apunte{font-size:.86rem;font-style:normal;color:var(--nota);margin-top:1.15em}
+.aporte{
+  column-span:all;margin:1.7rem 0 0;padding:1.3rem 1.4rem;
+  border:1px dashed var(--sepia-claro);background:var(--papel-alt);
+  font-size:.95rem;color:var(--tinta);text-align:left;hyphens:none;
+}
+.aporte .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.9em;text-align:center;
+}
+.aporte p{margin:0 0 .85em;text-indent:0;line-height:1.65}
+.aporte b{color:var(--sepia);font-weight:400}
+.aporte u{
+  text-decoration:none;border-bottom:1px solid var(--sepia-claro);
+  background:rgba(101,68,28,.07);font-style:italic;color:var(--nota);
+}
+.aporte .cautela{
+  margin:1.1em 0 0;padding-top:.8em;border-top:1px solid var(--linea);
+  font-size:.83rem;font-style:italic;color:var(--nota);
+}
+.aporte .sugerida{
+  font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--nota);font-style:normal;
+}
+.grabado svg,.grabado img{display:block;width:100%;height:auto;border:1px solid var(--linea)}
+.grabado[hidden]{display:none}
+.pendiente{
+  column-span:all;margin:1.6rem 0;padding:1.1rem 1.2rem;
+  border:1px solid var(--sepia-claro);background:var(--papel-alt);
+  font-size:.9rem;text-indent:0;hyphens:none;
+}
+.pendiente .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.6em;
+}
+.pendiente table{border-collapse:collapse;width:100%;margin:.7em 0;font-size:.86rem}
+.pendiente th,.pendiente td{
+  border-bottom:1px solid var(--linea);padding:.34em .5em;text-align:left;vertical-align:top;
+}
+.pendiente th{color:var(--sepia);font-weight:400;font-size:.74rem;
+  letter-spacing:.12em;text-transform:uppercase}
+.pendiente .mal{color:#8a2f14}
+.pendiente .bien{color:#3d5c2a}
+.pie{
+  column-span:all;margin-top:2.5rem;padding-top:1.1rem;
+  border-top:1px solid var(--linea);
+  font-size:.85rem;color:var(--nota);line-height:1.7;
+  text-align:left;hyphens:none;
+}
+.pie h4{
+  font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin:1.4em 0 .6em;font-weight:400;
+}
+.pie h4:first-child{margin-top:0}
+.pie ol,.pie ul{margin:0;padding-left:1.3em}
+.pie li{margin-bottom:.55em}
+.pie .refs{list-style:none;padding-left:0}
+.pie .refs li{padding-left:2.2em;text-indent:-2.2em;margin-bottom:.7em}
+@media (max-width:820px){
+  .cuerpo{column-count:1;column-rule:none}
+  .rotulo{letter-spacing:.16em}
+  .capitular::first-letter{font-size:3.2em}
+  .destacado{font-size:1.1rem}
+}
+@media print{
+  @page{size:A4;margin:17mm 15mm}
+  body{background:#fff;color:#000;font-size:10.5pt;padding:0}
+  .lectura{display:none}
+  .hoja{max-width:none}
+  .cuerpo{column-gap:9mm}
+  .grabado .marco{aspect-ratio:16/9}
+  .destacado,.caso,.aviso,.grabado,.cierre,.pie{break-inside:avoid}
+  h2,h3{break-after:avoid}
+  .aporte{border-style:solid}
+}
+.comparativa{
+  column-span:all;margin:2rem 0;
+  border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta);
+  padding:1.2rem 0;
+}
+.comparativa .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.9em;text-align:center;
+}
+.tabla-envoltorio{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.comparativa table{
+  border-collapse:collapse;width:100%;min-width:640px;
+  font-size:.92rem;text-align:left;hyphens:none;
+}
+.comparativa th,.comparativa td{
+  border-bottom:1px solid var(--linea);padding:.75em .8em;vertical-align:top;
+  line-height:1.5;
+}
+.comparativa thead th{
+  border-bottom:2px solid var(--sepia);color:var(--sepia);font-weight:400;
+  font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.comparativa tbody th{
+  color:var(--tinta);font-weight:400;font-style:italic;width:20%;
+  background:var(--papel-alt);
+}
+.comparativa .gana{color:#2f5a1f}
+.comparativa .pierde{color:#8a2f14}
+@media (max-width:820px){
+  .comparativa table{font-size:.86rem}
+}
+@media print{
+  .comparativa table{min-width:0;font-size:8.5pt}
+  .comparativa{break-inside:avoid}
+}
+
+/* ---------- BARRA SUPERIOR ----------
+   La barra de lectura y las pestanas van juntas dentro de un unico
+   contenedor pegajoso. Por separado, ambas declaraban `top:0` y se
+   superponian: las pestanas quedaban ocultas bajo la barra de lectura en
+   cuanto se desplazaba la pagina. */
+.barra-superior{
+  position:sticky;top:0;z-index:20;
+  background:var(--papel);
+  margin:0 -1.1rem;
+}
+.barra-superior .lectura{
+  position:static;margin:0;
+}
+
+/* ---------- NAVEGACION POR PESTANAS ---------- */
+.pestanas{
+  background:var(--papel);
+  border-top:1px solid var(--linea);
+  border-bottom:2px solid var(--tinta);
+  margin:0;padding:0;
+}
+.pestanas-pista{
+  display:flex;gap:0;overflow-x:auto;scrollbar-width:thin;
+  -webkit-overflow-scrolling:touch;
+  max-width:1180px;margin:0 auto;padding:0 1.1rem;
+}
+.pestanas button{
+  flex:0 0 auto;
+  font-family:var(--serif);font-size:.74rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  background:none;color:var(--nota);
+  border:0;border-bottom:3px solid transparent;
+  padding:.85rem .95rem;cursor:pointer;white-space:nowrap;
+  min-height:44px;
+}
+.pestanas button:hover{color:var(--tinta);background:var(--papel-alt)}
+.pestanas button:focus-visible{outline:2px solid var(--sepia);outline-offset:-3px}
+.pestanas button[aria-selected="true"]{
+  color:var(--sepia);border-bottom-color:var(--sepia);
+}
+.seccion[hidden]{display:none}
+.seccion:focus{outline:none}
+
+/* aviso de seccion para lectores de pantalla y para imprimir */
+.marca-seccion{
+  display:none;
+  font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);text-align:center;margin:1.5rem 0 .4rem;
+}
+
+@media (max-width:820px){
+  .pestanas button{font-size:.7rem;padding:.8rem .7rem}
+}
+
+@media print{
+  .barra-superior{display:none}
+  .seccion[hidden]{display:block !important}
+  .seccion{break-before:page}
+  .seccion:first-of-type{break-before:auto}
+  .marca-seccion{display:block}
+}
+
+
+/* ---------- CONTROL DE LECTURA ---------- */
+.identificacion{
+  column-span:all;margin:1.6rem 0 0;padding:1.1rem 1.2rem;
+  border:1px solid var(--sepia-claro);background:var(--papel-alt);
+  text-indent:0;hyphens:none;
+}
+.identificacion label{
+  display:block;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.55em;
+}
+.identificacion input{
+  font-family:var(--serif);font-size:1rem;
+  width:100%;max-width:34ch;padding:.5em .6em;
+  border:1px solid var(--linea);border-radius:2px;
+  background:var(--papel);color:var(--tinta);
+}
+.identificacion input:focus-visible{outline:2px solid var(--sepia);outline-offset:1px}
+.identificacion .nota-id{font-size:.85rem;color:var(--nota);margin:.7em 0 0;text-indent:0}
+
+.control{
+  border:1px solid var(--sepia-claro);border-left:4px solid var(--sepia);
+  background:var(--papel-alt);
+  padding:1em 1.1em;margin:1.5em 0;
+  font-size:.95rem;text-indent:0;hyphens:none;break-inside:avoid;
+}
+.control .etiqueta{
+  display:block;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.6em;
+}
+.control .enunciado{margin:0 0 .8em;text-indent:0;line-height:1.55}
+.control ul{list-style:none;margin:0;padding:0}
+.control li{margin:0 0 .45em}
+.control button.opcion{
+  display:block;width:100%;text-align:left;
+  font-family:var(--serif);font-size:.93rem;line-height:1.5;
+  background:var(--papel);color:var(--tinta);
+  border:1px solid var(--linea);border-radius:2px;
+  padding:.6em .75em;cursor:pointer;min-height:44px;
+}
+.control button.opcion:hover{background:#f7f1e5}
+.control button.opcion:focus-visible{outline:2px solid var(--sepia);outline-offset:1px}
+.control button.opcion[disabled]{cursor:default}
+.control button.opcion.acierto{
+  border-color:#3d5c2a;border-width:2px;background:rgba(61,92,42,.09);
+}
+.control button.opcion.fallo{
+  border-color:#8a2f14;border-width:2px;background:rgba(138,47,20,.08);
+}
+.control .respuesta{margin:.7em 0 0;font-size:.88rem;font-style:italic;color:var(--nota);text-indent:0}
+.control .respuesta b{font-style:normal;font-weight:400;color:var(--sepia)}
+.control[hidden]{display:none}
+
+/* aviso cuando aun no hay nombre */
+.control .pide-nombre{margin:0;font-size:.9rem;font-style:italic;color:var(--nota);text-indent:0}
+
+/* panel de avance y constancia */
+.avance{
+  column-span:all;margin:2rem 0 0;padding:1.3rem 1.4rem;
+  border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta);
+  text-indent:0;hyphens:none;
+}
+.avance .etiqueta{
+  display:block;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sepia);margin-bottom:.85em;text-align:center;
+}
+.avance .barra{
+  height:10px;background:var(--papel-alt);border:1px solid var(--linea);
+  margin:.6em 0;overflow:hidden;
+}
+.avance .barra i{display:block;height:100%;background:var(--sepia);width:0}
+.avance .cifras{font-size:.9rem;color:var(--nota);text-align:center;margin:.4em 0 0}
+.avance ol{margin:1em 0 0;padding-left:1.4em;font-size:.88rem;color:var(--nota)}
+.avance li{margin-bottom:.3em}
+.avance li.completa{color:var(--tinta)}
+.avance li.completa::marker{color:var(--sepia)}
+
+.constancia{margin:1.2em 0 0;padding-top:1em;border-top:1px solid var(--linea)}
+.constancia textarea{
+  font-family:ui-monospace,"Cascadia Mono","Consolas",monospace;
+  font-size:.95rem;letter-spacing:.06em;
+  width:100%;min-height:5.5em;padding:.6em;
+  border:1px solid var(--sepia-claro);border-radius:2px;
+  background:var(--papel-alt);color:var(--tinta);resize:vertical;
+}
+.constancia .acciones{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.6em}
+.constancia button{
+  font-family:var(--serif);font-size:.88rem;
+  background:var(--papel-alt);color:var(--tinta);
+  border:1px solid var(--linea);border-radius:2px;
+  padding:.45rem .9rem;cursor:pointer;min-height:40px;
+}
+.constancia button:hover{background:#e8dcc7}
+.constancia button:focus-visible{outline:2px solid var(--sepia);outline-offset:2px}
+.constancia .instruccion{font-size:.88rem;color:var(--nota);margin:.2em 0 .7em;text-indent:0}
+.constancia .cierre-seccion{
+  margin:0 0 .8em;padding:.7em .85em;
+  border-left:4px solid var(--sepia);background:var(--papel-alt);
+  font-size:.92rem;text-indent:0;
+}
+.constancia code.pase{
+  display:block;margin-top:.6em;padding:.5em;
+  font-family:ui-monospace,"Cascadia Mono","Consolas",monospace;font-size:.78rem;
+  word-break:break-all;background:var(--papel);border:1px dashed var(--sepia-claro);
+}
+.constancia .aun-no{font-size:.9rem;font-style:italic;color:var(--nota);text-indent:0;margin:0}
+
+/* La version de demostracion tiene que distinguirse de un vistazo de la
+   tarea real: es la unica salvaguarda visual contra publicar por error un
+   archivo con el banco a medias. */
+.aviso-muestra{
+  margin:1.4rem 0 0;padding:.8rem 1rem;
+  border:2px solid #8a2f14;background:rgba(138,47,20,.07);color:#8a2f14;
+  font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-align:center;
+}
+.identificacion .fila{display:flex;flex-wrap:wrap;gap:1.2rem}
+.identificacion .campo{flex:1 1 16rem;min-width:0}
+.identificacion .aviso-campo{
+  display:block;font-size:.83rem;font-style:italic;color:var(--nota);margin-top:.4em;
+}
+.identificacion input[readonly]{background:var(--papel-alt);color:var(--nota)}
+.identificacion .fijada{
+  font-size:.83rem;font-style:italic;color:var(--sepia);margin:.6em 0 0;text-indent:0;
+}
+.identificacion .fijada[hidden]{display:none}
+.identificacion details{margin-top:.9em}
+.identificacion summary{
+  font-size:.83rem;color:var(--nota);cursor:pointer;
+}
+.identificacion .acciones-id{margin-top:.7em}
+.identificacion .acciones-id button{
+  font-family:var(--serif);font-size:.85rem;
+  background:var(--papel);color:#8a2f14;
+  border:1px solid #8a2f14;border-radius:2px;
+  padding:.45rem .9rem;cursor:pointer;min-height:40px;
+}
+.identificacion .acciones-id button:hover{background:rgba(138,47,20,.07)}
+.identificacion .acciones-id button:focus-visible{outline:2px solid #8a2f14;outline-offset:2px}
+.identificacion details textarea{
+  font-family:ui-monospace,"Cascadia Mono","Consolas",monospace;font-size:.8rem;
+  width:100%;min-height:4em;margin-top:.5em;padding:.5em;
+  border:1px solid var(--linea);border-radius:2px;
+  background:var(--papel);color:var(--tinta);
+}
+
+/* ---------- HOJA DE CONSTANCIA (solo al imprimir) ---------- */
+#hoja-constancia{display:none}
+.cons-carat{text-align:center;border-bottom:2px solid #000;padding-bottom:1em;margin-bottom:1.4em}
+.cons-carat h1{font-size:20pt;font-weight:400;margin:.3em 0;letter-spacing:.04em}
+.cons-inst{font-size:9pt;letter-spacing:.18em;text-transform:uppercase;margin:0}
+.cons-sub{font-size:10pt;margin:.2em 0;color:#333}
+.cons-datos,.cons-tabla{border-collapse:collapse;width:100%;margin-bottom:1.3em;font-size:10.5pt}
+.cons-datos th,.cons-datos td{border-bottom:1px solid #bbb;padding:.5em .6em;text-align:left;vertical-align:top}
+.cons-datos th{width:11em;font-weight:400;color:#555}
+.cons-tabla th,.cons-tabla td{border:1px solid #bbb;padding:.45em .6em;text-align:left}
+.cons-tabla thead th{background:#eee;font-weight:400;font-size:9.5pt;letter-spacing:.06em;text-transform:uppercase}
+.cons-tabla tfoot th{background:#f6f6f6;font-weight:400}
+.cons-grupo{color:#555;font-size:9.5pt}
+.cons-nota{font-size:14pt;text-align:center;margin:1.2em 0;padding:.6em;border:2px solid #000}
+.cons-cod{margin-top:1.4em;font-size:9.5pt;color:#333}
+.cons-cod code{
+  display:block;font-family:ui-monospace,"Consolas",monospace;font-size:10pt;
+  word-break:break-all;padding:.5em;border:1px dashed #888;margin-top:.4em;
+}
+.cons-pie{margin-top:1.2em;font-size:8.5pt;color:#555;border-top:1px solid #ccc;padding-top:.6em}
+
+@media print{
+  .identificacion,.control,.avance{display:none}
+  /* Al generar la constancia se imprime SOLO la constancia: el periodico
+     entero saldria en decenas de hojas y el estudiante subiria un PDF
+     inservible a la tarea. */
+  body.imprimiendo-constancia > *{display:none !important}
+  body.imprimiendo-constancia #hoja-constancia{display:block !important}
+  body.imprimiendo-constancia{background:#fff;color:#000}
+}
+
+
+/* --- añadidos para el Instrumento de Estudio de Derecho Internacional --- */
+.cuerpo{column-count:1;column-rule:none;max-width:820px;margin:0 auto}
+.cuerpo p + p{text-indent:0}
+h3.articulo,h3.seccion{font-size:1.05rem;margin:1.4em 0 .5em;line-height:1.3}
+h3.articulo .n{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acento,#8e1f1f)}
+.cuerpo h4{font-size:1rem;font-style:italic;margin:1.2em 0 .4em}
+aside.interpretativa,aside.docente{border-radius:4px;padding:.9em 1.1em .3em;margin:1.2em 0}
+aside.interpretativa{background:#fbf7ec;border:1px solid #d6c8a6;border-left:4px solid #a5822e}
+aside.docente{background:#eef3ee;border:1px solid #c9d8cc;border-left:4px solid #3f6b4f}
+aside .rotulo{display:block;font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.2em}
+aside.interpretativa .rotulo{color:#a5822e} aside.docente .rotulo{color:#3f6b4f}
+aside .tit{display:block;font-weight:600;margin-bottom:.4em}
+.cuadro{overflow-x:auto;margin:1em 0}
+.cuadro table{border-collapse:collapse;width:100%;font-size:.88rem;line-height:1.4}
+.cuadro th,.cuadro td{border:1px solid #d6c8a6;padding:.45em .6em;vertical-align:top;text-align:left}
+.cuadro th{background:#ece3cc}
+figure.esquema,figure.lamina{margin:1.2em 0}
+figure.esquema svg,figure.lamina img{display:block;width:100%;height:auto}
+figure figcaption{font-size:.8rem;font-style:italic;color:#5b4a3a;text-align:center;margin-top:.4em}
+.instrumento{display:block;margin:.6em 0 0;font-size:.9rem}
+</style>
+<script type="application/json" id="datos-control">{"sal": "DIP-AC1-lectura-v1", "bloque": "B1", "titulo": "Autocontrol de lectura · Bloque 1", "institucion": "Universidad Católica de Cuenca", "membrete": "Derecho Internacional Público y Privado · Derecho Internacional Público · Tercer ciclo 3A", "muestra": false, "secciones_del_bloque": 5, "nota_maxima": 15.0, "puntos_seccion": 3.0, "indice": {"origen-y-sujetos::0": {"grupos": {"pares": {"e": "Según el instrumento, ¿qué consagró la Paz de Westfalia de 1648?", "o": ["La prohibición general del uso de la fuerza armada.", "La creación de la primera organización internacional permanente.", "El principio de la soberanía y la igualdad de los Estados."], "h": 409270557}, "impares": {"e": "¿Qué caracterizó al Derecho Internacional clásico, del siglo XVI a 1945?", "o": ["Un orden descentralizado, inorgánico y sustentado en la práctica de los Estados europeos.", "Un orden universal que incluía en pie de igualdad a todos los pueblos.", "Un orden centralizado bajo la autoridad de un tribunal mundial."], "h": 1302467118}}}, "origen-y-sujetos::1": {"grupos": {"pares": {"e": "¿Qué disposición de la Carta de la ONU consagra la proscripción del uso de la fuerza?", "o": ["El art. 33.", "El art. 2.4.", "El art. 102."], "h": 3261123361}, "impares": {"e": "¿Cuánto creció el número de Estados miembros de la ONU con la descolonización, según el instrumento?", "o": ["De 51 a 193.", "De 20 a 100.", "De 51 a 120."], "h": 4256459498}}}, "origen-y-sujetos::2": {"grupos": {"pares": {"e": "¿Cuál de las tres estructuras de la sociedad internacional está todavía en formación?", "o": ["La relacional, basada en la coexistencia de Estados iguales.", "La institucional, basada en las organizaciones internacionales.", "La comunitaria, regida por la solidaridad y la tutela de valores supremos."], "h": 870782527}, "impares": {"e": "¿Qué rasgo de la sociedad internacional contemporánea se asocia con la brecha Norte-Sur?", "o": ["Su universalidad.", "Su heterogeneidad.", "Su carácter comunitario."], "h": 355288766}}}, "origen-y-sujetos::3": {"grupos": {"pares": {"e": "¿Qué distingue a un sujeto de Derecho Internacional de un simple actor internacional?", "o": ["El sujeto siempre es un Estado; el actor es cualquier organización internacional.", "El sujeto es centro de imputación de derechos y obligaciones internacionales; el actor influye, pero carece de personalidad jurídica internacional.", "Ninguna: en la doctrina ambos términos son sinónimos."], "h": 1657328277}, "impares": {"e": "Según el cuadro de sujetos, ¿cómo se clasifican las empresas transnacionales?", "o": ["Como actores internacionales, sin personalidad jurídica internacional directa.", "Como sujetos derivados con personalidad funcional.", "Como sujetos originarios, igual que los Estados."], "h": 644521371}}}, "naturaleza::0": {"grupos": {"pares": {"e": "¿Qué significa el carácter relativo de la norma internacional convencional?", "o": ["Que el tratado solo obliga a los Estados que consintieron en vincularse por él.", "Que el tratado obliga a todos los Estados, lo hayan ratificado o no.", "Que el tratado puede incumplirse si cambian las circunstancias políticas."], "h": 1668276236}, "impares": {"e": "¿Cuál es el rasgo fundamental del Derecho Internacional Público según el instrumento?", "o": ["La preeminencia del consentimiento del Estado.", "La existencia de un legislador mundial centralizado.", "La coercibilidad mediante una policía internacional."], "h": 1112173509}}}, "naturaleza::1": {"grupos": {"pares": {"e": "Según el art. 53 de la Convención de Viena de 1969, ¿qué es una norma de ius cogens?", "o": ["Una norma aceptada por la comunidad internacional en su conjunto que no admite acuerdo en contrario.", "Cualquier norma contenida en un tratado multilateral ratificado por la mayoría.", "Una norma dispositiva que los Estados pueden excluir de mutuo acuerdo."], "h": 1370740149}, "impares": {"e": "En la nota interpretativa, ¿con qué se compara el ius cogens?", "o": ["Con una recomendación de buena conducta sin consecuencias.", "Con un contrato de arrendamiento que las partes ajustan a su gusto.", "Con el semáforo en rojo: nadie puede pactar pasarlo legalmente."], "h": 1895677155}}}, "naturaleza::2": {"grupos": {"pares": {"e": "¿Quién calificó al Derecho Internacional de mera «moralidad positiva»?", "o": ["Hans Kelsen.", "John Austin.", "Hugo Grocio."], "h": 2087593150}, "impares": {"e": "Según el instrumento, ¿de qué depende la validez de una norma internacional?", "o": ["De que haya sido aprobada por el Consejo de Seguridad.", "De la convicción de obligatoriedad (opinio iuris), no de que pueda imponerse por la fuerza.", "Exclusivamente de la existencia de una sanción centralizada."], "h": 69828141}}}, "fuentes::0": {"grupos": {"pares": {"e": "¿Qué fuentes del art. 38.1 del Estatuto de la CIJ son medios auxiliares?", "o": ["Los tratados y la costumbre.", "La jurisprudencia y la doctrina.", "Los principios generales del derecho."], "h": 1134231435}, "impares": {"e": "¿Cuáles son los dos elementos de la costumbre internacional?", "o": ["La práctica general y constante, y la opinio iuris.", "La firma y la ratificación.", "La resolución de la Asamblea General y su publicación."], "h": 2522298168}}}, "fuentes::1": {"grupos": {"pares": {"e": "¿En qué asuntos sostuvo la CIJ que una declaración unilateral puede obligar al Estado que la formula?", "o": ["Mavrommatis (1924).", "Ensayos nucleares (1974).", "Reparación por daños (1949)."], "h": 1205996071}, "impares": {"e": "¿Qué resoluciones de organizaciones internacionales son obligatorias según la nota del docente?", "o": ["Ninguna: las resoluciones nunca obligan.", "Todas las de la Asamblea General.", "Las del Consejo de Seguridad (art. 25 de la Carta)."], "h": 4005061544}}}, "fuentes::2": {"grupos": {"pares": {"e": "Cuando un tratado consolida una norma consuetudinaria que estaba en formación, ¿qué efecto se produce?", "o": ["El efecto cristalizador.", "El efecto declarativo.", "El efecto generador."], "h": 1728955040}, "impares": {"e": "¿Qué jerarquía tienen entre sí el tratado y la costumbre?", "o": ["La costumbre siempre prevalece sobre el tratado.", "La misma jerarquía formal.", "El tratado siempre prevalece sobre la costumbre."], "h": 2904399873}}}, "fuentes::3": {"grupos": {"pares": {"e": "¿Qué es el efecto de res interpretata de las sentencias de la Corte IDH?", "o": ["La obligación de cumplir la sentencia solo para el Estado condenado.", "La facultad de la Corte de revisar sus propias sentencias.", "La proyección de su interpretación de la Convención Americana como estándar para todos los Estados parte."], "h": 3706944542}, "impares": {"e": "¿Quiénes deben ejercer el control de convencionalidad interno?", "o": ["Solo la Corte Constitucional de cada Estado.", "Solo la Corte Interamericana.", "Todas las autoridades públicas: jueces, fiscales, legisladores y administradores."], "h": 2668640088}}}, "tratados::0": {"grupos": {"pares": {"e": "¿Qué regula la Convención de Viena de 1986?", "o": ["Las relaciones diplomáticas y consulares.", "Los tratados celebrados solo entre Estados.", "Los tratados entre Estados y organizaciones internacionales, o entre organizaciones."], "h": 614018734}, "impares": {"e": "El Protocolo de Río de Janeiro de 1942 entre Ecuador y Perú es un ejemplo de:", "o": ["Acto unilateral.", "Tratado-contrato.", "Tratado-ley."], "h": 3293138592}}}, "tratados::1": {"grupos": {"pares": {"e": "¿Por qué fracasó la Sociedad de las Naciones según el instrumento?", "o": ["Por la regla de unanimidad estricta y la falta de acceso de las potencias emergentes.", "Porque prohibió el uso de la fuerza.", "Porque no tenía órganos permanentes."], "h": 3779594387}, "impares": {"e": "¿Qué inauguró el Congreso de Viena de 1815?", "o": ["El sistema de conferencias periódicas de las grandes potencias.", "La primera organización mundial permanente.", "La Corte Internacional de Justicia."], "h": 994191445}}}, "tratados::2": {"grupos": {"pares": {"e": "¿En qué se diferencia la mediación de los buenos oficios?", "o": ["No se diferencian: son el mismo medio.", "En los buenos oficios hay sentencia obligatoria; en la mediación, no.", "El mediador propone soluciones de fondo; en los buenos oficios el tercero solo acerca a las partes."], "h": 145304007}, "impares": {"e": "¿Cómo terminó el caso Ecuador c. Colombia sobre las fumigaciones aéreas ante la CIJ?", "o": ["Con un acuerdo entre las partes en 2013 y el retiro del caso.", "Con un laudo de la Corte Permanente de Arbitraje.", "Con una sentencia que condenó a Colombia."], "h": 698890722}}}, "responsabilidad::0": {"grupos": {"pares": {"e": "¿Qué régimen de responsabilidad nace de violaciones graves de normas de ius cogens?", "o": ["La responsabilidad por hecho ilícito ordinario.", "La responsabilidad agravada.", "La responsabilidad objetiva por riesgo."], "h": 961994734}, "impares": {"e": "La responsabilidad por actividades lícitas peligrosas que causan daño transfronterizo es:", "o": ["La responsabilidad agravada.", "La protección diplomática.", "La responsabilidad objetiva por riesgo transfronterizo."], "h": 2085549653}}}, "responsabilidad::1": {"grupos": {"pares": {"e": "Para la teoría dualista, ¿qué necesita un tratado para tener fuerza en el derecho interno?", "o": ["Una ley nacional de incorporación (el «transformador»).", "Nada: rige automáticamente desde su ratificación.", "Una sentencia de la Corte Internacional de Justicia."], "h": 3494562487}, "impares": {"e": "¿Qué autores se asocian a la teoría monista?", "o": ["Triepel y Anzilotti.", "Austin y Hart.", "Kelsen y Scelle."], "h": 3238455744}}}, "responsabilidad::2": {"grupos": {"pares": {"e": "Según el art. 425 de la Constitución, ¿dónde se ubican los tratados internacionales?", "o": ["Debajo de la Constitución y encima de las leyes orgánicas.", "Encima de la Constitución en todos los casos.", "Al mismo nivel que las ordenanzas."], "h": 3011290625}, "impares": {"e": "¿Qué órgano emite el dictamen previo y vinculante sobre la constitucionalidad de un tratado?", "o": ["La Corte Constitucional (art. 438.1).", "La Asamblea Nacional.", "La Corte Nacional de Justicia."], "h": 1102448107}}}}, "secciones": [{"pestana": "ORIGEN Y SUJETOS", "apartados": [{"id": "origen-y-sujetos::0", "titulo": "a · De Westfalia a la «sociedad de Estados civilizados»"}, {"id": "origen-y-sujetos::1", "titulo": "b · Los factores del Derecho Internacional contemporáneo"}, {"id": "origen-y-sujetos::2", "titulo": "c · Las tres estructuras de la sociedad internacional"}, {"id": "origen-y-sujetos::3", "titulo": "d · Sujetos y actores"}]}, {"pestana": "NATURALEZA DE LAS NORMAS", "apartados": [{"id": "naturaleza::0", "titulo": "a · El consentimiento y los cuatro caracteres"}, {"id": "naturaleza::1", "titulo": "b · El límite: las normas de ius cogens"}, {"id": "naturaleza::2", "titulo": "c · ¿Es el Derecho Internacional un verdadero derecho?"}]}, {"pestana": "FUENTES", "apartados": [{"id": "fuentes::0", "titulo": "a · El art. 38 del Estatuto de la CIJ"}, {"id": "fuentes::1", "titulo": "b · Lo que el art. 38 no enumera"}, {"id": "fuentes::2", "titulo": "c · Tratados y costumbre"}, {"id": "fuentes::3", "titulo": "d · Res interpretata y control de convencionalidad"}]}, {"pestana": "TRATADOS Y CONTROVERSIAS", "apartados": [{"id": "tratados::0", "titulo": "a · El derecho de los tratados"}, {"id": "tratados::1", "titulo": "b · La institucionalización de la comunidad internacional"}, {"id": "tratados::2", "titulo": "c · La solución pacífica de controversias"}]}, {"pestana": "RESPONSABILIDAD Y DERECHO INTERNO", "apartados": [{"id": "responsabilidad::0", "titulo": "a · Los tres regímenes de responsabilidad"}, {"id": "responsabilidad::1", "titulo": "b · Monismo y dualismo"}, {"id": "responsabilidad::2", "titulo": "c · Los tratados en la Constitución del Ecuador"}]}]}</script>
+</head>
+<body>
+
+<div class="hoja">
+
+<header class="cabecera">
+  <hr class="filete"><hr class="filete filete--fino">
+  <h1 class="rotulo">Derecho Internacional Público y Privado · Bloque 1</h1>
+  <hr class="filete filete--fino"><hr class="filete">
+  <div class="membrete">
+    <span>Universidad Católica de Cuenca</span>
+    <span>Bloque 1 · Derecho Internacional Público</span>
+    <span>Tercer ciclo · 3A</span>
+    <span>Sep. 2026 – Feb. 2027</span>
+  </div>
+  <hr class="filete filete--fino">
+</header>
+
+<div class="identificacion">
+  <div class="fila">
+    <div class="campo">
+      <label for="nombre-estudiante">Nombres y apellidos completos</label>
+      <input type="text" id="nombre-estudiante" autocomplete="name"
+             placeholder="Como consta en su matr&#237;cula">
+    </div>
+    <div class="campo">
+      <label for="cedula-estudiante">N&#250;mero de c&#233;dula</label>
+      <input type="text" id="cedula-estudiante" inputmode="numeric"
+             maxlength="10" autocomplete="off" placeholder="10 d&#237;gitos">
+      <span class="aviso-campo" id="aviso-cedula" role="status"></span>
+    </div>
+  </div>
+  <p class="nota-id">Al cerrar cada apartado encontrará una pregunta de control (17 en total). Su cédula decide qué variante le toca. Esta actividad es el Autocontrol del Bloque 1 (aprendizaje autónomo) y vale 15 puntos. Al terminar, descargue la constancia en PDF y súbala a la tarea del aula con su código.</p>
+  <p class="fijada" id="identidad-fijada" hidden>C&#233;dula fijada: ya hay respuestas registradas con ella.</p>
+  <details>
+    <summary>&#191;Perdi&#243; su avance, o necesita empezar de nuevo?</summary>
+    <label for="restaurar-avance">Pegue aqu&#237; el texto que empieza por RESPALDO</label>
+    <textarea id="restaurar-avance" placeholder="RESPALDO|..."></textarea>
+    <span class="aviso-campo" id="aviso-restaurar" role="status"></span>
+    <div class="acciones-id">
+      <button type="button" id="reiniciar-control">Empezar de nuevo (borra mi avance en este navegador)</button>
+    </div>
+  </details>
+</div>
+</div>
+
+<div class="barra-superior">
+  <nav class="lectura" aria-label="Ajustes de lectura">
+    <span>Lectura</span>
+    <button type="button" onclick="escala(-1)" aria-label="Reducir el tama&#241;o del texto">A&minus;</button>
+    <button type="button" onclick="escala(0)" aria-label="Tama&#241;o de texto normal">A</button>
+    <button type="button" onclick="escala(1)" aria-label="Aumentar el tama&#241;o del texto">A+</button>
+    <button type="button" onclick="document.body.classList.toggle('contraste')">Alto contraste</button>
+    <button type="button" onclick="document.body.classList.toggle('unacol')">Una columna</button>
+  </nav>
+  <nav class="pestanas" aria-label="Secciones del bloque">
+    <div class="pestanas-pista" role="tablist" aria-label="Secciones del bloque">
+      <button type="button" role="tab" id="tab-origen-y-sujetos" aria-controls="origen-y-sujetos" aria-selected="true" tabindex="0">ORIGEN Y SUJETOS</button>
+      <button type="button" role="tab" id="tab-naturaleza" aria-controls="naturaleza" aria-selected="false" tabindex="-1">NATURALEZA DE LAS NORMAS</button>
+      <button type="button" role="tab" id="tab-fuentes" aria-controls="fuentes" aria-selected="false" tabindex="-1">FUENTES</button>
+      <button type="button" role="tab" id="tab-tratados" aria-controls="tratados" aria-selected="false" tabindex="-1">TRATADOS Y CONTROVERSIAS</button>
+      <button type="button" role="tab" id="tab-responsabilidad" aria-controls="responsabilidad" aria-selected="false" tabindex="-1">RESPONSABILIDAD Y DERECHO INTERNO</button>
+    </div>
+  </nav>
+</div>
+
+<div class="hoja">
+<section class="seccion" id="origen-y-sujetos" role="tabpanel" aria-labelledby="tab-origen-y-sujetos" tabindex="0">
+  <p class="marca-seccion">ORIGEN Y SUJETOS</p>
+  <p class="antetitulo">Capítulo I · Subtemas 1.1.1 y 1.1.2</p>
+  <p class="titular">Origen, ubicación, objeto y sujetos del derecho internacional público y privado</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque I y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b1/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · De Westfalia a la «sociedad de Estados civilizados»</h2>
+<h3 class="articulo" id="art-1-1-1"><span class="n">Artículo 1.1.1</span>Origen, Ubicación, Definición y Objeto del Derecho Internacional Público</h3>
+<p>El Derecho Internacional no es un producto normativo repentino, sino el resultado del establecimiento de relaciones de estabilidad y permanencia entre grupos humanos políticamente organizados dotados de autodeterminación. Desde las primeras civilizaciones (orientales, islámicas, grecorromanas), la necesidad de fijar reglas para el comercio, la guerra y la paz forjó un núcleo normativo rudimentario conocido históricamente como ius gentium o Derecho de Gentes.</p>
+<h4>A. La Evolución Histórica de la Sociedad Internacional Clásica</h4>
+<p>La forma histórica fundacional del ordenamiento jurídico internacional contemporáneo es el denominado Derecho Internacional Clásico, el cual nació en la Europa Occidental del siglo XVI y perduró hasta el final de la Segunda Guerra Mundial en 1945. En su evolución sociológica se identifican tres etapas estructurales:</p>
+<ul>
+  <li><strong>1. El Sistema Europeo de los Estados: </strong> La Paz de Westfalia de 1648 puso fin a la Guerra de los Treinta Años y consagró el principio de la soberanía y la igualdad de los Estados. Sus tratados de Münster y Osnabrück fueron negociados por el Sacro Imperio Romano Germánico, Francia, Suecia, España y las Provincias Unidas. Se caracterizó por ser un orden normativo descentralizado, inorgánico y sustentado en la práctica particularista de los Estados europeos.</li>
+  <li><strong>2. El Sistema de Estados de Civilización Europea: </strong> Con la ocupación y europeización del continente americano durante el siglo XVIII y las independencias de las repúblicas americanas, el sistema se amplió geográficamente incorporando una tradición cultural compartida y receptando los principios de libertad e igualdad soberana.</li>
+  <li><strong>3. La «Sociedad de Estados Civilizados»: </strong> Tras la Revolución Industrial del siglo XIX, la cultura occidental se expandió globalmente bajo una concepción eurocéntrica. Europa exigía a las naciones extraeuropeas la adopción de pautas jurídicas occidentales como condición para integrar la «familia de naciones civilizadas», imponiendo relaciones de dominación, colonización y subordinación hegemonía-periferia.</li>
+</ul>
+<aside class="interpretativa"><span class="rotulo">Nota interpretativa</span><span class="tit">La Paz de Westfalia como la Fotografía Fundacional</span><p><em>Imaginemos que la sociedad internacional clásica era un «club privado excluyente». La Paz de Westfalia de 1648 representó la fotografía oficial de apertura, donde cada Estado soberano obtuvo su carnet de socio en igualdad de condiciones jurídicas. Nadie estaba por encima del otro (no había un «presidente» ni un «policía universal»), por lo que todos acordaron convivir respetando las paredes (fronteras) del edificio de cada miembro.</em></p></aside>
+<figure class="lamina"><img src="../recursos/laminas/b1-westfalia.jpg" alt="Lámina. La firma de la Paz de Westfalia, 1648." loading="lazy" onerror="this.closest('figure').hidden=true"><figcaption>Lámina. La firma de la Paz de Westfalia, 1648.</figcaption></figure>
+  <div class="control" data-control="origen-y-sujetos::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · Los factores del Derecho Internacional contemporáneo</h2>
+<h4>B. El Derecho Internacional Contemporáneo y sus Factores de Transformación</h4>
+<p>Tras la catástrofe de 1945, el modelo clásico entró en crisis y dio paso al Derecho Internacional Contemporáneo. Esta transformación estuvo impulsada por factores de cambio determinante:</p>
+<ul>
+  <li><strong>1. La Escisión Ideológico-Política: </strong> La Revolución Soviética de 1917 y la posterior fractura ideológica Este-Oeste en la Guerra Fría desafiaron los dogmas del liberalismo económico clásico.</li>
+  <li><strong>2. La Universalización y Descolonización: </strong> El proceso masivo de descolonización impulsado por la Carta de la ONU incrementó los miembros estatales de 51 a 193, transformando el orden internacional en una Comunidad Universal verdaderamente global e impulsando el Derecho Internacional del Desarrollo y el principio de soberanía sobre los recursos naturales.</li>
+  <li><strong>3. La Prohibición del Uso de la Fuerza: </strong> La proscripción del uso de la fuerza armada como medio de solución de controversias (consagrada en el Art. 2.4 de la Carta de San Francisco) constituyó el pilar ético y normativo fundamental de la nueva arquitectura internacional.</li>
+  <li><strong>4. Las Revoluciones Científica, Técnica y Ecológica: </strong> La regulación del espacio ultraterrestre, los fondos marinos, la transferencia de tecnología, la ciberseguridad, la biotecnología y el cambio climático han obligado al DIP a extender sus ramas protectoras.</li>
+</ul>
+  <div class="control" data-control="origen-y-sujetos::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · Las tres estructuras de la sociedad internacional</h2>
+<h4>C. Caracterización de la Sociedad Internacional Contemporánea</h4>
+<p>La sociedad internacional contemporánea es universal (abarca a toda la Tierra), compleja (por la gravedad de sus crisis económicas, sociales y políticas), heterogénea (marcada por la brecha Norte-Sur y la asimetría de poder), fragmentada e interdependiente. Responde a tres estructuras interrelacionadas:</p>
+<ul>
+  <li><strong>1. Estructura Relacional (Interestatal): </strong> Reflejada en la coexistencia de Estados soberanos formalmente iguales en un plano de paridad jurídica.</li>
+  <li><strong>2. Estructura Institucional: </strong> Reflejada en la cooperación institucionalizada y permanente a través de Organizaciones Internacionales (ONU, OEA, UE).</li>
+  <li><strong>3. Estructura Comunitaria: </strong> Todavía en formación, regida por el principio de solidaridad colectiva y la tutela de valores supremos de la humanidad (Ius Cogens).</li>
+</ul>
+  <div class="control" data-control="origen-y-sujetos::2" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>d · Sujetos y actores</h2>
+<h3 class="articulo" id="art-1-1-2"><span class="n">Artículo 1.1.2</span>Sujetos en el Escenario Internacional</h3>
+<p>En la doctrina del Derecho Internacional es vital diferenciar la subjetividad jurídica de la mera relevancia sociológica. Un Sujeto de Derecho Internacional es aquel ente que posee capacidad jurídica para ser centro de imputación de derechos y obligaciones internacionales, y con aptitud para formular reclamaciones internacionales. Por el contrario, un Actor Internacional es cualquier entidad que influye en las relaciones internacionales pero carece de personalidad jurídica internacional autónoma.</p>
+<div class="cuadro"><table>
+<tr><th><strong>Categoría de Ente</strong></th><th><strong>Denominación Jurídica</strong></th><th><strong>Ejemplos y Capacidad</strong></th></tr>
+<tr><td>Sujetos Originarios</td><td>Estados Soberanos</td><td>Poseen personalidad jurídica plena y plena competencia. Requisitos (Convención de Montevideo 1933): Población permanente, territorio determinado, gobierno y capacidad de relacionarse.</td></tr>
+<tr><td>Sujetos Derivados</td><td>Organizaciones Internacionales, Individuos, Pueblos en Lucha, Beligerantes, Santa Sede</td><td>Creados por la voluntad de los Estados (Tratados). Poseen personalidad funcional restringida a sus fines (Dictamen CIJ 1949 Reparación por Daños). El individuo es sujeto pasivo/activo en DD.HH. y DIDH.</td></tr>
+<tr><td>Actores Internacionales</td><td>Empresas Transnacionales, ONGs, Medios de Comunicación</td><td>Carecen de personalidad jurídica internacional directa. Su estatuto legal depende del derecho interno de cada Estado donde operan.</td></tr>
+</table></div>
+  <div class="control" data-control="origen-y-sujetos::3" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="naturaleza" role="tabpanel" aria-labelledby="tab-naturaleza" tabindex="0" hidden>
+  <p class="marca-seccion">NATURALEZA DE LAS NORMAS</p>
+  <p class="antetitulo">Capítulo II · Subtema 1.2.1</p>
+  <p class="titular">Naturaleza jurídica de las normas del derecho internacional público</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque I y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b1/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · El consentimiento y los cuatro caracteres</h2>
+<h3 class="articulo" id="art-1-2-1"><span class="n">Artículo 1.2.1</span>Naturaleza Jurídica de las Normas del Derecho Internacional Público</h3>
+<p>A diferencia del derecho interno —nacido para ejercer un control centralizado e imperativo sobre los ciudadanos dentro de un territorio—, el Derecho Internacional Público fue concebido para regular los vínculos horizontales entre Estados soberanos. Su rasgo ontológico fundamental es la preeminencia del consentimiento del Estado. Sin el asentimiento o la práctica de los Estados, la norma internacional no puede nacer ni resultar oponible.</p>
+<h4>A. Los Cuatro Caracteres de la Norma Internacional</h4>
+<ul>
+  <li><strong>1. Carácter Relativo: </strong> Las normas convencionales (tratados) solo obligan a los Estados que han expresado su consentimiento formal en vincularse por ellas. Lo que es ley para un Estado parte es res inter alios acta para quien no ha ratificado el instrumento.</li>
+  <li><strong>2. Carácter Recíproco: </strong> Las obligaciones nacen de la confluencia de consentimientos mutuos. Un Estado solo está obligado frente a otro en la medida en que sus manifestaciones de voluntad coincidan. Además, la reciprocidad permite la adopción de medidas de autotutela (retorsiones o contramedidas) ante incumplimientos.</li>
+  <li><strong>3. Carácter Dispositivo: </strong> En la estructura relacional paritaria, las normas internacionales son, en su mayoría, dispositivas. Los Estados pueden, por mutuo acuerdo, modificar su contenido o excluir su aplicación para sus relaciones bilaterales.</li>
+  <li><strong>4. Carácter Particularista: </strong> Dada la heterogeneidad de la comunidad internacional, abundan los tratados regionales o bilaterales que forman un «derecho internacional particular» entre ciertos Estados (ej. el sistema interamericano), conviviendo con el derecho general.</li>
+</ul>
+  <div class="control" data-control="naturaleza::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · El límite: las normas de ius cogens</h2>
+<h4>B. El Límite al Carácter Dispositivo: Normas Imperativas (Ius Cogens)</h4>
+<p>El consentimiento estatal no es absoluto. El ordenamiento internacional contemporáneo reconoce la existencia de normas de orden público internacional denominadas normas de Ius Cogens. Conforme al Art. 53 de la Convención de Viena de 1969, una norma de Ius Cogens es aquella aceptada y reconocida por la comunidad internacional de Estados en su conjunto como norma que no admite acuerdo en contrario y que solo puede ser modificada por una norma posterior de derecho internacional general que tenga el mismo carácter.</p>
+<aside class="interpretativa"><span class="rotulo">Nota interpretativa</span><span class="tit">Normas Dispositivas vs. Normas de Ius Cogens</span><p><em>Imaginemos que las normas dispositivas son como un contrato privado de arrendamiento: el inquilino y el propietario pueden acordar la fecha de pago o la pintura del inmueble como prefieran. Pero las normas de Ius Cogens son como los semáforos en rojo en la vía pública o la prohibición del homicidio: ningún conductor o ciudadano puede hacer un pacto bilateral para acordar pasar un semáforo en rojo legalmente. El Ius Cogens (prohibición del genocidio, la tortura, la esclavitud, la agresión) es el «límite infranqueable» de la soberanía estatal.</em></p></aside>
+  <div class="control" data-control="naturaleza::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · ¿Es el Derecho Internacional un verdadero derecho?</h2>
+<h4>C. Caracteres del Ordenamiento: ¿Es el Derecho Internacional un Verdadero Derecho?</h4>
+<p>Frente a posturas históricas (como la de John Austin, que lo calificaba de mera «moralidad positiva» por falta de sanción coercitiva centralizada, o H. L. A. Hart, que lo describía como un orden «primitivo» por carecer de reglas secundarias de reconocimiento, cambio y adjudicación), la doctrina moderna y la jurisprudencia de la CIJ confirman su naturaleza de auténtico derecho. La validez de una norma jurídica no depende de si se puede imponer por la fuerza, sino de la convicción de obligatoriedad (opinio juris) inherente a ella misma.</p>
+  <div class="control" data-control="naturaleza::2" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="fuentes" role="tabpanel" aria-labelledby="tab-fuentes" tabindex="0" hidden>
+  <p class="marca-seccion">FUENTES</p>
+  <p class="antetitulo">Capítulo III · Subtemas 1.3.1 y 1.3.2</p>
+  <p class="titular">Fuentes del derecho internacional público</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque I y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b1/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · El art. 38 del Estatuto de la CIJ</h2>
+<p>Las fuentes del Derecho Internacional representan los modos de creación, manifestación y verificación de la norma jurídica internacional. Doctrinariamente (Rousseau, Anzilotti, Moreno Quintana), se distinguen las fuentes materiales (necesidades sociales, políticas y económicas que impulsan el derecho) de las fuentes formales (los procedimientos validados de positivación jurídica).</p>
+<h3 class="articulo" id="art-1-3-1"><span class="n">Artículo 1.3.1</span>Determinación Positivista: El Artículo 38 del Estatuto de la CIJ</h3>
+<p>El catálogo positivista por excelencia de las fuentes del DIP se encuentra consagrado en el Art. 38.1 del Estatuto de la Corte Internacional de Justicia (CIJ), instrumento taxativo que clasifica a las fuentes en dos categorías jerárquicas operativas:</p>
+<div class="cuadro"><table>
+<tr><th><strong>Categoría de Fuente</strong></th><th><strong>Fuente Formal (Art. 38)</strong></th><th><strong>Definición y Elementos Constitutivos</strong></th></tr>
+<tr><td>Principales / Primarias</td><td>a) Tratados Internacionales</td><td>Acuerdos expresos por escrito entre sujetos de DIP destinados a producir efectos jurídicos regidos por el derecho internacional.</td></tr>
+<tr><td>Principales / Primarias</td><td>b) Costumbre Internacional</td><td>Práctica general, uniforme y constante (elemento material) aceptada como derecho (opinio juris sive necessitatis: elemento psicológico).</td></tr>
+<tr><td>Principales / Primarias</td><td>c) Principios Generales del Derecho</td><td>Postulados ético-jurídicos fundamentales reconocidos por las naciones civilizadas (buena fe, pacta sunt servanda, cosa juzgada, irretroactividad).</td></tr>
+<tr><td>Auxiliares / Secundarias</td><td>d) Jurisprudencia y Doctrina</td><td>Criterios de los tribunales internacionales (CIJ, Corte IDH) y escritos de publicistas de mayor competencia. Medios de prueba e interpretación.</td></tr>
+<tr><td>Mecanismo Especial</td><td>Ex Aequo et Bono (Equidad)</td><td>Facultad conferida por las partes a la Corte para decidir un diferendo aplicando la justicia distributiva formal, incluso apartándose del derecho positivo.</td></tr>
+</table></div>
+<figure class="esquema"><svg viewBox="0 0 720 300" role="img" aria-label="Fuentes del artículo 38 del Estatuto de la CIJ" font-family="EB Garamond, Georgia, serif">
+<rect x="10" y="10" width="700" height="54" rx="4" fill="#efe5cc" stroke="#a5822e"/>
+<text x="360" y="44" text-anchor="middle" font-size="21" font-weight="600" fill="#2a2018">Art. 38.1 del Estatuto de la CIJ</text>
+<g font-size="17" fill="#2a2018" text-anchor="middle">
+<rect x="10" y="90" width="220" height="92" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/><text x="120" y="122" font-weight="600">a) Tratados</text><text x="120" y="148" font-size="15">acuerdo escrito</text><text x="120" y="168" font-size="15">entre sujetos del DIP</text>
+<rect x="250" y="90" width="220" height="92" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/><text x="360" y="122" font-weight="600">b) Costumbre</text><text x="360" y="148" font-size="15">práctica general</text><text x="360" y="168" font-size="15">+ opinio iuris</text>
+<rect x="490" y="90" width="220" height="92" rx="4" fill="#fbf7ec" stroke="#8e1f1f"/><text x="600" y="122" font-weight="600">c) Principios generales</text><text x="600" y="148" font-size="15">buena fe, pacta sunt</text><text x="600" y="168" font-size="15">servanda, cosa juzgada</text>
+<rect x="130" y="208" width="460" height="40" rx="4" fill="#fff" stroke="#a5822e" stroke-dasharray="5 4"/><text x="360" y="234" font-size="16">d) Medios auxiliares: jurisprudencia y doctrina</text>
+<text x="360" y="284" font-size="15" font-style="italic" fill="#5b4a3a">Art. 38.2: decidir ex aequo et bono solo si las partes lo convienen</text>
+</g>
+<text x="16" y="84" font-size="13" fill="#8e1f1f" letter-spacing="2">FUENTES PRINCIPALES · MISMA JERARQUÍA</text>
+</svg><figcaption>Esquema 1. Las fuentes del art. 38 del Estatuto de la CIJ.</figcaption></figure>
+  <div class="control" data-control="fuentes::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · Lo que el art. 38 no enumera</h2>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">Lo que el art. 38 no enumera, pero también obliga</span><p>El catálogo del art. 38 es de 1945 y no agota los modos de crear obligaciones internacionales. Tres más se estudian hoy:</p><ul><li><strong>Actos unilaterales de los Estados.</strong> Una declaración pública hecha con intención de obligarse vincula al Estado que la formula. La CIJ lo sostuvo en los asuntos de los <em>Ensayos nucleares</em> (Australia y Nueva Zelanda c. Francia, 1974).</li><li><strong>Resoluciones de las organizaciones internacionales.</strong> Las del Consejo de Seguridad son obligatorias (art. 25 de la Carta de la ONU); las de la Asamblea General recomiendan, pero pueden declarar o impulsar una costumbre.</li><li><strong><em>Soft law</em>.</strong> Declaraciones, principios y guías sin fuerza obligatoria propia que orientan la conducta de los Estados y suelen convertirse después en tratado o costumbre.</li></ul></aside>
+  <div class="control" data-control="fuentes::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · Tratados y costumbre</h2>
+<h4>A. Relación e Interacción entre Tratados y Costumbre</h4>
+<p>A diferencia de los ordenamientos internos normativistas, en el DIP el tratado y la costumbre gozan de la misma jerarquía formal. Un tratado puede derogar una costumbre previa entre las partes, en aplicación de la regla lex posterior derogat priori, y una norma consuetudinaria posterior puede modificar o abrogar un tratado por inoperancia o práctica contraria. Existen tres efectos de interacción clave (consagrados en la jurisprudencia de la CIJ):</p>
+<ul>
+  <li><strong>1. Efecto Declarativo: </strong> El tratado recoge por escrito una costumbre preexistente (ej. la Convención de Viena de 1969 sobre el Derecho de los Tratados).</li>
+  <li><strong>2. Efecto Cristalizador: </strong> El tratado consolida una norma consuetudinaria incipiente en proceso de formación (ej. las reglas sobre Plataforma Continental).</li>
+  <li><strong>3. Efecto Generador: </strong> La adopción de un tratado multilateral impulsa la práctica estatal posterior de no partes, creando una nueva costumbre general.</li>
+</ul>
+  <div class="control" data-control="fuentes::2" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>d · Res interpretata y control de convencionalidad</h2>
+<h3 class="articulo" id="art-1-3-2"><span class="n">Artículo 1.3.2</span>Actualización Doctrinaria (2020–2026): El Control de Convencionalidad y la Res Interpretata</h3>
+<p>En el ámbito contemporáneo del Derecho Internacional de los Derechos Humanos (DIDH), la jurisprudencia de los tribunales regionales (Corte Interamericana de Derechos Humanos — Corte IDH, y Tribunal Europeo de Derechos Humanos — TEDH) ha evolucionado más allá de la concepción tradicional de «medio auxiliar» de determinación del derecho.</p>
+<ul>
+  <li><strong>1. El Efecto de Res Interpretata (Cosa Interpretada): </strong> Mientras que la cosa juzgada vincula únicamente a los Estados partes litigantes en el caso concreto, la cosa interpretada proyecta la interpretación oficial de la Corte IDH sobre la Convención Americana como un estándar obligatorio erga omnes para todos los Estados partes del tratado (Nogueira Alcalá, 2021; Carmona Tinoco, s. f.).</li>
+  <li><strong>2. El Control de Convencionalidad Interno: </strong> En virtud de esta doctrina, todas las autoridades públicas del Estado (jueces, fiscales, legisladores y administradores) tienen la obligación ex officio de contrastar la normativa interna con el corpus iuris interamericano y la jurisprudencia de la Corte IDH, garantizando la supremacía de los derechos humanos y previniendo la responsabilidad internacional del Estado.</li>
+</ul>
+  <div class="control" data-control="fuentes::3" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="tratados" role="tabpanel" aria-labelledby="tab-tratados" tabindex="0" hidden>
+  <p class="marca-seccion">TRATADOS Y CONTROVERSIAS</p>
+  <p class="antetitulo">Capítulo IV · Subtemas 1.4.1 a 1.4.3</p>
+  <p class="titular">Los tratados internacionales y la comunidad internacional</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque I y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b1/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · El derecho de los tratados</h2>
+<h3 class="articulo" id="art-1-4-1"><span class="n">Artículo 1.4.1</span>Derecho de los Tratados</h3>
+<p>La ausencia de un poder legislativo central en la comunidad internacional otorga al tratado internacional un papel estelar como fuente codificadora. El régimen normativo rector de estos instrumentos se encuentra condensado en:</p>
+<ul>
+  <li><strong>1. La Convención de Viena de 1969 sobre el Derecho de los Tratados: </strong> Regula los acuerdos escritos concluidos entre Estados.</li>
+  <li><strong>2. La Convención de Viena de 1986: </strong> Regula los tratados celebrados entre Estados y Organizaciones Internacionales o entre Organizaciones Internacionales entre sí.</li>
+</ul>
+<p>Conforme al Art. 2.1.a) de la Convención de 1969, se entiende por Tratado un «acuerdo internacional celebrado por escrito entre Estados y regido por el derecho internacional, ya conste en un instrumento único o en dos o más instrumentos conexos y cualquiera que sea su denominación particular» (Convenio, Pacto, Carta, Protocolo, Modus Vivendi).</p>
+<h4>Clasificación Doctrinal y Material de los Tratados</h4>
+<ul>
+  <li><strong>a) Tratados-Ley (Normativos): </strong> Llamados también normativos, son aquellos que establecen reglas generales objetivas para toda la comunidad internacional sobre asuntos de interés colectivo (ej. Carta de la ONU, Convenciones de Ginebra, Tratados de DD.HH., y los Objetivos de Desarrollo Sostenible — ODS). Son multilaterales y abiertos a adhesión.</li>
+  <li><strong>b) Tratados-Contrato: </strong> Tienen por objeto regular intereses particulares y contrapuestos entre los contratantes mediante concesiones mutuas (ej. tratados fronterizos, comerciales o bilaterales, como el Protocolo de Río de Janeiro de 1942 entre Ecuador y Perú).</li>
+</ul>
+  <div class="control" data-control="tratados::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · La institucionalización de la comunidad internacional</h2>
+<h3 class="articulo" id="art-1-4-2"><span class="n">Artículo 1.4.2</span>Organización e Institucionalización de la Comunidad Internacional</h3>
+<p>El proceso de contractualización de las relaciones interestatales ha transitado por hitos clave de institucionalización:</p>
+<ul>
+  <li><strong>1. Paz de Westfalia (1648): </strong> Creó un modelo de equilibrio de poder descentralizado basado en la parataxis (coordinación entre iguales soberanos).</li>
+  <li><strong>2. Congreso de Viena (1815): </strong> Inauguró el sistema de conferencias periódicas de las grandes potencias para gestionar asuntos de seguridad común.</li>
+  <li><strong>3. Sociedad de las Naciones (Tratado de Versalles 1919): </strong> Primer ensayo de organización mundial con vocación de permanencia, fallido por la regla de unanimidad estricta e inaccesibilidad de las potencias emergentes.</li>
+  <li><strong>4. Organización de las Naciones Unidas (Carta de San Francisco 1945): </strong> Creó una estructura político-jurídica dotada de órganos permanentes (Consejo de Seguridad, Asamblea General, CIJ) consagrada al mantenimiento de la paz, la cooperación y el respeto a los derechos humanos.</li>
+</ul>
+  <div class="control" data-control="tratados::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · La solución pacífica de controversias</h2>
+<h3 class="articulo" id="art-1-4-3"><span class="n">Artículo 1.4.3</span>Solución Pacífica de Diferencias entre los Estados</h3>
+<p>Una controversia internacional es «un desacuerdo sobre un punto de derecho o de hecho, una contradicción, una oposición de tesis jurídicas o de intereses entre dos personas» (TPJI, Asunto Mavrommatis). Los Estados están obligados por el Art. 33 de la Carta de la ONU a resolver sus litigios por medios pacíficos. La práctica distingue dos grandes clases de mecanismos:</p>
+<h4>A. Medios Políticos o Diplomáticos (Buscan la avenencia sin sentencia obligatoria)</h4>
+<ul>
+  <li><strong>1. Negociaciones Directas: </strong> Intercambio directo entre plenipotenciarios o cancilleres. Es el medio normal previo a cualquier otra instancia.</li>
+  <li><strong>2. Buenos Oficios: </strong> Un tercero imparcial (Estado o personalidad) aproxima a las partes para que reanuden la negociación directa.</li>
+  <li><strong>3. Mediación: </strong> El mediador no solo aproxima a las partes, sino que propone soluciones de fondo justas y honrosas.</li>
+  <li><strong>4. Investigación: </strong> Una comisión aclara los hechos controvertidos mediante un informe no vinculante.</li>
+  <li><strong>5. Conciliación: </strong> Una comisión examina imparcialmente la controversia y formula términos de arreglo aceptables.</li>
+</ul>
+<h4>B. Medios Jurídicos (Finalizan con un fallo vinculante y obligatorio)</h4>
+<ul>
+  <li><strong>1. Arbitraje Internacional: </strong> Solución de conflictos por jueces de su elección basada en el respeto al derecho (Convención de La Haya de 1907). Las partes constituyen el tribunal ad hoc, eligen los árbitros y fijan el procedimiento mediante un Compromiso Arbitral, Cláusula Compromisoria o Tratado General.</li>
+  <li><strong>2. Arreglo Judicial (Corte Internacional de Justicia — CIJ): </strong> Solución del litigio por un tribunal internacional permanente y preconstituido dotado de estatuto propio. El principal órgano judicial universal es la Corte Internacional de Justicia (CIJ) con sede en La Haya, integrada por 15 magistrados independientes elegidos por 9 años. Ejerce competencia contenciosa (sentencias obligatorias entre Estados partes) y consultiva.</li>
+</ul>
+<aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">Dos casos del Ecuador para recordar los medios de solución</span><ul><li><strong>Medio diplomático: el Acta Presidencial de Brasilia (26 de octubre de 1998).</strong> Cerró el diferendo territorial con el Perú. Fue posible gracias a la negociación directa y a la intervención de los países garantes del Protocolo de Río de Janeiro de 1942: Argentina, Brasil, Chile y Estados Unidos.</li><li><strong>Medio jurídico: Ecuador c. Colombia, <em>Fumigaciones aéreas con herbicidas</em> (CIJ).</strong> El Ecuador demandó a Colombia en 2008 por los daños de las fumigaciones en la frontera. En 2013 ambos Estados llegaron a un acuerdo y el caso se retiró de la lista de la Corte. Muestra que el arreglo judicial y el diplomático pueden convivir en un mismo litigio.</li></ul></aside>
+  <div class="control" data-control="tratados::2" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+<section class="seccion" id="responsabilidad" role="tabpanel" aria-labelledby="tab-responsabilidad" tabindex="0" hidden>
+  <p class="marca-seccion">RESPONSABILIDAD Y DERECHO INTERNO</p>
+  <p class="antetitulo">Capítulo V · Subtemas 1.5.1 y 1.5.2</p>
+  <p class="titular">Derecho constitucional internacional y responsabilidad del estado</p>
+  <p class="entradilla">Lea cada apartado del Instrumento de Estudio del Bloque I y responda la pregunta de control que lo cierra. Una sola respuesta por pregunta: queda registrada y no se puede cambiar.<a class="instrumento" href="../contenido-b1/" target="_blank" rel="noopener">Abrir el instrumento completo en otra pestaña →</a></p>
+  <p class="firma"><b>Abg. Carlos Eduardo Chica-Villacís, Mgs.</b>
+  <span class="rol">Docente autor · Universidad Católica de Cuenca</span></p>
+<div class="cuerpo">
+  <h2>a · Los tres regímenes de responsabilidad</h2>
+<h3 class="articulo" id="art-1-5-1"><span class="n">Artículo 1.5.1</span>La Responsabilidad del Estado en el Derecho Internacional Público</h3>
+<p>La responsabilidad internacional es la institución jurídica que reacciona ante la lesión de normas internacionales. Se fundamenta en el proceso de codificación de la Comisión de Derecho Internacional (CDI) de la ONU (Proyecto de Artículos de 2001 sobre la Responsabilidad del Estado por Hechos Internacionalmente Ilícitos). Se diferencian tres regímenes fundamentales:</p>
+<ul>
+  <li><strong>1. Responsabilidad por Hecho Ilícito Ordinario: </strong> Nace de la comisión de un Hecho Internacionalmente Ilícito (acción u omisión atribuible al Estado que infringe una obligación internacional vigente). Genera una relación bilateral cuya consecuencia directa es la obligación de reparar (restitución, indemnización, satisfacción) y la protección diplomática.</li>
+  <li><strong>2. Responsabilidad Agravada: </strong> Surge ante violaciones graves de normas de Ius Cogens (genocidio, tortura, crímenes de guerra, agresión, apartheid). Genera obligaciones erga omnes, la no cooperación de terceros Estados y la prohibición de reconocer la situación ilícita, pudiendo exigir reformas constitucionales internas y garantías de no repetición.</li>
+  <li><strong>3. Responsabilidad Objetiva por Riesgo Transfronterizo: </strong> Fundamentada en la teoría del riesgo. Surge de la realización de actividades lícitas no prohibidas pero que conllevan peligros inherentes (energía nuclear, transporte de hidrocarburos, exploración espacial, tecnologías contaminantes) cuando ocasionan daños transfronterizos a otros Estados.</li>
+</ul>
+  <div class="control" data-control="responsabilidad::0" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>b · Monismo y dualismo</h2>
+<h3 class="articulo" id="art-1-5-2"><span class="n">Artículo 1.5.2</span>Relación entre el Derecho Internacional y el Derecho Interno (Monismo y Dualismo)</h3>
+<p>Las relaciones entre el ordenamiento internacional y el derecho constitucional doméstico han sido teorizadas bajo dos doctrinas opuestas:</p>
+<aside class="interpretativa"><span class="rotulo">Nota interpretativa</span><span class="tit">Monismo vs. Dualismo en los Sistemas de Redes</span><p><em>• Teoría Dualista (Triepel, Anzilotti): Considera que el Derecho Internacional y el Derecho Interno son dos redes eléctricas con voltajes distintos y separados. Un tratado no puede enchufarse directamente a la red de un país; requiere un «transformador» (una ley nacional de conversión) para que tenga fuerza ejecutiva.<br>• Teoría Monista (Kelsen, Scelle): Considera que existe un único sistema normativo piramidal conectado a una sola fuente hidroeléctrica central (la Grundnorm internacional). Cuando el Estado ratifica un tratado, la corriente fluye de forma automática en el derecho interno sin necesidad de ley de conversión.</em></p></aside>
+  <div class="control" data-control="responsabilidad::1" role="group" aria-label="Pregunta de control de lectura"></div>
+  <h2>c · Los tratados en la Constitución del Ecuador</h2>
+<h4>Aportes del Ordenamiento Constitucional Ecuatoriano</h4>
+<p>En la Constitución de la República del Ecuador de 2008, el sistema adopta una postura Monista Moderada con supremacía convencional en derechos humanos. Conforme a los Arts. 417 y 424 de la Carta Magna, los tratados internacionales de derechos humanos ratificados por el Ecuador que reconozcan derechos más favorables que los contenidos en la Constitución prevalecerán sobre cualquier otra norma legal o acto del poder público (Principio Pro Homine y Bloque de Constitucionalidad).</p>
+<figure class="esquema"><svg viewBox="0 0 720 270" role="img" aria-label="Dualismo y monismo" font-family="EB Garamond, Georgia, serif">
+<g font-size="16" fill="#2a2018" text-anchor="middle">
+<text x="180" y="26" font-size="19" font-weight="600">Dualismo (Triepel, Anzilotti)</text>
+<rect x="20" y="48" width="130" height="80" rx="4" fill="#fbf7ec" stroke="#a5822e"/><text x="85" y="84">Derecho</text><text x="85" y="104">internacional</text>
+<rect x="210" y="48" width="130" height="80" rx="4" fill="#fbf7ec" stroke="#a5822e"/><text x="275" y="84">Derecho</text><text x="275" y="104">interno</text>
+<path d="M150 88 H210" stroke="#8e1f1f" stroke-width="2" marker-end="url(#fl)"/>
+<rect x="152" y="140" width="56" height="34" rx="4" fill="#8e1f1f"/><text x="180" y="162" font-size="13" fill="#fff">ley</text>
+<text x="180" y="200" font-size="15" font-style="italic" fill="#5b4a3a">el tratado necesita una ley</text><text x="180" y="220" font-size="15" font-style="italic" fill="#5b4a3a">de incorporación</text>
+<text x="540" y="26" font-size="19" font-weight="600">Monismo (Kelsen, Scelle)</text>
+<path d="M540 48 L670 218 H410 Z" fill="#fbf7ec" stroke="#a5822e"/>
+<text x="540" y="110" font-size="15">norma internacional</text><line x1="478" y1="132" x2="602" y2="132" stroke="#d6c8a6"/>
+<text x="540" y="160" font-size="15">Constitución y leyes</text><line x1="447" y1="178" x2="633" y2="178" stroke="#d6c8a6"/>
+<text x="540" y="204" font-size="15">actos internos</text>
+<text x="540" y="250" font-size="15" font-style="italic" fill="#5b4a3a">un solo sistema: el tratado rige al ratificarse</text>
+</g>
+<defs><marker id="fl" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8e1f1f"/></marker></defs>
+</svg><figcaption>Esquema 2. Dos maneras de conectar el tratado con el derecho interno.</figcaption></figure><aside class="docente"><span class="rotulo">Nota del docente</span><span class="tit">Los tratados internacionales en el ordenamiento ecuatoriano: bloque de constitucionalidad y control de constitucionalidad</span><p>La Constitución de 2008 regula todo el recorrido del tratado:</p><ul><li><strong>Quién lo celebra.</strong> La Presidenta o el Presidente de la República suscribe y ratifica los tratados (art. 418).</li><li><strong>Cuándo interviene la Asamblea Nacional.</strong> Su aprobación previa es necesaria, entre otros casos, en materia territorial o de límites, en alianzas políticas o militares, cuando el tratado contiene derechos y garantías constitucionales, compromete la política económica, se refiere a integración y comercio o atribuye competencias a organismos internacionales (art. 419).</li><li><strong>Control de constitucionalidad.</strong> La Corte Constitucional emite un dictamen previo y vinculante sobre la constitucionalidad de los tratados antes de su ratificación (art. 438.1).</li><li><strong>Lugar en la jerarquía.</strong> Los tratados están por debajo de la Constitución y por encima de las leyes orgánicas (art. 425; ver el Esquema 3).</li><li><strong>Bloque de constitucionalidad.</strong> Los tratados de derechos humanos que reconozcan derechos más favorables prevalecen sobre cualquier otra norma jurídica o acto del poder público (art. 424). Se aplican directamente y rigen los principios pro ser humano, de no restricción de derechos y de cláusula abierta (arts. 11.3 y 417).</li></ul><p>Por eso se dice que el Ecuador sigue un <strong>monismo moderado</strong>: el tratado ratificado se integra sin ley de incorporación, pero la Constitución lo controla antes y, en derechos humanos, lo eleva a su mismo rango.</p></aside><figure class="esquema"><svg viewBox="0 0 720 300" role="img" aria-label="Orden jerárquico del artículo 425 de la Constitución" font-family="EB Garamond, Georgia, serif">
+<g font-size="16" fill="#2a2018" text-anchor="middle">
+<path d="M360 14 L430 64 H290 Z" fill="#8e1f1f"/><text x="360" y="56" fill="#fff" font-size="14" font-weight="600">Constitución</text>
+<path d="M290 70 H430 L485 110 H235 Z" fill="#a5822e"/><text x="360" y="96" fill="#fff" font-size="15" font-weight="600">Tratados y convenios internacionales</text>
+<path d="M235 116 H485 L530 150 H190 Z" fill="#efe5cc" stroke="#a5822e"/><text x="360" y="138">Leyes orgánicas</text>
+<path d="M190 156 H530 L570 190 H150 Z" fill="#f5efe0" stroke="#d6c8a6"/><text x="360" y="178">Leyes ordinarias</text>
+<path d="M150 196 H570 L610 230 H110 Z" fill="#f5efe0" stroke="#d6c8a6"/><text x="360" y="218">Normas regionales y ordenanzas distritales</text>
+<path d="M110 236 H610 L650 270 H70 Z" fill="#f5efe0" stroke="#d6c8a6"/><text x="360" y="258">Decretos, reglamentos, ordenanzas, acuerdos, resoluciones y demás actos</text>
+</g>
+<text x="360" y="292" text-anchor="middle" font-size="14" font-style="italic" fill="#5b4a3a">Excepción (art. 424): los tratados de derechos humanos más favorables prevalecen sobre cualquier otra norma</text>
+</svg><figcaption>Esquema 3. El orden jerárquico del art. 425 de la Constitución.</figcaption></figure>
+  <div class="control" data-control="responsabilidad::2" role="group" aria-label="Pregunta de control de lectura"></div>
+</div>
+</section>
+
+<div class="avance">
+  <span class="etiqueta">Su avance y su nota</span>
+  <div class="barra"><i></i></div>
+  <p class="cifras"></p>
+  <ol><li></li><li></li><li></li><li></li><li></li></ol>
+  <div class="constancia"></div>
+</div>
+</div>
+<div id="hoja-constancia" aria-hidden="true"></div>
+<script>
+var nivel = 0;
+function escala(d){
+  nivel = d === 0 ? 0 : Math.max(-1, Math.min(4, nivel + d));
+  document.documentElement.style.setProperty('--escala', (1 + nivel * 0.12).toFixed(2));
+}
+var css = document.createElement('style');
+css.textContent = '.unacol .cuerpo{column-count:1;column-rule:none}';
+document.head.appendChild(css);
+
+(function(){
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var paneles = tabs.map(function(t){ return document.getElementById(t.getAttribute('aria-controls')); });
+  if (!tabs.length) return;
+
+  function activar(i, mover, marcarUrl){
+    for (var j = 0; j < tabs.length; j++) {
+      var sel = j === i;
+      tabs[j].setAttribute('aria-selected', sel ? 'true' : 'false');
+      tabs[j].tabIndex = sel ? 0 : -1;
+      paneles[j].hidden = !sel;
+    }
+    if (mover) {
+      tabs[i].focus();
+      if (tabs[i].scrollIntoView) tabs[i].scrollIntoView({block:'nearest', inline:'nearest'});
+    }
+    // Abierto con file:// hay navegadores que rechazan replaceState. Si
+    // fallara sin proteger, la excepcion cortaria el manejador y las
+    // pestanas dejarian de responder: la navegacion importa mas que la URL.
+    if (marcarUrl && window.history && history.replaceState) {
+      try { history.replaceState(null, '', '#' + paneles[i].id); } catch (e) {}
+    }
+  }
+
+  for (var k = 0; k < tabs.length; k++) {
+    (function(i){
+      tabs[i].addEventListener('click', function(){
+        activar(i, false, true);
+        window.scrollTo(0, 0);
+      });
+      tabs[i].addEventListener('keydown', function(e){
+        var d = e.key === 'ArrowLeft' ? -1 : (e.key === 'ArrowRight' ? 1 : 0);
+        if (d) { e.preventDefault(); activar((i + d + tabs.length) % tabs.length, true, true); }
+        else if (e.key === 'Home') { e.preventDefault(); activar(0, true, true); }
+        else if (e.key === 'End') { e.preventDefault(); activar(tabs.length - 1, true, true); }
+      });
+    })(k);
+  }
+
+  // Enlace directo a una seccion concreta: archivo.html#ancla
+  if (location.hash) {
+    for (var m = 0; m < paneles.length; m++) {
+      if ('#' + paneles[m].id === location.hash) { activar(m, false, false); break; }
+    }
+  }
+})();
+
+/* ---------- CONTROL DE LECTURA ---------- */
+(function(){
+  var nodo = document.getElementById('datos-control');
+  if (!nodo) return;
+  var BANCO = JSON.parse(nodo.textContent);
+  var SAL = BANCO.sal;
+  /* La clave lleva version de esquema Y marca de muestra. Sin lo primero, un
+     avance guardado por una version anterior del material se cuela en la
+     nueva; sin lo segundo, probar la demostracion contamina el avance real de
+     la tarea. Ambas cosas ya pasaron una vez. */
+  var CLAVE = 'control-lectura::' + BANCO.bloque + '::dipyp-v1'
+            + (BANCO.muestra ? '::muestra' : '');
+  var TOPE = BANCO.nota_maxima;
+  /* Una lectura formativa declara sin_nota en el banco: no muestra nota ni
+     puntos y no emite constancia. Conserva el avance y el pase. */
+  var SIN_NOTA = !!BANCO.sin_nota;
+  /* ---------- redondeo de la nota (regla tomada de Derecho Mercantil) ----------
+     El docente califica en medios puntos y la nota informada sube SIEMPRE al
+     medio punto inmediato superior: 12,10 se informa 12,5 y 14,23 se informa
+     14,5. Nunca baja, y nunca pasa del tope. El epsilon evita que un 14,5
+     exacto, guardado como 14,499999 por la aritmetica de coma flotante, suba
+     a 15. */
+  function mediaPuntoArriba(n){
+    var r = Math.ceil(n * 2 - 1e-9) / 2;
+    if (r < 0) r = 0;
+    return Math.min(TOPE, r);
+  }
+  /* Para mostrarla: sin ceros de relleno. 14,5 y 14, no 14,50 ni 14,00. */
+  function fmtNota(n){
+    return String(Math.round(n * 2) / 2);
+  }
+
+  var PUNTOS_SECCION = BANCO.puntos_seccion; // 1 por seccion
+
+  function djb2(s){
+    var h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h * 33) + s.charCodeAt(i)) >>> 0;
+    return h;
+  }
+  function b36(n){ return n.toString(36).toUpperCase(); }
+
+  function normNombre(s){
+    return (s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/\s+/g, ' ').trim().toUpperCase();
+  }
+  function soloDigitos(s){ return (s || '').replace(/\D/g, ''); }
+
+  /* Validacion de cedula ecuatoriana. Importa mas de lo que parece: el ultimo
+     digito decide que banco de preguntas le toca, asi que un error de tecleo
+     no solo ensucia el registro, tambien cambia el cuestionario. */
+  function cedulaValida(c){
+    c = soloDigitos(c);
+    if (c.length !== 10) return false;
+    var prov = parseInt(c.slice(0, 2), 10);
+    if (!((prov >= 1 && prov <= 24) || prov === 30)) return false;
+    if (parseInt(c[2], 10) > 5) return false;
+    var suma = 0;
+    for (var i = 0; i < 9; i++) {
+      var d = parseInt(c[i], 10) * (i % 2 === 0 ? 2 : 1);
+      if (d > 9) d -= 9;
+      suma += d;
+    }
+    var ver = (10 - (suma % 10)) % 10;
+    return ver === parseInt(c[9], 10);
+  }
+  function grupoDe(c){
+    return (parseInt(soloDigitos(c).slice(-1), 10) % 2 === 0) ? 'pares' : 'impares';
+  }
+
+  var TOTAL_AP = 0;
+  for (var s = 0; s < BANCO.secciones.length; s++) TOTAL_AP += BANCO.secciones[s].apartados.length;
+
+  /* ---------- estado ---------- */
+  var estado = cargar();
+  function vacio(){ return { nombre:'', cedula:'', respuestas:{}, inicio:0, ultima:0 }; }
+
+  /* Un avance guardado por una version anterior del material puede tener otra
+     forma: la primera version repartia las preguntas por nombre y ni siquiera
+     pedia cedula. Si ese estado se acepta tal cual, la pagina ve que ya hay
+     respuestas, bloquea el campo de la cedula —que esta vacio— y el estudiante
+     no puede empezar. Por eso se valida la forma antes de aceptarlo, y ante la
+     duda se descarta: perder un avance de prueba es molesto, quedarse sin
+     poder escribir la cedula es un callejon sin salida. */
+  function coherente(st){
+    if (!st || typeof st !== 'object') return false;
+    if (!st.respuestas || typeof st.respuestas !== 'object') return false;
+    var hay = Object.keys(st.respuestas).length > 0;
+    if (hay && !cedulaValida(st.cedula)) return false;
+    return true;
+  }
+  function cargar(){
+    try {
+      var c = localStorage.getItem(CLAVE);
+      if (c) {
+        var st = JSON.parse(c);
+        if (coherente(st)) return st;
+        localStorage.removeItem(CLAVE);
+      }
+    } catch (e) {}
+    return vacio();
+  }
+  function guardar(){
+    estado.ultima = Date.now();
+    try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {}
+  }
+  function identificado(){
+    return normNombre(estado.nombre).length > 2 && cedulaValida(estado.cedula);
+  }
+
+  function pregunta(clave){
+    var ap = BANCO.indice[clave];
+    if (!ap) return null;
+    return ap.grupos[grupoDe(estado.cedula)];
+  }
+  function acerto(clave){
+    var d = estado.respuestas[clave];
+    if (d === undefined) return false;
+    var p = pregunta(clave);
+    return !!p && djb2(SAL + clave + grupoDe(estado.cedula) + p.o[d]) === p.h;
+  }
+
+  /* ---------- nota ----------
+     Cada seccion vale PUNTOS_SECCION, repartido a partes iguales entre sus
+     apartados. La suma de las secciones da exactamente la nota maxima, de
+     modo que no hay margen: ninguna seccion es opcional. La nota informada
+     se redondea al medio punto superior. */
+  function notaPorSeccion(){
+    return BANCO.secciones.map(function(sec){
+      var n = sec.apartados.length, bien = 0, hechos = 0;
+      for (var a = 0; a < n; a++) {
+        var k = sec.apartados[a].id;
+        if (estado.respuestas[k] !== undefined) hechos++;
+        if (acerto(k)) bien++;
+      }
+      return { pestana: sec.pestana, total: n, hechos: hechos, aciertos: bien,
+               puntos: n ? (bien * PUNTOS_SECCION / n) : 0 };
+    });
+  }
+  function resumen(){
+    var por = notaPorSeccion(), bruto = 0, bien = 0, hechos = 0;
+    for (var i = 0; i < por.length; i++) {
+      bruto += por[i].puntos; bien += por[i].aciertos; hechos += por[i].hechos;
+    }
+    return { por: por, bruto: bruto, nota: mediaPuntoArriba(bruto),
+             aciertos: bien, hechos: hechos, completo: hechos === TOTAL_AP && TOTAL_AP > 0 };
+  }
+
+  /* ---------- identificacion ---------- */
+  var campoN = document.getElementById('nombre-estudiante');
+  var campoC = document.getElementById('cedula-estudiante');
+  var avisoC = document.getElementById('aviso-cedula');
+
+  /* La cedula se fija cuando ya se ha respondido CON ella. Nunca se bloquea un
+     campo vacio: dejaria al estudiante sin poder empezar, sin entender por que
+     y sin salida. */
+  function bloquearIdentidad(){
+    var fijar = Object.keys(estado.respuestas).length > 0 && cedulaValida(estado.cedula);
+    if (campoC) campoC.readOnly = fijar;
+    var nota = document.getElementById('identidad-fijada');
+    if (nota) nota.hidden = !fijar;
+  }
+
+  function revisarCedula(){
+    var c = soloDigitos(campoC.value);
+    campoC.value = c;
+    if (!c) { avisoC.textContent = ''; return false; }
+    if (!cedulaValida(c)) {
+      avisoC.textContent = 'Esa cédula no es válida. Revísela: el último dígito no cuadra.';
+      return false;
+    }
+    avisoC.textContent = 'Cédula correcta. Le corresponde el cuestionario de cédulas '
+      + grupoDe(c) + '.';
+    return true;
+  }
+
+  if (campoN) {
+    campoN.value = estado.nombre || '';
+    campoN.addEventListener('input', function(){ estado.nombre = campoN.value; guardar(); pintarTodo(); });
+  }
+  if (campoC) {
+    campoC.value = estado.cedula || '';
+    campoC.addEventListener('input', function(){
+      var antes = estado.cedula;
+      var ahora = soloDigitos(campoC.value);
+      var hay = Object.keys(estado.respuestas).length;
+      // Cambiar la cedula cambia el banco de preguntas: lo respondido dejaria
+      // de corresponder. Se avisa antes de borrar nada.
+      if (hay && antes && grupoDe(ahora) !== grupoDe(antes)) {
+        if (!confirm('Cambiar la cédula a otro grupo (par/impar) cambia su cuestionario '
+            + 'y reinicia las ' + hay + ' respuestas ya registradas. ¿Continuar?')) {
+          campoC.value = antes; return;
+        }
+        estado.respuestas = {};
+      }
+      estado.cedula = ahora;
+      if (!estado.inicio) estado.inicio = Date.now();
+      revisarCedula(); guardar(); pintarTodo();
+    });
+    revisarCedula();
+  }
+
+  /* ---------- preguntas ---------- */
+  function pintarControl(caja){
+    var clave = caja.getAttribute('data-control');
+    if (!BANCO.indice[clave]) return;
+
+    if (!identificado()) {
+      caja.innerHTML = '<span class="etiqueta">Control de lectura</span>'
+        + '<p class="pide-nombre">Escriba su nombre y su cédula al principio del '
+        + 'documento para activar las preguntas.</p>';
+      return;
+    }
+
+    var p = pregunta(clave), dada = estado.respuestas[clave];
+    var html = '<span class="etiqueta">Control de lectura</span>'
+      + '<p class="enunciado">' + p.e + '</p><ul>';
+    for (var i = 0; i < p.o.length; i++) {
+      var cl = 'opcion';
+      if (dada !== undefined) {
+        if (djb2(SAL + clave + grupoDe(estado.cedula) + p.o[i]) === p.h) cl += ' acierto';
+        else if (i === dada) cl += ' fallo';
+      }
+      html += '<li><button type="button" class="' + cl + '" data-i="' + i + '"'
+        + (dada !== undefined ? ' disabled' : '') + '>' + p.o[i] + '</button></li>';
+    }
+    html += '</ul>';
+    if (dada !== undefined) {
+      html += '<p class="respuesta"><b>' + (acerto(clave) ? 'Correcto.' : 'No es esa.')
+        + '</b> Queda registrado. No se puede cambiar.</p>';
+    }
+    caja.innerHTML = html;
+
+    if (dada === undefined) {
+      var bs = caja.querySelectorAll('button.opcion');
+      for (var b = 0; b < bs.length; b++) {
+        bs[b].addEventListener('click', function(){
+          estado.respuestas[clave] = parseInt(this.getAttribute('data-i'), 10);
+          if (!estado.inicio) estado.inicio = Date.now();
+          guardar(); pintarControl(caja); pintarAvance(); avisarSiCierraSeccion();
+        });
+      }
+    }
+  }
+
+  /* ---------- avance ---------- */
+  function minutos(){
+    if (!estado.inicio) return 0;
+    return Math.max(0, Math.round(((estado.ultima || Date.now()) - estado.inicio) / 60000));
+  }
+
+  function pintarAvance(){
+    var r = resumen();
+    var pct = TOTAL_AP ? Math.round(r.hechos * 100 / TOTAL_AP) : 0;
+    var barra = document.querySelector('.avance .barra i');
+    if (barra) barra.style.width = pct + '%';
+    var cifras = document.querySelector('.avance .cifras');
+    if (cifras) {
+      cifras.textContent = r.hechos + ' de ' + TOTAL_AP + ' apartados (' + pct + ' %)'
+        + (SIN_NOTA ? '  ·  lectura no calificada'
+                    : '  ·  nota provisional ' + fmtNota(r.nota) + ' / ' + TOPE);
+    }
+    var lista = document.querySelector('.avance ol');
+    if (lista) {
+      var lis = lista.querySelectorAll('li');
+      for (var i = 0; i < r.por.length && i < lis.length; i++) {
+        var s = r.por[i];
+        lis[i].className = (s.hechos === s.total && s.total) ? 'completa' : '';
+        lis[i].textContent = s.pestana + ' — ' + s.hechos + '/' + s.total
+          + (s.hechos === s.total && s.total && !SIN_NOTA ? '  ·  ' + s.puntos.toFixed(2) + ' pt' : '');
+      }
+    }
+    bloquearIdentidad();
+    pintarConstancia(r);
+  }
+
+  /* ---------- constancia ---------- */
+  function codigo(r){
+    var cuerpo = [
+      BANCO.muestra ? 'MUESTRA' : BANCO.bloque,
+      soloDigitos(estado.cedula),
+      normNombre(estado.nombre),
+      r.hechos + '/' + TOTAL_AP,
+      r.aciertos + 'A',
+      r.nota.toFixed(2) + 'N',
+      minutos() + 'M',
+      new Date().toISOString().slice(0, 16).replace('T', ' ')
+    ].join('|');
+    return cuerpo + '|' + b36(djb2(SAL + cuerpo));
+  }
+
+  function pintarConstancia(r){
+    var caja = document.querySelector('.constancia');
+    if (!caja) return;
+    // El respaldo se ofrece SIEMPRE, completa la tarea o no: el riesgo de
+    // perder el avance no desaparece al terminar, y quien acaba de noche
+    // puede querer guardarlo antes de generar el PDF al día siguiente.
+    var respaldoHtml = '<div class="acciones"><button type="button" class="respaldo">'
+      + 'Copiar mi pase de avance</button></div>'
+      + '<p class="aun-no" id="pista-respaldo"></p>';
+    function engancharRespaldo(){
+      var br = caja.querySelector('.respaldo');
+      if (br) br.addEventListener('click', function(){ copiarRespaldo(this); });
+    }
+    if (SIN_NOTA) {
+      caja.innerHTML = '<p class="aun-no">Su avance queda guardado en este navegador. '
+        + 'Este bloque no emite constancia ni suma puntos: lo que aquí comprueba se le '
+        + 'preguntará en el caso Harvard y en su sustentación.</p>' + respaldoHtml;
+      engancharRespaldo();
+      return;
+    }
+    if (!r.completo) {
+      var faltan = TOTAL_AP - r.hechos;
+      caja.innerHTML = '<p class="aun-no">Su avance queda guardado en este navegador; '
+        + 'puede continuar otro día. La constancia con su nota se emite cuando haya '
+        + 'respondido los ' + TOTAL_AP + ' apartados de las ' + BANCO.secciones.length
+        + ' secciones. <b>Faltan ' + faltan + '.</b></p>' + respaldoHtml;
+      engancharRespaldo();
+      return;
+    }
+    caja.innerHTML =
+        '<p class="instruccion">Ha completado la lectura. Pulse el botón para '
+      + 'descargar su constancia en PDF. Ese archivo es el que debe subir a la '
+      + 'tarea del aula virtual.</p>'
+      + '<div class="acciones">'
+      + '  <button type="button" class="descargar">Descargar mi constancia en PDF</button>'
+      + '  <button type="button" class="imprimir">Imprimir o guardar como PDF</button>'
+      + '  <button type="button" class="copiar">Copiar solo el código</button>'
+      + '</div>'
+      + '<p class="aun-no">Si el botón no descarga nada —ocurre en la aplicación de '
+      + 'Moodle y en el navegador interno de WhatsApp o Facebook—, abra esta página en '
+      + 'Chrome, Safari o Edge. Si al cambiar de navegador no ve su avance, pegue allí '
+      + 'su pase de avance en «Continuar en otro dispositivo».</p>'
+      + '<textarea readonly aria-label="Código de validación"></textarea>'
+      + respaldoHtml;
+    engancharRespaldo();
+    var area = caja.querySelector('textarea');
+    area.value = codigo(r);
+    caja.querySelector('.copiar').addEventListener('click', function(){
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      if (!ok && navigator.clipboard) navigator.clipboard.writeText(area.value);
+      var b = this; b.textContent = 'Copiado';
+      setTimeout(function(){ b.textContent = 'Copiar solo el código'; }, 2000);
+    });
+    caja.querySelector('.descargar').addEventListener('click', function(){ descargarConstancia(r, this); });
+    caja.querySelector('.imprimir').addEventListener('click', function(){ imprimirConstancia(r); });
+  }
+
+  /* ---------- pase de avance ----------
+     El navegador guarda el avance por dominio, por navegador y por aparato.
+     Un estudiante que responde dos secciones en el laboratorio y sigue en su
+     telefono no encuentra nada, y lo mismo si limpia los datos de navegacion.
+     En una tarea que dura semanas eso no es un caso raro: es lo normal.
+
+     De ahi que el pase no sea una salida de emergencia sino el mecanismo de
+     continuidad. Se codifica compacto —una letra por respuesta— para que
+     quepa en un mensaje y se pueda pegar desde el movil sin pelearse con el
+     portapapeles. */
+  function ordenApartados(){
+    var lista = [];
+    for (var s = 0; s < BANCO.secciones.length; s++) {
+      var ap = BANCO.secciones[s].apartados;
+      for (var a = 0; a < ap.length; a++) lista.push(ap[a].id);
+    }
+    return lista;
+  }
+
+  function serializar(){
+    var orden = ordenApartados(), respuestas = '';
+    for (var i = 0; i < orden.length; i++) {
+      var v = estado.respuestas[orden[i]];
+      respuestas += (v === undefined) ? '-' : String(v);
+    }
+    var cuerpo = ['PASE', BANCO.bloque, soloDigitos(estado.cedula),
+                  normNombre(estado.nombre), respuestas,
+                  Math.round((estado.inicio || Date.now()) / 60000)].join('|');
+    return cuerpo + '|' + b36(djb2(SAL + cuerpo));
+  }
+
+  function deserializar(texto){
+    var p = String(texto || '').trim().split('|');
+    if (p.length !== 7 || p[0] !== 'PASE') return null;
+    if (p[1] !== BANCO.bloque) return null;          // pase de otro bloque
+    var cuerpo = p.slice(0, 6).join('|');
+    if (b36(djb2(SAL + cuerpo)) !== p[6]) return null; // copiado a medias o retocado
+    var orden = ordenApartados(), marcas = p[4];
+    if (marcas.length !== orden.length) return null;   // pase de otra version
+    var resp = {};
+    for (var i = 0; i < orden.length; i++) {
+      if (marcas[i] !== '-') resp[orden[i]] = parseInt(marcas[i], 10);
+    }
+    return { nombre: p[3], cedula: p[2], respuestas: resp,
+             inicio: parseInt(p[5], 10) * 60000, ultima: Date.now() };
+  }
+
+  function alPortapapeles(texto){
+    var ta = document.createElement('textarea');
+    ta.value = texto;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, texto.length);
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) {}
+    if (!ok && navigator.clipboard) navigator.clipboard.writeText(texto);
+    document.body.removeChild(ta);
+  }
+
+  function copiarRespaldo(boton){
+    var texto = serializar();
+    alPortapapeles(texto);
+    boton.textContent = 'Pase copiado';
+    var pista = document.getElementById('pista-respaldo');
+    if (pista) {
+      pista.innerHTML = 'Péguelo donde pueda recuperarlo: un mensaje a usted mismo, '
+        + 'una nota del teléfono o el borrador de la tarea en el aula virtual. Si '
+        + 'continúa en otro equipo, péguelo en «Continuar en otro dispositivo», '
+        + 'al principio del documento.<br><code class="pase">' + texto + '</code>';
+    }
+    setTimeout(function(){ boton.textContent = 'Copiar mi pase de avance'; }, 2500);
+  }
+
+  /* ---------- empezar de nuevo ----------
+     Siempre tiene que haber una salida. Un estudiante que se equivoco de
+     cedula, o que hereda un avance de otra persona en un equipo compartido,
+     no puede quedarse sin manera de arrancar. */
+  var botonReinicio = document.getElementById('reiniciar-control');
+  if (botonReinicio) {
+    botonReinicio.addEventListener('click', function(){
+      var hay = Object.keys(estado.respuestas).length;
+      if (hay && !confirm('Se borrarán las ' + hay + ' respuestas registradas en este '
+          + 'navegador y volverá a empezar de cero. Esta acción no se puede deshacer. '
+          + '¿Continuar?')) return;
+      estado = vacio();
+      try { localStorage.removeItem(CLAVE); } catch (e) {}
+      if (campoN) campoN.value = '';
+      if (campoC) { campoC.value = ''; campoC.readOnly = false; }
+      if (avisoC) avisoC.textContent = '';
+      pintarTodo();
+    });
+  }
+
+  /* ---------- continuar en otro dispositivo ---------- */
+  var campoR = document.getElementById('restaurar-avance');
+  if (campoR) {
+    campoR.addEventListener('change', function(){
+      var v = campoR.value.trim();
+      var avisoR = document.getElementById('aviso-restaurar');
+      if (!v) return;
+      var st = deserializar(v);
+      if (!st) {
+        avisoR.textContent = 'Ese pase no se pudo leer. Cópielo entero, desde la '
+          + 'palabra PASE hasta el último carácter, sin espacios ni saltos de línea '
+          + 'en medio.';
+        return;
+      }
+      var tenia = Object.keys(estado.respuestas).length;
+      var trae = Object.keys(st.respuestas).length;
+      // Pegar un pase mas atrasado que lo ya registrado borraria trabajo hecho.
+      if (tenia > trae && !confirm('En este navegador ya hay ' + tenia + ' respuestas y '
+          + 'el pase trae ' + trae + '. Si continúa, se quedará con las del pase y '
+          + 'perderá las otras. ¿Continuar?')) { campoR.value = ''; return; }
+      estado = st; guardar();
+      if (campoN) campoN.value = estado.nombre || '';
+      if (campoC) campoC.value = estado.cedula || '';
+      revisarCedula(); pintarTodo();
+      avisoR.textContent = 'Avance recuperado: ' + trae + ' respuestas de '
+        + TOTAL_AP + '. Puede seguir donde lo dejó.';
+      campoR.value = '';
+    });
+  }
+
+  /* ---------- aviso al cerrar una seccion ----------
+     El momento natural para guardar el pase es al terminar una seccion, no
+     cuando ya se ha perdido el avance. Se avisa una sola vez por seccion. */
+  var seccionesAvisadas = {};
+  function avisarSiCierraSeccion(){
+    var r = resumen();
+    for (var i = 0; i < r.por.length; i++) {
+      var s = r.por[i];
+      var id = BANCO.secciones[i].pestana;
+      if (s.total && s.hechos === s.total && !seccionesAvisadas[id] && !r.completo) {
+        seccionesAvisadas[id] = true;
+        var caja = document.querySelector('.constancia');
+        if (caja) {
+          var aviso = document.createElement('p');
+          aviso.className = 'cierre-seccion';
+          aviso.innerHTML = 'Ha terminado <b>' + id + '</b>. Si va a continuar otro día '
+            + 'o en otro equipo, copie ahora su pase de avance.';
+          caja.insertBefore(aviso, caja.firstChild);
+          try { caja.scrollIntoView({ block: 'nearest' }); } catch (e) {}
+        }
+        return;
+      }
+    }
+  }
+
+  /* ---------- contenido de la constancia ----------
+     El PDF descargado y la hoja imprimible salen los dos de aqui. */
+  function contenidoConstancia(r){
+    var d = { nota: r.nota, aciertos: r.aciertos, minutos: minutos(), por: r.por,
+              bruto: r.bruto };
+    var ahora = new Date();
+    var datos = [
+      ['Estudiante', normNombre(estado.nombre)],
+      ['Cédula', soloDigitos(estado.cedula) + '  (cuestionario de cédulas ' + grupoDe(estado.cedula) + ')'],
+      ['Emitida', ahora.toLocaleDateString('es-EC') + ' a las ' + ahora.toLocaleTimeString('es-EC')],
+      ['Tiempo de trabajo', d.minutos + ' minutos repartidos en una o varias sesiones']
+    ];
+    var filas = [];
+    if (d.por) for (var k = 0; k < d.por.length; k++) {
+      var s = d.por[k];
+      filas.push([String(k + 1), s.pestana, s.aciertos + ' / ' + s.total, s.puntos.toFixed(2)]);
+    }
+    return {
+      datos: datos, filas: filas,
+      total: ['Total', d.aciertos + ' / ' + TOTAL_AP, d.bruto === null ? '' : d.bruto.toFixed(2)],
+      nota: fmtNota(d.nota) + ' / ' + TOPE,
+      topada: (d.bruto !== null && d.bruto > TOPE)
+        ? '(' + d.bruto.toFixed(2) + ' puntos brutos, topados en ' + TOPE + ')' : '',
+      codigo: codigo(r)
+    };
+  }
+
+  /* ---------- constancia en PDF ----------
+     La constancia salia solo por el dialogo de impresion, y ese camino falla
+     justo donde mas estudiantes la piden: en el telefono. La aplicacion de
+     Moodle y los navegadores internos de WhatsApp o Facebook ignoran
+     window.print() y el boton no hacia nada; Chrome en Android no espera al
+     dialogo y la pagina se restauraba antes de que la vista previa la leyera.
+     Aqui el PDF se escribe directamente, como texto, y se descarga. */
+  function descargarConstancia(r, boton){
+    var J = window.jspdf && window.jspdf.jsPDF;
+    if (!J) {
+      alert('No se pudo cargar el generador de PDF; revise su conexión a internet. '
+          + 'Se abrirá el diálogo de impresión: elija «Guardar como PDF».');
+      imprimirConstancia(r);
+      return;
+    }
+    var c = contenidoConstancia(r);
+    var doc = new J({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+    var IZQ = 20, DER = 190, ANCHO = DER - IZQ, y = 22;
+    function salto(h){ if (y + h > 282) { doc.addPage(); y = 20; } }
+    function parrafo(texto, tam, estilo, color, alto){
+      doc.setFont('helvetica', estilo); doc.setFontSize(tam); doc.setTextColor(color);
+      var ls = doc.splitTextToSize(texto, ANCHO);
+      for (var i = 0; i < ls.length; i++) { salto(alto); doc.text(ls[i], IZQ, y); y += alto; }
+    }
+
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(90);
+    doc.text(BANCO.institucion.toUpperCase(), 105, y, { align: 'center' }); y += 10;
+    doc.setFont('times', 'bold'); doc.setFontSize(21); doc.setTextColor(0);
+    doc.text('Constancia de lectura', 105, y, { align: 'center' }); y += 7;
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(70);
+    var sub = doc.splitTextToSize(BANCO.titulo + ' · ' + BANCO.membrete, ANCHO);
+    for (var a = 0; a < sub.length; a++) { doc.text(sub[a], 105, y, { align: 'center' }); y += 4.5; }
+    doc.text('Actividad autónoma — control de lectura del bloque', 105, y, { align: 'center' });
+    y += 4; doc.setDrawColor(0); doc.setLineWidth(0.4); doc.line(IZQ, y, DER, y); y += 8;
+
+    for (var b = 0; b < c.datos.length; b++) {
+      doc.setFont('helvetica', 'normal'); doc.setFontSize(9.5); doc.setTextColor(90);
+      doc.text(c.datos[b][0], IZQ, y);
+      doc.setTextColor(0);
+      var v = doc.splitTextToSize(c.datos[b][1], ANCHO - 42);
+      for (var e = 0; e < v.length; e++) { doc.text(v[e], IZQ + 42, y); y += 5; }
+      y += 1;
+    }
+    y += 4;
+
+    var COL = [IZQ, IZQ + 10, IZQ + 128, IZQ + 152];
+    function fila(celdas, negrita, fondo){
+      salto(7);
+      if (fondo) { doc.setFillColor(fondo); doc.rect(IZQ, y - 4.6, ANCHO, 6.6, 'F'); }
+      doc.setFont('helvetica', negrita ? 'bold' : 'normal'); doc.setFontSize(9.5); doc.setTextColor(0);
+      for (var i = 0; i < celdas.length; i++) {
+        var t = doc.splitTextToSize(celdas[i], (COL[i + 1] || DER) - COL[i] - 2)[0] || '';
+        doc.text(t, COL[i] + 1, y);
+      }
+      doc.setDrawColor(190); doc.setLineWidth(0.2); doc.line(IZQ, y + 2, DER, y + 2);
+      y += 6.6;
+    }
+    if (c.filas.length) {
+      fila(['#', 'Sección', 'Aciertos', 'Puntos'], true, 235);
+      for (var f = 0; f < c.filas.length; f++) fila(c.filas[f], false, null);
+      fila(['', c.total[0], c.total[1], c.total[2]], true, 246);
+    } else {
+      parrafo('Aciertos: ' + c.total[1] + '. El desglose por sección no se conservó '
+        + 'para este intento.', 9.5, 'normal', 0, 5);
+    }
+
+    y += 6; salto(20);
+    doc.setDrawColor(0); doc.setLineWidth(0.6); doc.rect(IZQ + 30, y - 6, ANCHO - 60, c.topada ? 18 : 13);
+    doc.setFont('helvetica', 'normal'); doc.setFontSize(14); doc.setTextColor(0);
+    doc.text('Nota final  ' + c.nota, 105, y + 2.5, { align: 'center' });
+    if (c.topada) {
+      doc.setFontSize(9); doc.setTextColor(90);
+      doc.text(c.topada, 105, y + 8.5, { align: 'center' });
+    }
+    y += c.topada ? 20 : 15;
+
+    parrafo('Código de validación', 9.5, 'normal', 60, 5);
+    doc.setFont('courier', 'normal'); doc.setFontSize(9.5); doc.setTextColor(0);
+    var cod = doc.splitTextToSize(c.codigo, ANCHO - 6);
+    salto(cod.length * 4.6 + 6);
+    doc.setDrawColor(140); doc.setLineWidth(0.3);
+    doc.setLineDashPattern([1.2, 1], 0);
+    doc.rect(IZQ, y - 3, ANCHO, cod.length * 4.6 + 3.5);
+    doc.setLineDashPattern([], 0);
+    for (var g = 0; g < cod.length; g++) { doc.text(cod[g], IZQ + 3, y + 1.5); y += 4.6; }
+    y += 8;
+
+    doc.setDrawColor(200); doc.setLineWidth(0.2); salto(12); doc.line(IZQ, y - 4, DER, y - 4);
+    parrafo('Este documento lo genera el propio material de lectura. El código de validación '
+      + 'permite al docente comprobar que los datos no han sido alterados.', 8.5, 'normal', 90, 4.2);
+
+    /* El PDF lleva dentro el codigo y el pase: el docente los lee soltando el
+       PDF en la mesa del docente, sin que el estudiante copie nada. */
+    doc.setProperties({ title: 'Constancia de lectura · ' + BANCO.titulo, creator: 'Aula',
+                        keywords: c.codigo + '\n' + serializar() });
+    var nombre = 'Constancia_' + BANCO.bloque + '_' + soloDigitos(estado.cedula) + '_'
+      + normNombre(estado.nombre).replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 40)
+      + '.pdf';
+    try {
+      doc.save(nombre);
+      if (boton) {
+        boton.textContent = 'PDF descargado';
+        setTimeout(function(){ boton.textContent = 'Descargar mi constancia en PDF'; }, 2500);
+      }
+    } catch (err) {
+      alert('Este navegador no permitió descargar el archivo. Se abrirá el diálogo de '
+          + 'impresión: elija «Guardar como PDF».');
+      imprimirConstancia(r);
+    }
+  }
+
+  /* ---------- constancia imprimible ----------
+     Queda como segundo camino, para quien prefiera el dialogo del sistema. */
+  function celdas(fila, etiqueta){
+    var h = '';
+    for (var i = 0; i < fila.length; i++) h += '<' + etiqueta + '>' + fila[i] + '</' + etiqueta + '>';
+    return '<tr>' + h + '</tr>';
+  }
+  function imprimirConstancia(r){
+    var hoja = document.getElementById('hoja-constancia');
+    if (!hoja) return;
+    var c = contenidoConstancia(r);
+    var datos = '', filas = '';
+    for (var i = 0; i < c.datos.length; i++) {
+      datos += '<tr><th>' + c.datos[i][0] + '</th><td>' + c.datos[i][1] + '</td></tr>';
+    }
+    for (var k = 0; k < c.filas.length; k++) filas += celdas(c.filas[k], 'td');
+    hoja.innerHTML =
+        '<div class="cons-carat">'
+      + '  <p class="cons-inst">' + BANCO.institucion + '</p>'
+      + '  <h1>Constancia de lectura</h1>'
+      + '  <p class="cons-sub">' + BANCO.titulo + ' · ' + BANCO.membrete + '</p>'
+      + '  <p class="cons-sub">Actividad autónoma — control de lectura del bloque</p>'
+      + '</div>'
+      + '<table class="cons-datos"><tbody>' + datos + '</tbody></table>'
+      + (c.filas.length
+          ? '<table class="cons-tabla"><thead><tr><th>#</th><th>Sección</th>'
+            + '<th>Aciertos</th><th>Puntos</th></tr></thead><tbody>' + filas + '</tbody>'
+            + '<tfoot><tr><th colspan="2">' + c.total[0] + '</th><th>' + c.total[1]
+            + '</th><th>' + c.total[2] + '</th></tr></tfoot></table>'
+          : '<p>Aciertos: ' + c.total[1] + '. El desglose por sección no se conservó '
+            + 'para este intento.</p>')
+      + '<p class="cons-nota">Nota final <b>' + c.nota + '</b>'
+      + (c.topada ? ' <span class="cons-grupo">' + c.topada + '</span>' : '') + '</p>'
+      + '<p class="cons-cod">Código de validación<br><code>' + c.codigo + '</code></p>'
+      + '<p class="cons-pie">Este documento lo genera el propio material de lectura. '
+      + 'El código de validación permite al docente comprobar que los datos no han sido '
+      + 'alterados.</p>';
+    /* La clase se retira SOLO al cerrar el dialogo. Antes se retiraba tambien a
+       los 1,5 s por si acaso, pero en Android window.print() no espera: la
+       vista previa llegaba tarde y leia el periodico entero, o una hoja en
+       blanco. Mientras la clase esta puesta la pantalla no cambia: solo afecta
+       a la impresion. */
+    document.body.classList.add('imprimiendo-constancia');
+    var limpiar = function(){
+      document.body.classList.remove('imprimiendo-constancia');
+      window.removeEventListener('afterprint', limpiar);
+    };
+    window.addEventListener('afterprint', limpiar);
+    setTimeout(function(){
+      try { window.print(); } catch (e) {}
+    }, 60);
+  }
+
+  function pintarTodo(){
+    var cajas = document.querySelectorAll('[data-control]');
+    for (var i = 0; i < cajas.length; i++) pintarControl(cajas[i]);
+    pintarAvance();
+  }
+
+  pintarTodo();
+})();
+
+</script>
+<script src="../recursos/proteccion.js"></script>
+</body>
+</html>
