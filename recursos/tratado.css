@@ -89,3 +89,5 @@ figure.esquema figcaption{font-size:14px;font-style:italic;color:var(--tinta-2);
   .sello{width:70px;height:70px}
 }
 @media print{body{display:none}}
+figure.mapa{margin:26px 0 8px}
+figure.mapa img{cursor:zoom-in}
