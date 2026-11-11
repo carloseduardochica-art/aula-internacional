@@ -26,6 +26,7 @@ corren fuera de Moodle. Sigue el mismo molde que `aula-mercantil` y `aula-filoso
 | `investigacion-formativa/` | AA · Ensayo, parte 2: cierre · 10 pts | Pendiente |
 | `autocontrol-b2/` | AA · Autocontrol del Bloque 2 · 15 pts · 18 apartados del Instrumento B2 | Publicado |
 | `caso-harvard/` | Práctica sin nota previa al EF: **mapa de decisiones 3D** del caso Harvard EE. UU.–Camboya (globo Three.js r128 con 5 ciudades, rutas, HUD, 8 insignias, 4 finales; 5 nodos 1998-2004; sin WebGL funciona en 2D). Se regenera con `_fuentes/caso-harvard/armar.py` (plantilla3d.html + nodos de version2d.html). El EF (8 + 12) sigue en Moodle | Publicado |
+| `docente/` | **Mesa del docente** (uso exclusivo del docente, no enlazada en la portada ni en el aula). Lee el ZIP «Descargar todas las entregas» de Moodle, los PDF sueltos o los códigos pegados a mano; verifica la firma de cada constancia, recalcula la nota desde el pase de avance, regenera la constancia en PDF y arma el reporte del grupo y la ficha de cada estudiante. Reconoce `PASE\|B1\|`, `PASE\|B2\|`, `B1\|`, `B2\|`, las actas de los foros (`PASEO\|AD1\|`, `PASEO\|AD2\|`, `AD1\|`, `AD2\|`) y el acta del mapa (`ARB\|`). Sale de la Mesa de Filosofía 2C; lee los bancos de los autocontroles publicados, así que no guarda copias que se queden viejas | Publicado |
 
 Las tarjetas en «En preparación» se activan cuando su carpeta existe: se cambia
 `pieza pendiente` por `pieza tarea` y el `span.btn.muerto` por un enlace.
